@@ -20,7 +20,7 @@
 
  
 {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> --}}
-<script src="{{ asset('/plugins/bootstrap-fileinput/js/fileinput.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/plugins/bootstrap-input/js/fileinput.min.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('/js/bootstrap3-typeahead.min.js') }}"></script>
 <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
