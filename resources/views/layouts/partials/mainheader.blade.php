@@ -4,7 +4,7 @@
     <!-- Logo -->
     <a href="{{ url('/home') }}" class="logo" style="background-color:#9D006C">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><img src={{ "../img/icon.png" }}></span>
+        <span class="logo-mini"><img src={{ asset("img/icon.png") }}></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">Autismo<b> Araba </b></span>
     </a>
