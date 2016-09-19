@@ -26,7 +26,7 @@ class UsuarioController extends Controller
 
     public function create(){
         $usuario = new Usuario;
-    	return view('usuarios.create', compact('usuario'));
+        return view('usuarios.create', compact('usuario'));
     }
 
     public function destroy($id){
@@ -147,6 +147,20 @@ class UsuarioController extends Controller
         //cambiado
 
         $usuario->socio_id = $socio_id;
+        
+        //*****  poner en mayusculas los campos para enviar a la base de datos ****//
+        $usuario->nombre = ucwords($usuario->nombre);
+        $usuario->apellido1 = ucwords($usuario->apellido1);
+        $usuario->apellido2 = ucwords($usuario->apellido2);
+        $usuario->lugar_nac = ucwords($usuario->lugar_nac);
+        $usuario->direccion = ucwords($usuario->direccion);
+        $usuario->localidad = ucwords($usuario->localidad);
+        $usuario->provincia = ucwords($usuario->provincia);
+        $usuario->colegio = ucwords($usuario->colegio);
+        $usuario->ocupacion = ucwords($usuario->ocupacion);
+        $usuario->diagnostico = ucwords($usuario->diagnostico);
+        /***************************************************************************/
+
         $usuario->update($input);
         \Session::flash('message','Usuario editado correctamente.');
         return Redirect::route('usuarios.index');
