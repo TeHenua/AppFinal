@@ -31,21 +31,9 @@
       user experience. Slimscroll is required when using the
       fixed layout. -->
 
-  <script>
-
-
-  
-
-  // $('input.typeahead').typeahead({
-  //     displayText: function(item){ 
-  //       return item.value;
-  //     },
-  //     source:  function (query, process) {
-  //       return $.get(path, { query: query }, function (data) {
-  //         return process(data);
-  //       });
-  //     }
-  // });
+<!-- Con el import aquí funciona el modal. Puede haber conflicto con otros jquerys  -->      
+<script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
+<script>
 
 function ConfirmDelete()
   {
