@@ -1,0 +1,52 @@
+@extends('layouts.app')
+
+@section('contentheader_title')
+    <h1>Calendario</h1>
+@endsection
+
+@section('main-content')<section class="content">
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-body no-padding">
+        <!-- THE CALENDAR -->
+        <div id="calendar"></div>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /. box -->
+  </div>
+    <!-- /.col -->
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+    
+    <!-- Modal content-->
+    <div class="modal-content">
+      {!! Form::model(new App\Calendario, ['route' => ['guardaEventos'], 'role' => 'form']) !!}
+      {{ Form::token() }}
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title">Nuevo evento</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          {!! Form::text('titulo', null, ['class' => 'form-control input-sm','placeholder' => 'Nombre']) !!}
+        </div>
+          <div class="form-group">
+            {!! Form::label('fecha','Cuándo',['style' => 'font-size:small']) !!}
+            <input type="text" name="fecha" id="fecha" value="" readonly class="form-control input-sm" />
+            <input type="hidden" name="fechaIni" id="fechaIni" value="" />
+            <input type="hidden" name="fechaFin" id="fechaFin" value="" />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default pull-left">Guardar</button> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+        {!! Form::close() !!}
+    </div>
+  </div>
+</div>
+
+@endsection

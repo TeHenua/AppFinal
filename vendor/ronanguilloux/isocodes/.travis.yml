@@ -1,0 +1,38 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
+language: php
+
+php:
+  - 5.6
+  - 7.0
+  - hhvm
+  - nightly
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+matrix:
+  include:
+    - php: 5.6
+      env: COMPOSER_FLAGS="--prefer-lowest"
+  allow_failures:
+    - php: nightly
+  fast_finish: true
+
+before_script:
+  - mkdir -p ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d && echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - composer config -q github-oauth.github.com $GITHUB_OAUTH_TOKEN
+  - travis_wait composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
+
+script:
+  - mkdir -p build/logs build/cov
+  - php bin/phpunit -d error_reporting=16384
+
+after_script:
+  - php bin/coveralls -v
+
+notifications:
+  email:
+    - ronan.guilloux@gmail.com

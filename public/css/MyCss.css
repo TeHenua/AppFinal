@@ -1,0 +1,10 @@
+.box.box-primary {
+    border-top-color: #7d0056;
+}
+.navbar{
+	background-color: #7d0056;
+}
+.login-box, .register-box {
+    width: 400px;
+    margin: 7% auto;
+}
