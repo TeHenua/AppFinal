@@ -110,6 +110,18 @@ class SocioController extends Controller
         if($validator->errors()->first()){
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+
+        //*****  poner en mayusculas los campos para enviar a la base de datos ****//
+        $socio->nombre = ucwords($socio->nombre);
+        $socio->apellido1 = ucwords($socio->apellido1);
+        $socio->apellido2 = ucwords($socio->apellido2);
+        $socio->lugar_nac = ucwords($socio->lugar_nac);
+        $socio->direccion = ucwords($socio->direccion);
+        $socio->localidad = ucwords($socio->localidad);
+        $socio->provincia = ucwords($socio->provincia);
+        $socio->ocupacion = ucwords($socio->ocupacion);
+        /***************************************************************************/
+
         $socio->update($input);
         \Session::flash('message','Socio editado correctamente.');
         return Redirect::route('socios.index');
