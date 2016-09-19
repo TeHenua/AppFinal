@@ -64,12 +64,17 @@ function ConfirmDelete()
     });
   });
   $( function() {
+    //Esto es para que la fecha de nacimiento de socio aparezca 40 años atras
+    $("#datepickerSocio").datepicker({
+      defaultDate: "-40y",
+    });
+    /************************************************************************/
     $( "#datepicker,#datepicker2,#datepicker3" ).datepicker({
       changeMonth: true,
       changeYear: true, 
 
     });
-  } );
+  });
   
   $(function($){
     $.datepicker.regional['es'] = {
