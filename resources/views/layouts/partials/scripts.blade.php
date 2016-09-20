@@ -35,6 +35,13 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script>
 
+$("#tipo_evento").change(function () {
+  var selected_option = $('#tipo_evento').val();
+  if (selected_option === 'Usuario') {
+    $('#usuario_group').show();
+  }
+})
+
 function ConfirmDelete()
   {
   var x = confirm("¿Seguro que quieres borrarlo?");
