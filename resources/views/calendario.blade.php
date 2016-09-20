@@ -26,19 +26,33 @@
       {!! Form::model(new App\Calendario, ['route' => ['guardaEventos'], 'role' => 'form']) !!}
       {{ Form::token() }}
       <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Nuevo evento</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Nuevo evento</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          {!! Form::text('titulo', null, ['class' => 'form-control input-sm','placeholder' => 'Nombre']) !!}
+          {!! Form::label('titulo','Título',['style' => 'font-size:small']) !!}
+          {!! Form::text('titulo', null, ['class' => 'form-control input-sm']) !!}
         </div>
-          <div class="form-group">
-            {!! Form::label('fecha','Cuándo',['style' => 'font-size:small']) !!}
-            <input type="text" name="fecha" id="fecha" value="" readonly class="form-control input-sm" />
-            <input type="hidden" name="fechaIni" id="fechaIni" value="" />
-            <input type="hidden" name="fechaFin" id="fechaFin" value="" />
-          </div>
+        <div class="form-group">
+          {!! Form::label('tipo_evento','Tipo de evento',['style' => 'font-size:small']) !!}
+          {!! Form::select('tipo_evento', array(
+            'Usuario' => 'Usuario',
+            'Externa' => 'Externa',
+            'Coordinación' => 'Coordinación',
+            'Otro' => 'Otro'
+            ), null, ['id' => 'tipo_evento','placeholder' => 'Seleccione', 'class' => 'form-control input-sm']); !!}
+        </div>
+        <div class="form-group" hidden="hidden" id="usuario_group">
+          {!! Form::label('usuario','Usuario',['style' => 'font-size:small']) !!}
+          {!! Form::text('usuario', null, ['class' => 'form-control input-sm']) !!}
+        </div>
+        <div class="form-group">
+          {!! Form::label('fecha','Cuándo',['style' => 'font-size:small']) !!}
+          <input type="text" name="fecha" id="fecha" value="" readonly class="form-control input-sm" />
+          <input type="hidden" name="fechaIni" id="fechaIni" value="" />
+          <input type="hidden" name="fechaFin" id="fechaFin" value="" />
+        </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-default pull-left">Guardar</button> 
