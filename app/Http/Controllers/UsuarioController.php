@@ -74,6 +74,7 @@ class UsuarioController extends Controller
         $dni_tutor = Input::get('dni_tutor');
 
 
+
         //cambiado
         if($usuario->socio_id!=null){
              $socio_id =  DB::table('socios')->where('dni',$dni_tutor)->value('id');
@@ -87,10 +88,13 @@ class UsuarioController extends Controller
         $file = $request->file('custodia');
         // $nombre = $usuario->id.'.'.getClientOriginalExtension();
         // \Storage::disk('local')->put($nombre,  \File::get($file));
+        $usuario->save();
+
+        //enviamos al usuario a ver la ficha creada
+        return redirect()->route('usuarios.show', [$usuario->id]);
 
     }
     
-
     public function index(Request $request){
         if($request){
             $query=trim($request->get('searchText'));
