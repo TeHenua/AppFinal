@@ -22,7 +22,7 @@
         </div>
          <div class="form-group col-md-3">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
-             <input type="date" name="fecha_nac" id="fecha_nac" placeholder="YYYY-MM-DD" class="form-control input-sm" >
+             <input type="date" name="fecha_nac" id="fecha_nac" placeholder="AAAA-MM-DD" class="form-control input-sm" >
         </div>
         <div class="form-group col-md-4">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}
