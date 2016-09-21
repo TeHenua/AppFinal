@@ -101,7 +101,7 @@
         </div> 
         <div class="form-group col-md-4">
             {!! Form::label('comunicacion','Comunicación',['style' => 'font-size:small']) !!}
-            <input type="file" id="file1" name="medica">
+            <input type="file" id="file1" name="comunicacion">
             
         </div> 
         <div class="form-group col-md-4">

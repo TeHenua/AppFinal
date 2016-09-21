@@ -45,12 +45,43 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/'),
+            'root' => realpath('c:/pu'),
+        ],
+/***** aqui pongo las rutas donde se guardan los archivos *****/
+        'dcustodia' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/custodias'),
         ],
 
+        'dmedica' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/medicas'),
+        ],
+
+        'dlopd' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/lopd'),
+        ],
+
+        'dvoto' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/votos'),
+        ],
+
+        'dcomunicacion' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/comunicaciones'),
+        ],
+
+        'dlopds' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/lopdsocios'),
+        ],
+
+/*************************************************************/
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/'),
             'visibility' => 'public',
         ],
 
