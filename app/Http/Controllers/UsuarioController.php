@@ -85,10 +85,24 @@ class UsuarioController extends Controller
                 return redirect()->back()->withInput()->withErrors("El socio que has introducido no existe");
             }
         }
-        $file = $request->file('custodia');
-        // $nombre = $usuario->id.'.'.getClientOriginalExtension();
-        // \Storage::disk('local')->put($nombre,  \File::get($file));
+
         $usuario->save();
+
+
+        /************ aqui se guardan los archivos ***********************/
+        //obtenemos el archivo
+        $fcustodia = $request->file('custodia');
+        $fmedica = $request -> file('medica');
+        $flopd = $request -> file('lopd');
+        //obtenemos el nombre del archivo
+        $ncustodia = $usuario->id.'.'.$fcustodia -> guessExtension();
+        $nmedica = $usuario ->id.'.'.$fmedica -> guessExtension();
+        $nlopd = $usuario ->id.'.'.$flopd -> guessExtension();
+        //guardamos el archivo con su nuevo nombre en la carpeta correspondiente 
+        \Storage::disk('dcustodia')->put($ncustodia, \File::get($fcustodia));
+        \Storage::disk('dmedica')->put($nmedica, \File::get($fmedica));
+        \Storage::disk('dlopd')->put($nlopd, \File::get($flopd));
+        /************************************************************/
 
         //enviamos al usuario a ver la ficha creada
         return redirect()->route('usuarios.show', [$usuario->id]);

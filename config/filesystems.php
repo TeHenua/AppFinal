@@ -45,12 +45,27 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/'),
+            'root' => realpath('c:/pu'),
+        ],
+/***** aqui pongo las rutas donde se guardan los archivos *****/
+        'dcustodia' => [
+            'driver' => 'local',
+            'root' => realpath('c:/pa'),
         ],
 
+        'dmedica' => [
+            'driver' => 'local',
+            'root' => realpath('c:/pi'),
+        ],
+
+        'dlopd' => [
+            'driver' => 'local',
+            'root' => realpath('c:/pe'),
+        ],
+/*************************************************************/
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/'),
             'visibility' => 'public',
         ],
 
