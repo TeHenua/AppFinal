@@ -67,6 +67,22 @@ class SocioController extends Controller
         }
         $socio->save();
         \Session::flash('message','Socio creado correctamente.');
+
+        /************* aqui se guardan los archivos ******************/
+        //obtenemos el archivo
+        $fvoto = $request->file('voto');
+        $fcomunicacion = $request -> file('comunicacion');
+        $flopd = $request -> file('lopd');
+        //obtenemos el nombre del archivo
+        $nvoto = $socio->id.'.'.$fvoto -> guessExtension();
+        $ncomunicacion = $socio ->id.'.'.$fcomunicacion -> guessExtension();
+        $nlopd = $socio ->id.'.'.$flopd -> guessExtension();
+        //guardamos el archivo con su nuevo nombre en la carpeta correspondiente 
+        \Storage::disk('dvoto')->put($nvoto, \File::get($fvoto));
+        \Storage::disk('dcomunicacion')->put($ncomunicacion, \File::get($fcomunicacion));
+        \Storage::disk('dlopds')->put($nlopd, \File::get($flopd));
+        /************************************************************/
+   
         return Redirect::route('socios.index');
     }
     

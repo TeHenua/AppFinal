@@ -50,18 +50,34 @@ return [
 /***** aqui pongo las rutas donde se guardan los archivos *****/
         'dcustodia' => [
             'driver' => 'local',
-            'root' => realpath('c:/pa'),
+            'root' => realpath('c:/nombreprograma/custodias'),
         ],
 
         'dmedica' => [
             'driver' => 'local',
-            'root' => realpath('c:/pi'),
+            'root' => realpath('c:/nombreprograma/medicas'),
         ],
 
         'dlopd' => [
             'driver' => 'local',
-            'root' => realpath('c:/pe'),
+            'root' => realpath('c:/nombreprograma/lopd'),
         ],
+
+        'dvoto' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/votos'),
+        ],
+
+        'dcomunicacion' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/comunicaciones'),
+        ],
+
+        'dlopds' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/lopdsocios'),
+        ],
+
 /*************************************************************/
         'public' => [
             'driver' => 'local',

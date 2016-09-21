@@ -88,8 +88,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-
-        /************ aqui se guardan los archivos ***********************/
+        /*************** aqui se guardan los archivos ***************/
         //obtenemos el archivo
         $fcustodia = $request->file('custodia');
         $fmedica = $request -> file('medica');
