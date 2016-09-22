@@ -54,7 +54,6 @@ class UsuarioController extends Controller
         $usuario->nombre = ucwords(Input::get('nombre'));
         $usuario->apellido1 = ucwords(Input::get('apellido1'));
         $usuario->apellido2 = ucwords(Input::get('apellido2'));
-        
         $usuario->fecha_nac = Input::get('fecha_nac');
         $usuario->lugar_nac = ucwords(Input::get('lugar_nac'));
         $usuario->direccion = ucwords(Input::get('direccion'));
@@ -74,8 +73,6 @@ class UsuarioController extends Controller
         $nombreSocio = Input::get('nombreSocio');
 
         $socio_id = intval(preg_replace('/[^0-9]+/', '', $nombreSocio), 10);  
-
-        //cambiado
         if($socio_id!=null){
             $socioBD = DB::table('socios')->where('id','=',$socio_id)->value('id');
             if($socioBD==$socio_id){
@@ -120,9 +117,7 @@ class UsuarioController extends Controller
     }
 
 
-    public function edit($id)
-    {
-
+    public function edit($id){
         $usuario = Usuario::find($id);
         $dni_tutor = DB::table('socios')->where('id','=',$usuario->socio_id)->value('dni');
         $usuario->dni_tutor = $dni_tutor;
@@ -134,7 +129,6 @@ class UsuarioController extends Controller
     }
 
     public function update(UsuarioEditRequest $request, $id){
-
         $input = Input::except('dni_tutor');
         $usuario = Usuario::find($id);
         if(!isset($input['alerta_medica'])){
@@ -149,21 +143,18 @@ class UsuarioController extends Controller
         if($validator->errors()->first()){
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
-        $dni_tutor =Input::get('dni_tutor');
-        $socio_id =  DB::table('socios')->where('dni',$dni_tutor)->value('id'); 
         
-        //cambiado
-        
-        if($socio_id){
-            $usuario->socio_id = $socio_id;
-        }else{
-            return redirect()->back()->withInput()->withErrors("El socio que has introducido no existe");
+        $nombreSocio = Input::get('nombreSocio');
+        $socio_id = intval(preg_replace('/[^0-9]+/', '', $nombreSocio), 10);  
+        if($socio_id!=null){
+            $socioBD = DB::table('socios')->where('id','=',$socio_id)->value('id');
+            if($socioBD==$socio_id){
+                $usuario->socio_id = $socio_id;
+            }else{
+                return redirect()->back()->withInput()->withErrors("El socio que has introducido no existe");
+            }
         }
 
-        //cambiado
-
-        $usuario->socio_id = $socio_id;
-        
         //*****  poner en mayusculas los campos para enviar a la base de datos ****//
         $usuario->nombre = ucwords($usuario->nombre);
         $usuario->apellido1 = ucwords($usuario->apellido1);
@@ -179,7 +170,7 @@ class UsuarioController extends Controller
 
         $usuario->update($input);
         \Session::flash('message','Usuario editado correctamente.');
-        return Redirect::route('usuarios.index');
+        return redirect()->route('usuarios.show', [$usuario->id]);    
     }
 
     public function show($id){
