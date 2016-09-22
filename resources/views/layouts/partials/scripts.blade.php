@@ -48,6 +48,11 @@ $(document).ready(function () {
     autoFocus: true,
     source: '{{URL('getUsuario')}}'
   });
+  $('#nombreUsuario').autocomplete({
+    minLength:3,
+    autoFocus: true,
+    source: '{{URL('getUsuario')}}'
+  });
 
 });
 
