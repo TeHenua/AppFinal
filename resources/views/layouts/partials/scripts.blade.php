@@ -24,7 +24,7 @@
 
 <script src="{{ asset('/js/bootstrap3-typeahead.min.js') }}"></script>
 <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('/plugins/') }}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the
@@ -35,12 +35,23 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script>
 
+$(document).ready(function () { 
+  $('input:text').bind({ });
+  $('#nombreSocio').autocomplete({
+    minLength:3,
+    autoFocus: true,
+    source: '{{URL('getdata')}}'
+  });
+  
+});
+
+
 $("#tipo_evento").change(function () {
   var selected_option = $('#tipo_evento').val();
   if (selected_option === 'Usuario') {
     $('#usuario_group').show();
   }
-})
+});
 
 function ConfirmDelete()
   {
