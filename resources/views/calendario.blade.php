@@ -45,7 +45,7 @@
         </div>
         <div class="form-group" hidden="hidden" id="usuario_group">
           {!! Form::label('usuario','Usuario',['style' => 'font-size:small']) !!}
-          {!! Form::text('usuario', null, ['class' => 'form-control input-sm']) !!}
+          {!! Form::text('usuario', $value = null, ['id' => 'usuarioCalendario','class' => 'form-control input-sm autocomplete']) !!}
         </div>
         <div class="form-group">
           {!! Form::label('fecha','Cuándo',['style' => 'font-size:small']) !!}

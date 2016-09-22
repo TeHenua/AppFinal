@@ -77,6 +77,8 @@ class CalendarController extends Controller
         $evento->fechaIni = Input::get('fechaIni');
         $evento->fechaFin = Input::get('fechaFin');
         $evento->user_id = Auth::user()->id;
+        
+        $evento->usuario_id = 
         $evento->save();
         return view('calendario');
     }

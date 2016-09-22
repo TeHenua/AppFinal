@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Calendario extends Model
 {
     protected $table = 'calendarios';
-    protected $fillable = ['fechaIni','fechaFin','todoeldia','lugar','color','titulo','user_id'];
+    protected $fillable = ['fechaIni','fechaFin','todoeldia','lugar','color','titulo','user_id','usuario_id'];
     protected $hidden = ['id'];
 
     public function user()
