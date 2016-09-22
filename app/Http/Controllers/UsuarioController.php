@@ -71,15 +71,14 @@ class UsuarioController extends Controller
         $usuario->primera_entrevista = Input::get('primera_entrevista');
         $usuario->alerta_medica = Input::get('alerta_medica');
         $usuario->alerta_custodia = Input::get('alerta_custodia');
-        $dni_tutor = Input::get('dni_tutor');
+        $nombreSocio = Input::get('nombreSocio');
 
-
+        $socio_id = intval(preg_replace('/[^0-9]+/', '', $nombreSocio), 10);  
 
         //cambiado
-        if($usuario->socio_id!=null){
-             $socio_id =  DB::table('socios')->where('dni',$dni_tutor)->value('id');
-
-            if($socio_id){
+        if($socio_id!=null){
+            $socioBD = DB::table('socios')->where('id','=',$socio_id)->value('id');
+            if($socioBD==$socio_id){
                 $usuario->socio_id = $socio_id;
             }else{
                 return redirect()->back()->withInput()->withErrors("El socio que has introducido no existe");

@@ -25,7 +25,7 @@
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('dni_tutor','Socio/tutor',['id'=> 'dni_tutor', 'style' => 'font-size:small']) !!}
-            {!! Form::text('dni_tutor', null, ['class' => 'form-control input-sm', 'placeholder' => 'DNI tutor']) !!}
+            {!! Form::button('Buscar', array('class' => 'btn btn-info','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalSocio')) !!}
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
@@ -130,5 +130,29 @@
     </div>
 </div>    
 
+<div class="modal fade" id="modalSocio" role="dialog">
+  <div class="modal-dialog">
+    
+    <!-- Modal content-->
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Asignar Socio / Tutor</h4>
+      </div> 
+      <div class="modal-body">
+        <div class="form-group col-md-12">
+          {!! Form::label('nombreSocio','Nombre y apellido',['style' => 'font-size:small']) !!}
+          {!! Form::text('nombreSocio',$value = null, array('id' => 'nombreSocio', 'class' => 'form-control autocomplete')) !!}
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" >Añadir</button> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
