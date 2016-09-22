@@ -42,6 +42,20 @@ Route::group(['middleware' => 'auth'], function () {
       // it can be processed in the autocomplete script
       return Response::json($return_array);
     });
-
+    Route::any('getUsuario', function(){
+     $term = Input::get('term');
+     
+     // 4: check if any matches found in the database table 
+      $data = DB::table('usuarios')->where('nombre','LIKE',$term.'%')
+            ->orWhere('apellido1','LIKE', $term.'%')
+            ->orWhere('apellido2','LIKE', $term.'%')
+            ->groupBy('nombre','apellido1','apellido2')->take(10)->get();
+      foreach ($data as $v) {
+        $return_array[] = array('value' =>$v->id.' '.$v->nombre.' '.$v->apellido1.' '.$v->apellido2);
+      }
+      // if matches found it first create the array of the result and then convert it to json format so that 
+      // it can be processed in the autocomplete script
+      return Response::json($return_array);
+    });
 });
 

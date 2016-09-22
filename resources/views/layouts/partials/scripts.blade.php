@@ -43,6 +43,12 @@ $(document).ready(function () {
     source: '{{URL('getdata')}}'
   });
   
+  $('#usuarioCalendario').autocomplete({
+    minLength:3,
+    autoFocus: true,
+    source: '{{URL('getUsuario')}}'
+  });
+
 });
 
 
