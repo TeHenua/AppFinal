@@ -31,7 +31,20 @@
     </div>    
     <div class="form-group col-md-12"></div>
     <div class="box-header with-border"><h4>Datos usuario</h4></div>
-    <div class="box-body"> 
+    <div class="box-body">
+        <!--  aqui puse el boton de buscar usuarios -->
+        <div class="form-group col-md-4">
+            {!! Form::label('lcontacto','Usuario',['id'=> 'lcontacto', 'style' => 'font-size:small']) !!}
+            <div class="input-group">
+                <div class="input-group-btn"> 
+                {!! Form::button('Buscar', array('class' => 'btn btn-info','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalusuario')) !!}
+                </div>
+                <div>
+                {!! Form::text('nombre_usuario', null, ['class' => 'form-control input-sm']) !!}
+                </div>
+            </div>
+        </div>
+        <!--****************************************-->
         <div class="form-group col-md-3">
             {!! Form::label('nombre_usuario','Nombre',['style' => 'font-size:small']) !!}
             {!! Form::text('nombre_usuario', null, ['class' => 'form-control input-sm']) !!}
@@ -97,4 +110,25 @@
             {!! Form::submit('Guardar',['class' => 'btn btn-primary pull-right']) !!}
         </div>
     </div>
-</div>    
+</div>
+<!-- aqui puse la ventana modal -->
+<div class="modal fade" id="modalusuario" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Asignar Usuario</h4>
+      </div> 
+      <div class="modal-body">
+        <div class="form-group col-md-12">
+          {!! Form::label('nombreUsuario','Nombre y apellido',['style' => 'font-size:small']) !!}
+          {!! Form::text('nombreUsuario',$value = null, array('id' => 'nombreUsuario', 'class' => 'form-control autocomplete')) !!}         
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" >Añadir</button> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div> 
