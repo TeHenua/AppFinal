@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 
-                {{ Form::model($socio, array('method' => 'PATCH', 'route' => array('socios.update', $socio->id))) }}
+                {{ Form::model($socio, array('method' => 'PATCH', 'files' => 'true', 'route' => array('socios.update', $socio->id))) }}
                     @include('socios.form');   
                 {!! Form::close() !!}
             </div>
