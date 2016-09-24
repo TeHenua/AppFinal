@@ -36,50 +36,46 @@
 <script>
 
 $(document).ready(function () { 
+
   $('input:text').bind({ });
+  
   $('#nombreSocio').autocomplete({
     minLength:3,
     autoFocus: true,
     source: '{{URL('getdata')}}'
   });
-  
+
   $('#usuarioCalendario').autocomplete({
     minLength:3,
     autoFocus: true,
     source: '{{URL('getUsuario')}}'
   });
+
   $('#nombreUsuario').autocomplete({
     minLength:3,
     autoFocus: true,
     source: '{{URL('getUsuario')}}'
   });
 
-
-  $.ajax({
-    type: "POST",
-    url: "{{ URL('getTrabajadores') }}",
-    success: function(response)
-    {
-        $('.selectTrabajadores').html(response).fadeIn();
+  $("#tipo_evento").change(function () {
+    var selected_option = $('#tipo_evento').val();
+    if (selected_option === 'Usuario') {
+      $('#usuario_group').show();
     }
   });
-});
 
+  $("#trabajadores").change(function () {
+    $trabajador = $('#trabajadores').val();
+    console.log($trabajador);
+    {{ session()->put('trabajador', $trabajador) }}
+  });
 
-$("#tipo_evento").change(function () {
-  var selected_option = $('#tipo_evento').val();
-  if (selected_option === 'Usuario') {
-    $('#usuario_group').show();
-  }
-});
-
-function ConfirmDelete()
-  {
-  var x = confirm("¿Seguro que quieres borrarlo?");
-  if (x)
-    return true;
-  else
-    return false;
+  function ConfirmDelete(){
+    var x = confirm("¿Seguro que quieres borrarlo?");
+    if (x)
+      return true;
+    else
+      return false;
   }
 
   $( function() {
@@ -89,6 +85,7 @@ function ConfirmDelete()
       showPreview: false
     });
   });
+
   $( function() {
     //Esto es para que la fecha de nacimiento de socio aparezca 40 años atras
     $("#datepickerSocio").datepicker({
@@ -101,7 +98,7 @@ function ConfirmDelete()
 
     });
   });
-  
+
   $(function($){
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -121,10 +118,9 @@ function ConfirmDelete()
         yearSuffix: ''
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
-});
+  });
 
   $(function () {
-
     /* initialize the calendar
      -----------------------------------------------------------------*/
     //Date for the calendar events (dummy data)
@@ -138,8 +134,8 @@ function ConfirmDelete()
       var fechaIni = $( "#fechaIni" ).val();
       var fechaFin = $( "#fechaFin" ).val();
       var fecha = $("#fecha");
+
     });
-    
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -154,16 +150,14 @@ function ConfirmDelete()
       },
       forceEventDuration: true,
       defaultTimedEventDuration: '00:30:00',
-      events: {url:"cargaEventos?nombreUser={{ Auth::user()->name }}"},
+      events: {url:"cargaEventos{{ session()->get('trabajador') }}"},
       editable: true,
       droppable: true, // this allows things to be dropped onto the calendar !!!
-
+      
       eventRender: function(event, element, view) {
         if(event.user!=null){
           element.find(".fc-content").append("<b> "+event.user+"</b>" );
         }
-        
-               
       },
 
       eventResize: function(event){
@@ -202,7 +196,6 @@ function ConfirmDelete()
         var back = event.backgroundColor;
         var allDay = event.allDay;
         crsfToken = document.getElementsByName("_token")[0].value;
-
         $.ajax({
           url: 'actualizaEventos',
           data: 'title=' + event.title +'&start=' + start+'&end=' + end+ '&id='+event.id+'&background='+back+'&allday='+allDay,
@@ -226,11 +219,9 @@ function ConfirmDelete()
           var fechaMas = fecha.substring(8,10);
           var minutos = fecha.substring(11);
           var hora = parseInt(fechaMas)+1;
-          
           if(hora<=9){
             var hora = "0"+hora;
           }
-
           fecha += " - "+hora+":"+minutos;
           var fin = moment(date).add(1,'hours');
           $("#myModal").modal('show');
@@ -238,7 +229,6 @@ function ConfirmDelete()
           $(".modal-body #fechaIni").val( date.format("YYYY-MM-DD HH:mm") );
           console.log(date.format("YYYY-MM-DD HH:mm"));
           $(".modal-body #fechaFin").val( fin.format("YYYY-MM-DD HH:mm") );
-
         }else{
           $('#calendar').fullCalendar('gotoDate', date);
           $('#calendar').fullCalendar('changeView', 'agendaDay');
@@ -254,22 +244,20 @@ function ConfirmDelete()
             url: 'eliminarEvento',
             data: 'id=' + event.id,
             headers: {
-                      "X-CSRF-TOKEN": crsfToken
-                  },
-                  type: "POST",
-                  success: function(){
-                    $('#calendar').fullCalendar('removeEvents', event._id);
-                    console.log("Evento eliminado");
-                  }
+              "X-CSRF-TOKEN": crsfToken
+            },
+            type: "POST",
+            success: function(){
+              $('#calendar').fullCalendar('removeEvents', event._id);
+              console.log("Evento eliminado");
+            }
           })
         }else{
           console.log("Cancelado");
         }
-      }
-
-      
-     });
-
+      }  
+    });
   });
-  </script>
+});
+</script>
 

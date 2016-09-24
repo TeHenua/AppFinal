@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use App\User;
 use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth'], function () {
@@ -23,11 +23,12 @@ Route::group(['middleware' => 'auth'], function () {
    	Route::get('cargaEventos{id?}{nombreUser?}','CalendarController@index');
    	Route::post('actualizaEventos','CalendarController@update');
    	Route::post('eliminarEvento','CalendarController@delete');
-   	Route::get('calendario{nombreUser?}', function(Request $request){
-      $nombreUser = $request->input('nombreUser');
+   	Route::get('calendario{nombreTrabajador?}',array('as' => 'calendario', function(Request $request){
+      $trabajadores = array();
+      $trabajadores = User::all()->lists('name');
+      return view('calendario')->with('trabajadores', $trabajadores);
 
-      return view('calendario')->with($nombreUser);
-    });
+    }));
 
     // Route::post('select',['uses'=>'CalendarController@postSelect','as'=>'postSelect']);
 
@@ -64,8 +65,5 @@ Route::group(['middleware' => 'auth'], function () {
       return Response::json($return_array);
     });
 
-    Route::post('getTrabajadores', function() {
-        $trabajadores = DB::table('users')->get('nombre');
-    });
 });
 

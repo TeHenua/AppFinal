@@ -9,12 +9,15 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-body no-padding">
-        <select name="selectTrabajadores">
-          <option disabled selected>Elige un trabajador</option>
+      {!! Form::open(array('route' => array('calendario'), 'method' =>'GET')) !!}
+        <select id="trabajadores">
+          <option selected="selected">Seleccione</option>
           @foreach($trabajadores as $tra)
-            <option value="{{$tra->name}}">{{$tra->name}}</option>
+          <option value="{{ $tra }}">{{ $tra }}</option>
           @endforeach
         </select>
+       {!! Form::submit('Click Me!') !!}
+       {!! Form::close() !!}
         <!-- THE CALENDAR -->
         <div id="calendar"></div>
       </div>
