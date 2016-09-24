@@ -9,6 +9,7 @@ use App\Calendario;
 use Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Usuario;
+use Session;
 
 
 class CalendarController extends Controller
@@ -17,13 +18,9 @@ class CalendarController extends Controller
     //si eres administrador se pasa el id del trabajador
 
 	public function index(Request $request){   
+        $nombreTrabajador = Session::get('trabajador');
 
-        
-        // if($nombreTrabajador==null){
-        //     $nombreTrabajador = Auth::user()->name;
-        // }
-        // $userIdLog = DB::table('users')->where('name','=',$nombreTrabajador)->value('id');
-
+        $idTrabajador = DB::table('users')->where('name','=',$nombreTrabajador)->value('id');
         $data = array(); //declaramos un array principal que va contener los datos
         $id = Calendario::all()->lists('id'); //listamos todos los id de los eventos
         $titulo = Calendario::all()->lists('titulo'); //lo mismo para lugar y fecha
@@ -34,23 +31,37 @@ class CalendarController extends Controller
         $userId = Calendario::all()->lists('user_id');
         $usuario_id = Calendario::all()->lists('usuario_id');
         $count = count($id); //contamos los ids obtenidos para saber el numero exacto de eventos
-        
+        $userIdLog = Auth::user()->id;
         //hacemos un ciclo para anidar los valores obtenidos a nuestro array principal $data 
         $j=0;
-        for($i=0;$i<$count;$i++){
-            // if($userId[$i]==$userIdLog){
-                $data[$j] = array(
+        for($i=0;$i<$count;$i++){ 
+            if(Auth::user()->rol=='administrativo'){
+                
+                if($userId[$i]==$idTrabajador){
+                    $data[$j] = array(
                     "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
                     "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
                     "end"=>$fechaFin[$i],
                     "allDay"=>$allDay[$i],
                     "backgroundColor"=>$background[$i],
                     "id"=>$id[$i]
-                );  
+                );
                 $j++;
-            //}
-                  
+            }else{
+                if($userId[$i]==$userIdLog){
+                    $data[$j] = array(
+                        "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
+                        "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
+                        "end"=>$fechaFin[$i],
+                        "allDay"=>$allDay[$i],
+                        "backgroundColor"=>$background[$i],
+                        "id"=>$id[$i]
+                    );  
+                    $j++;
+                }
+            }        
         }
+    }
         json_encode($data); //convertimos el array principal $data a un objeto Json 
         return $data;    //para luego retornarlo y estar listo para consumirlo
     }
@@ -85,7 +96,9 @@ class CalendarController extends Controller
         }
         $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         $evento->save();
-        return view('calendario');
+        $trabajadores = array();
+      $trabajadores = User::all()->lists('name');
+        return view('calendario')->with('trabajadores', $trabajadores);
     }
 
     public function update(){
