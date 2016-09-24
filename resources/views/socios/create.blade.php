@@ -12,7 +12,7 @@
 	@include('messages')
 
 	<div class="content">
-        {!! Form::model(new App\Socio, ['route' => ['socios.store'], 'role' => 'form']) !!}
+        {!! Form::model(new App\Socio, ['route' => ['socios.store'], 'role' => 'form', 'files' => 'true']) !!}
         	@include('socios.form')
         {!! Form::close() !!}
     </div>
