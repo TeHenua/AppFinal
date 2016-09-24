@@ -13,6 +13,7 @@
 use App\User;
 use Illuminate\Http\Request;
 
+
 Route::group(['middleware' => 'auth'], function () {
     Route::auth();
     Route::get('/', ['as' => 'inicio', 'uses' => 'HomeController@index']);
@@ -20,10 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('contactos', 'ContactoController');
     Route::resource('socios', 'SocioController');
    	Route::post('guardaEventos', array('as' => 'guardaEventos','uses' => 'CalendarController@create'));
-   	Route::get('cargaEventos{id?}{nombreUser?}','CalendarController@index');
+   	Route::get('cargaEventos','CalendarController@index');
    	Route::post('actualizaEventos','CalendarController@update');
    	Route::post('eliminarEvento','CalendarController@delete');
-   	Route::get('calendario{nombreTrabajador?}',array('as' => 'calendario', function(Request $request){
+   	Route::get('calendario',array('as' => 'calendario', function(Request $request){
       $trabajadores = array();
       $trabajadores = User::all()->lists('name');
       return view('calendario')->with('trabajadores', $trabajadores);
@@ -64,6 +65,16 @@ Route::group(['middleware' => 'auth'], function () {
       // it can be processed in the autocomplete script
       return Response::json($return_array);
     });
+
+    Route::post('guardarTrabajador',array('as'=>'guardarTrabajador', function(Request $request){
+
+      $trabajador = $request->trabajador;
+       $trabajadores = array();
+      $trabajadores = User::all()->lists('name');
+      session(['trabajador' => $trabajador]);
+       return view('calendario');
+    }));
+
 
 });
 

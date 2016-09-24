@@ -9,14 +9,15 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-body no-padding">
-      {!! Form::open(array('route' => array('calendario'), 'method' =>'GET')) !!}
-        <select id="trabajadores">
+      {!! Form::open(array('route' => array('guardarTrabajador'), 'method' =>'POST')) !!}
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+        <select id="trabajadores" name="trabajadores">
           <option selected="selected">Seleccione</option>
           @foreach($trabajadores as $tra)
           <option value="{{ $tra }}">{{ $tra }}</option>
           @endforeach
         </select>
-       {!! Form::submit('Click Me!') !!}
+       {!! Form::button('Ver', array('class'=>'send-btn')) !!}
        {!! Form::close() !!}
         <!-- THE CALENDAR -->
         <div id="calendar"></div>

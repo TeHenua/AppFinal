@@ -37,6 +37,11 @@
 
 $(document).ready(function () { 
 
+  $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
   $('input:text').bind({ });
   
   $('#nombreSocio').autocomplete({
@@ -64,11 +69,17 @@ $(document).ready(function () {
     }
   });
 
-  $("#trabajadores").change(function () {
+  $('.send-btn').click(function(){   
     $trabajador = $('#trabajadores').val();
-    console.log($trabajador);
-    
-  });
+    $.ajax({
+      url: 'guardarTrabajador',
+      type: "post",
+      data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
+      // success: function(data){
+      //   console.log(data);
+      // }
+    });      
+  }); 
 
   function ConfirmDelete(){
     var x = confirm("¿Seguro que quieres borrarlo?");
