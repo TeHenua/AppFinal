@@ -67,7 +67,7 @@ $(document).ready(function () {
   $("#trabajadores").change(function () {
     $trabajador = $('#trabajadores').val();
     console.log($trabajador);
-    {{ session()->put('trabajador', $trabajador) }}
+    
   });
 
   function ConfirmDelete(){
