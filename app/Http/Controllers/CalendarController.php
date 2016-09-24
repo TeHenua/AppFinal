@@ -8,13 +8,22 @@ use Auth;
 use App\Calendario;
 use Input;
 use Illuminate\Support\Facades\Redirect;
+use App\Usuario;
 
 
 class CalendarController extends Controller
 {
+    //si eres usuario normal se pasa tu id
+    //si eres administrador se pasa el id del trabajador
 
-	public function index()
-    {
+	public function index(Request $request){   
+        $nombreUser = $request->input('nombreUser');
+
+        if($nombreUser==null){
+            $nombreUser = Auth::user()->name;
+        }
+        $userIdLog = DB::table('users')->where('name','=',$nombreUser)->value('id');
+
         $data = array(); //declaramos un array principal que va contener los datos
         $id = Calendario::all()->lists('id'); //listamos todos los id de los eventos
         $titulo = Calendario::all()->lists('titulo'); //lo mismo para lugar y fecha
@@ -22,50 +31,28 @@ class CalendarController extends Controller
         $fechaFin = Calendario::all()->lists('fechaFin');
         $allDay = Calendario::all()->lists('todoeldia');
         $background = Calendario::all()->lists('color');
-        $user_id = Calendario::all()->lists('user_id');
-        
+        $userId = Calendario::all()->lists('user_id');
+        $usuario_id = Calendario::all()->lists('usuario_id');
         $count = count($id); //contamos los ids obtenidos para saber el numero exacto de eventos
         
         //hacemos un ciclo para anidar los valores obtenidos a nuestro array principal $data 
         $j=0;
         for($i=0;$i<$count;$i++){
-            if(Auth::user()->rol == 'administrativo'){
-                $nombre = DB::table('users')->where('id',$user_id[$i])->value('name');
-                $data[$i] = array(
+            if($userId[$i]==$userIdLog){
+                $data[$j] = array(
                     "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
                     "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
                     "end"=>$fechaFin[$i],
                     "allDay"=>$allDay[$i],
                     "backgroundColor"=>$background[$i],
-                    "id"=>$id[$i],
-                    "user"=>$nombre
-                );
-             }else{
-
-                if($user_id[$i] == Auth::user()->id){
-                   $nombre = DB::table('users')->where('id',Auth::user()->id)->value('name');
-                    $data[$j] = array(
-                        "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
-                        "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
-                        "end"=>$fechaFin[$i],
-                        "allDay"=>$allDay[$i],
-                        "backgroundColor"=>$background[$i],
-                        "id"=>$id[$i],
-                        "user"=>$nombre
-                    );   
-                    $j++;
-
-                }
+                    "id"=>$id[$i]
+                );  
+                $j++;
             }
-            
-                //"url"=>"cargaEventos".$id[$i]
-                //en el campo "url" concatenamos el el URL con el id del evento para luego
-                //en el evento onclick de JS hacer referencia a este y usar el método show
-                //para mostrar los datos completos de un evento
+                  
         }
-   
         json_encode($data); //convertimos el array principal $data a un objeto Json 
-       return $data; //para luego retornarlo y estar listo para consumirlo
+        return $data;    //para luego retornarlo y estar listo para consumirlo
     }
 
 
@@ -77,8 +64,26 @@ class CalendarController extends Controller
         $evento->fechaIni = Input::get('fechaIni');
         $evento->fechaFin = Input::get('fechaFin');
         $evento->user_id = Auth::user()->id;
-        
-        $evento->usuario_id = 
+        $nombreUsuario = Input::get('usuario');
+        $tipoCita = Input::get('tipo_evento');
+        switch ($tipoCita) {
+            case 'Usuario':
+                $evento->color = "#00BFFF";
+                break;
+            case 'Externa':
+                $evento->color = "#ffa64d";
+                break;
+            case 'Coordinación':
+                $evento->color = "#66cc66";
+                break;
+            case 'Otro':
+                $evento->color = "#b366ff";
+                break;
+            default:
+                # code...
+                break;
+        }
+        $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         $evento->save();
         return view('calendario');
     }
@@ -113,5 +118,18 @@ class CalendarController extends Controller
 
         Calendario::destroy($id);
    }
+
+   // public function select(Request $request){ 
+   //      $nombresUsers=DB::table('users')->select('name')->get();
+   //      $idUser = $request->idUser;
+   //      return view('calendario',['nombresUsers'=>$nombresUsers, 'idUser'=>$idUser]);
+   //  }
+ 
+   //  public function postSelect(Request $request){
+   //      $nombreUser = $request->select;
+   //      $nombresUsers=DB::table('users')->select('name')->get();
+   //      $idUser = DB::table('users')->where('name',$nombreUser)->value('id');
+   //      return view('calendario',['idUser'=>$idUser, 'nombresUsers'=>$nombresUsers]);
+   //  }
 
 }

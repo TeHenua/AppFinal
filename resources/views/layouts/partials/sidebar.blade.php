@@ -8,7 +8,22 @@
             <li class="header"></li>
             <!-- Optionally, you can add icons to the links -->
             <li class="{{ $nav_home or ''  }}"><a href="{{ url('/') }}"><i class='fa fa-home'></i> <span>Inicio</span></a></li>
+            {{-- @if(Auth::user()->rol=='administrativo')
+            <li class="treeview">   
+
+                <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu ">
+                    <li class="{{ $nav_usuario_index or '' }}">
+                        <a href="{{ url('usuarios') }}"><i class="fa fa-search"></i>Buscar</a>
+                    </li>
+                    <li class="{{ $nav_usuario_create or '' }}">
+                        <a href="{{ url('usuarios/create') }}"><i class="fa fa-user-plus"></i>Añadir nuevo</a>
+                    </li>
+                </ul>
+            </li>       
+            @else
             <li><a href="{{ url('calendario') }}"><i class='fa fa-calendar'></i> <span>Calendario</span></a></li>
+            @endif --}}
             <li class="treeview {{ $abierto_usuario or '' }}">   
                 <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu ">

@@ -22,7 +22,7 @@
     <link href="{{ asset('/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
     {!! Html::style('plugins/fullcalendar/fullcalendar.css') !!}
 
-    <link rel="stylesheet" href="{{ asset('/css/datepicker.css') }}">
+ 
     <link href="{{ asset('/plugins/bootstrap-input/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/MyCss.css') }}">
 

@@ -8,7 +8,7 @@ class Calendario extends Model
 {
     protected $table = 'calendarios';
     protected $fillable = ['fechaIni','fechaFin','todoeldia','lugar','color','titulo','user_id','usuario_id'];
-    protected $hidden = ['id'];
+    protected $hidden = ['id','usuario_nombre'];
 
     public function user()
     {
