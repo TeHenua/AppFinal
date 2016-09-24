@@ -11,8 +11,8 @@
         <div class="row">
             <div class="col-md-12">
                 
-                {{ Form::model($usuario, array('method' => 'PATCH', 'route' => array('usuarios.update', $usuario->id))) }}
-                    @include('usuarios.form');   
+                {{ Form::model($usuario, array('method' => 'PATCH', 'files' => 'true', 'route' => array('usuarios.update', $usuario->id))) }}
+                    @include('usuarios.form'); 
                 {!! Form::close() !!}
             </div>
         </div>
