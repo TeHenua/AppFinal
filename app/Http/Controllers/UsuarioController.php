@@ -17,6 +17,7 @@ use App\Http\Requests\UsuarioEditRequest;
 use Illuminate\Support\Facades\Validator;
 
 
+
 class UsuarioController extends Controller
 {
     public function __construct(){
@@ -84,21 +85,7 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        /*************** aqui se guardan los archivos ***************/
-        //obtenemos el archivo
-        $fcustodia = $request->file('custodia');
-        $fmedica = $request -> file('medica');
-        $flopd = $request -> file('lopd');
-        //obtenemos el nombre del archivo
-        $ncustodia = $usuario->id.'.'.$fcustodia -> guessExtension();
-        $nmedica = $usuario ->id.'.'.$fmedica -> guessExtension();
-        $nlopd = $usuario ->id.'.'.$flopd -> guessExtension();
-        //guardamos el archivo con su nuevo nombre en la carpeta correspondiente 
-        \Storage::disk('dcustodia')->put($ncustodia, \File::get($fcustodia));
-        \Storage::disk('dmedica')->put($nmedica, \File::get($fmedica));
-        \Storage::disk('dlopd')->put($nlopd, \File::get($flopd));
-        /************************************************************/
-
+        $this ->guardararchivos($request,$usuario ->id);
         //enviamos al usuario a ver la ficha creada
         return redirect()->route('usuarios.show', [$usuario->id]);
 
@@ -169,6 +156,9 @@ class UsuarioController extends Controller
         /***************************************************************************/
 
         $usuario->update($input);
+
+        $this ->guardararchivos($request,$usuario ->id);
+
         \Session::flash('message','Usuario editado correctamente.');
         return redirect()->route('usuarios.show', [$usuario->id]);    
     }
@@ -181,6 +171,31 @@ class UsuarioController extends Controller
         $contactos =  DB::select( DB::raw("SELECT * from contactos where id IN(SELECT contacto_id from contacto_usuario where usuario_id= ".$id.")") );
         return View::make('usuarios.show', compact('usuario','socio', 'contactos'));
     }
+
+    public function guardararchivos($request, $id){
+        /*************** aqui se guardan los archivos ***************/
+        //obtenemos el archivo
+        $fcustodia = $request -> file('custodia');
+        $fmedica = $request -> file('medica');
+        $flopd = $request -> file('lopd');
+
+        if($fcustodia != null){
+            //obtenemos el nombre del archivo custodia y lo guardamos si existe
+            $ncustodia = $id.'.'.$fcustodia -> guessExtension();
+            \Storage::disk('dcustodia')->put($ncustodia, \File::get($fcustodia));
+        }
+        
+        if($fmedica != null){
+            //obtenemos el nombre del archivo medica y lo guardamos si existe
+            $nmedica = $id.'.'.$fmedica -> guessExtension();
+            \Storage::disk('dmedica')->put($nmedica, \File::get($fmedica));
+        }
+        //obtenemos el nombre del archivo lopd y lo guardamos si existe
+        if($flopd != null){
+            $nlopd = $id.'.'.$flopd -> guessExtension();
+            \Storage::disk('dlopd')->put($nlopd, \File::get($flopd));
+        }
+    }//termina la funcion de guardar archivos
 
     
 }

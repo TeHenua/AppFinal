@@ -68,20 +68,7 @@ class SocioController extends Controller
         $socio->save();
         \Session::flash('message','Socio creado correctamente.');
 
-        /************* aqui se guardan los archivos ******************/
-        //obtenemos el archivo
-        $fvoto = $request->file('voto');
-        $fcomunicacion = $request -> file('comunicacion');
-        $flopd = $request -> file('lopd');
-        //obtenemos el nombre del archivo
-        $nvoto = $socio->id.'.'.$fvoto -> guessExtension();
-        $ncomunicacion = $socio ->id.'.'.$fcomunicacion -> guessExtension();
-        $nlopd = $socio ->id.'.'.$flopd -> guessExtension();
-        //guardamos el archivo con su nuevo nombre en la carpeta correspondiente 
-        \Storage::disk('dvoto')->put($nvoto, \File::get($fvoto));
-        \Storage::disk('dcomunicacion')->put($ncomunicacion, \File::get($fcomunicacion));
-        \Storage::disk('dlopds')->put($nlopd, \File::get($flopd));
-        /************************************************************/
+        $this ->guardararchivos($request,$socio ->id);
    
         return Redirect::route('socios.index');
     }
@@ -139,6 +126,9 @@ class SocioController extends Controller
         /***************************************************************************/
 
         $socio->update($input);
+
+        $this ->guardararchivos($request,$socio ->id);
+
         \Session::flash('message','Socio editado correctamente.');
         return Redirect::route('socios.index');
 
@@ -148,6 +138,31 @@ class SocioController extends Controller
         $socio = DB::table('socios')->where('id', $id)->first();
        return View::make('socios.show', compact('socio'));
     }
+
+    public function guardararchivos($request, $id){
+        /*************** aqui se guardan los archivos ***************/
+        //obtenemos el archivo
+        $fvoto = $request->file('voto');
+        $fcomunicacion = $request -> file('comunicacion');
+        $flopd = $request -> file('lopd');
+
+        if($fvoto != null){
+            //obtenemos el nombre del archivo voto y lo guardamos si existe
+            $nvoto = $id.'.'.$fvoto -> guessExtension();
+            \Storage::disk('dvoto')->put($nvoto, \File::get($fvoto));
+        }
+        
+        if($fcomunicacion != null){
+            //obtenemos el nombre del archivo comunicacion y lo guardamos si existe
+            $ncomunicacion = $id.'.'.$fcomunicacion -> guessExtension();
+            \Storage::disk('dcomunicacion')->put($ncomunicacion, \File::get($fcomunicacion));
+        }
+        //obtenemos el nombre del archivo lopd y lo guardamos si existe
+        if($flopd != null){
+            $nlopd = $id.'.'.$flopd -> guessExtension();
+            \Storage::disk('dlopds')->put($nlopd, \File::get($flopd));
+        }
+    }//termina la funcion de guardar archivos
 
     
 }
