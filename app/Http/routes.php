@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::auth();
@@ -19,12 +20,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('contactos', 'ContactoController');
     Route::resource('socios', 'SocioController');
    	Route::post('guardaEventos', array('as' => 'guardaEventos','uses' => 'CalendarController@create'));
-   	Route::get('cargaEventos{id?}','CalendarController@index');
+   	Route::get('cargaEventos{id?}{nombreUser?}','CalendarController@index');
    	Route::post('actualizaEventos','CalendarController@update');
    	Route::post('eliminarEvento','CalendarController@delete');
-   	Route::get('calendario', function(){
-   		return view('calendario');
-   	});
+   	Route::get('calendario{nombreUser?}', function(Request $request){
+      $nombreUser = $request->input('nombreUser');
+
+      return view('calendario')->with($nombreUser);
+    });
+
+    // Route::post('select',['uses'=>'CalendarController@postSelect','as'=>'postSelect']);
+
     Route::get('lopd/{id}', ['as' => 'lopd', 'uses' => 'PdfController@usuarioLopd']);
 
     Route::any('getdata', function(){
@@ -56,6 +62,10 @@ Route::group(['middleware' => 'auth'], function () {
       // if matches found it first create the array of the result and then convert it to json format so that 
       // it can be processed in the autocomplete script
       return Response::json($return_array);
+    });
+
+    Route::post('getTrabajadores', function() {
+        $trabajadores = DB::table('users')->get('nombre');
     });
 });
 

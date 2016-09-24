@@ -9,6 +9,12 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-body no-padding">
+        <select name="selectTrabajadores">
+          <option disabled selected>Elige un trabajador</option>
+          @foreach($trabajadores as $tra)
+            <option value="{{$tra->name}}">{{$tra->name}}</option>
+          @endforeach
+        </select>
         <!-- THE CALENDAR -->
         <div id="calendar"></div>
       </div>
