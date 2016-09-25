@@ -23,9 +23,14 @@
             {!! Form::label('num_socio','Número socio',['style' => 'font-size:small']) !!}
             {!! Form::text('num_socio', null, ['class' => 'form-control input-sm']) !!}
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-8">
             {!! Form::label('dni_tutor','Socio/tutor',['id'=> 'dni_tutor', 'style' => 'font-size:small']) !!}
-            {!! Form::button('Buscar', array('class' => 'btn btn-info','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalSocio')) !!}
+            <div class="input-group">
+                <span class="input-group-btn">
+                    {!! Form::button('Buscar', array('class' => 'btn btn-info btn-sm','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalSocio')) !!}
+                </span>
+                <input class="form-control input-sm" id="nombreSocioF" name="nombreSocio" disabled="" type="text">
+            </div>    
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
@@ -148,8 +153,15 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" >Añadir</button> 
+        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" 
+            onclick="miFuncion()">Añadir</button> 
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <script type="text/javascript">
+            function miFuncion(){
+                $nombre = document.getElementById('nombreSocio').value;
+                document.getElementById('nombreSocioF').value=$nombre;
+            }
+        </script>
       </div>
     </div>
   </div>
