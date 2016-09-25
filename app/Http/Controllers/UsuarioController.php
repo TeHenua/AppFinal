@@ -106,8 +106,13 @@ class UsuarioController extends Controller
 
     public function edit($id){
         $usuario = Usuario::find($id);
-        $dni_tutor = DB::table('socios')->where('id','=',$usuario->socio_id)->value('dni');
-        $usuario->dni_tutor = $dni_tutor;
+        $data = DB::table('socios')->where('id','=',$usuario->socio_id)->first();
+   
+        
+        $nombreSocio= $data->id.' '.$data->nombre.' '.$data->apellido1.' '.$data->apellido2;
+
+        $usuario->nombreSocio = $nombreSocio;
+        dd($usuario);
         if (is_null($usuario))
         {
             return Redirect::route('usuarios.index');
