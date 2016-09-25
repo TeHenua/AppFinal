@@ -9,13 +9,16 @@
   <div class="col-md-12">
     <div class="box box-primary">
       <div class="box-body no-padding">
-      {!! Form::open(array('route' => array('guardarTrabajador'), 'method' =>'POST')) !!}
+      <!-- aqui pulso el boton ver-->
+      {!! Form::open(array('route' => array('cargaEventos'), 'method' =>'POST')) !!}
       <meta name="csrf-token" content="{{ csrf_token() }}">
         <select id="trabajadores" name="trabajadores">
           <option selected="selected">Seleccione</option>
+          <!--aqui se genera la lista de trabajadores en la vista-->
           @foreach($trabajadores as $tra)
           <option value="{{ $tra }}">{{ $tra }}</option>
           @endforeach
+          <!--***************************************************-->
         </select>
        {!! Form::button('Ver', array('class'=>'send-btn')) !!}
        {!! Form::close() !!}

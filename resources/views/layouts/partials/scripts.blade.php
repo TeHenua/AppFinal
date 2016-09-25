@@ -68,19 +68,23 @@ $(document).ready(function () {
       $('#usuario_group').show();
     }
   });
-
-  $('.send-btn').click(function(){   
-    $trabajador = $('#trabajadores').val();
+  //aqui enviamos a las routes el trabajador seleccionado
+  $('.send-btn').click(function(){  
+    //aqui obtengo el valor del desplegable 
+    $trabajador= [$('#trabajadores').val()];
     $.ajax({
-      url: 'guardarTrabajador',
+      url: 'cargaEventos',
       type: "post",
       data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
-      // success: function(data){
-      //   console.log(data);
-      // }
-    });      
-  }); 
 
+      success: function(data){
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource',data);
+        $('#calendar').fullCalendar('rerenderEvents');
+      }
+
+    });
+  });
   function ConfirmDelete(){
     var x = confirm("¿Seguro que quieres borrarlo?");
     if (x)
@@ -147,6 +151,8 @@ $(document).ready(function () {
       var fecha = $("#fecha");
 
     });
+
+    //aqui empieza a pintar el calendario
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -161,7 +167,12 @@ $(document).ready(function () {
       },
       forceEventDuration: true,
       defaultTimedEventDuration: '00:30:00',
-      events: {url:"cargaEventos{{ session()->get('trabajador') }}"},
+      //aqui se pintan los eventos
+
+      events: {
+        url:"cargaEventos"
+      },
+
       editable: true,
       droppable: true, // this allows things to be dropped onto the calendar !!!
       
