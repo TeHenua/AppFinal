@@ -10,6 +10,8 @@ use Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Usuario;
 use Session;
+use App\User;
+
 
 
 class CalendarController extends Controller
@@ -17,60 +19,17 @@ class CalendarController extends Controller
     //si eres usuario normal se pasa tu id
     //si eres administrador se pasa el id del trabajador
 
-	public function index(Request $request){   
-        $nombreTrabajador = Session::get('trabajador');
-
-        $idTrabajador = DB::table('users')->where('name','=',$nombreTrabajador)->value('id');
-        $data = array(); //declaramos un array principal que va contener los datos
-        $id = Calendario::all()->lists('id'); //listamos todos los id de los eventos
-        $titulo = Calendario::all()->lists('titulo'); //lo mismo para lugar y fecha
-        $fechaIni = Calendario::all()->lists('fechaIni');
-        $fechaFin = Calendario::all()->lists('fechaFin');
-        $allDay = Calendario::all()->lists('todoeldia');
-        $background = Calendario::all()->lists('color');
-        $userId = Calendario::all()->lists('user_id');
-        $usuario_id = Calendario::all()->lists('usuario_id');
-        $count = count($id); //contamos los ids obtenidos para saber el numero exacto de eventos
-        $userIdLog = Auth::user()->id;
-        //hacemos un ciclo para anidar los valores obtenidos a nuestro array principal $data 
-        $j=0;
-        for($i=0;$i<$count;$i++){ 
-            if(Auth::user()->rol=='administrativo'){
-                
-                if($userId[$i]==$idTrabajador){
-                    $data[$j] = array(
-                    "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
-                    "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
-                    "end"=>$fechaFin[$i],
-                    "allDay"=>$allDay[$i],
-                    "backgroundColor"=>$background[$i],
-                    "id"=>$id[$i]
-                );
-                $j++;
-            }else{
-                if($userId[$i]==$userIdLog){
-                    $data[$j] = array(
-                        "title"=>$titulo[$i], //obligatoriamente "title", "start" y "url" son campos requeridos
-                        "start"=>$fechaIni[$i], //por el plugin asi que asignamos a cada uno el valor correspondiente
-                        "end"=>$fechaFin[$i],
-                        "allDay"=>$allDay[$i],
-                        "backgroundColor"=>$background[$i],
-                        "id"=>$id[$i]
-                    );  
-                    $j++;
-                }
-            }        
-        }
+	public function index(){   
+        /**************************   LA LISTA DE TRABAJADORES    **************************/
+        $trabajadores = array();
+        $trabajadores = User::all()->lists('name');
+        /**********************************************************************************/
+        return view('calendario')->with('trabajadores',$trabajadores);
     }
-        json_encode($data); //convertimos el array principal $data a un objeto Json 
-        return $data;    //para luego retornarlo y estar listo para consumirlo
-    }
-
 
     public function create(){
        
         $evento = new Calendario;
-
         $evento->titulo = Input::get('titulo');
         $evento->fechaIni = Input::get('fechaIni');
         $evento->fechaFin = Input::get('fechaFin');
@@ -132,17 +91,45 @@ class CalendarController extends Controller
         Calendario::destroy($id);
    }
 
-   // public function select(Request $request){ 
-   //      $nombresUsers=DB::table('users')->select('name')->get();
-   //      $idUser = $request->idUser;
-   //      return view('calendario',['nombresUsers'=>$nombresUsers, 'idUser'=>$idUser]);
-   //  }
- 
-   //  public function postSelect(Request $request){
-   //      $nombreUser = $request->select;
-   //      $nombresUsers=DB::table('users')->select('name')->get();
-   //      $idUser = DB::table('users')->where('name',$nombreUser)->value('id');
-   //      return view('calendario',['idUser'=>$idUser, 'nombresUsers'=>$nombresUsers]);
-   //  }
-
+   //funcion que carga los eventos del calendario
+   public function cargadorEventos(Request $request){
+        //tooooooooodos los eventos del mes
+        $data = array(); //declaramos un array principal que va contener los datos
+        $id = Calendario::all()->lists('id'); //listamos todos los id de los eventos
+        $titulo = Calendario::all()->lists('titulo'); //lo mismo para lugar y fecha
+        $fechaIni = Calendario::all()->lists('fechaIni');
+        $fechaFin = Calendario::all()->lists('fechaFin');
+        $allDay = Calendario::all()->lists('todoeldia');
+        $background = Calendario::all()->lists('color');
+        $userId = Calendario::all()->lists('user_id');
+        $usuario_id = Calendario::all()->lists('usuario_id');
+        $count = count($id); //contamos los ids obtenidos para saber el numero exacto de eventos
+        /**********************************/
+        //dd($request->trabajador);
+        //aqui cogemos el id del trabajador logeado
+        $userIdLog = Auth::user()->id;
+        
+        if(Auth::user()->rol=='administrativo'){
+            if($request->trabajador != null){
+                $ntrabajador = $request->trabajador[0];
+                $userIdLog = DB::table('users')->where('name','=',$ntrabajador)->value('id');
+            }
+        }
+        $j=0;
+        for($i=0;$i<$count;$i++){            
+            if($userId[$i]==$userIdLog){
+                $data[$j] = array(
+                "title"=>$titulo[$i], 
+                "start"=>$fechaIni[$i], 
+                "end"=>$fechaFin[$i],
+                "allDay"=>$allDay[$i],
+                "backgroundColor"=>$background[$i],
+                "id"=>$id[$i]
+                );
+                $j++;
+            }
+        }
+        json_encode($data); //convertimos el array principal $data a un objeto Json 
+        return $data;    //para luego retornarlo y estar listo para consumirlo
+   }//aqui termina la funcion cargadordeeventos
 }
