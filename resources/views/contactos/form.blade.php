@@ -6,10 +6,12 @@
     <div class="box-body">          
         <div class="form-group col-md-4">
             {!! Form::label('nombre','Nombre',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('nombre', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-4">
             {!! Form::label('apellido1','Primer apellido',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('apellido1', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-4">
@@ -35,6 +37,7 @@
         <!--  aqui puse el boton de buscar usuarios -->
         <div class="form-group col-md-4">
             {!! Form::label('lcontacto','Usuario',['id'=> 'lcontacto', 'style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             <div class="input-group">
                 <div class="input-group-btn"> 
                 {!! Form::button('Buscar', array('class' => 'btn btn-info btn-sm','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalUsuario')) !!}
@@ -47,6 +50,7 @@
         <!--****************************************-->
         <div class="form-group col-md-3">
             {!! Form::label('parentesco','Relacion',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('parentesco', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>   

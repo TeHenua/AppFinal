@@ -9,10 +9,12 @@
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('dni','NIF/NIE',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('dni', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-4">
 	        {!! Form::label('tipo_socio','Tipo de socio',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
 	        {!! Form::select('tipo_socio', array(
 	        	'Ordinario' => 'Ordinario',
 	        	'Honorario' => 'Honorario',
@@ -23,10 +25,12 @@
 	    <div class="form-group col-md-12"></div>
         <div class="form-group col-md-4">
             {!! Form::label('nombre','Nombre',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('nombre', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-4">
             {!! Form::label('apellido1','Primer apellido',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('apellido1', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-4">
@@ -35,10 +39,12 @@
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {{ Form::text('fecha_nac', null, array('id' => 'datepickerSocio', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
         <div class="form-group col-md-4">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('lugar_nac', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-6">
@@ -47,6 +53,7 @@
         </div>
         <div class="form-group col-md-6">
             {!! Form::label('num_cuenta','IBAN',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('num_cuenta', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
@@ -54,18 +61,22 @@
     <div class="box-body">        
         <div class="form-group col-md-6">
             {!! Form::label('direccion','Dirección',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('direccion', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-3">
             {!! Form::label('localidad','Localidad',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('localidad', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-1">
             {!! Form::label('codigo_pos','C.P.',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('codigo_pos', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('provincia','Provincia',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
             {!! Form::text('provincia', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
@@ -85,12 +96,15 @@
         </div>
       	<div class="form-group col-md-3">
 	        {!! Form::label('tipo_comunicacion','Tipo de contacto',['style' => 'font-size:small']) !!}
+            <i class="fa fa-asterisk ob"></i>
 	        {!! Form::select('tipo_comunicacion', array(
 	        	'Email' => 'Email',
 	        	'Carta' => 'Carta',
 	        	'Carta sin remite' => 'Carta sin remite'
 	        	), null, ['placeholder' => 'Seleccione', 'class' => 'form-control input-sm']); !!}
 	    </div>
+        <i class="fa fa-asterisk ob"></i>
+        {{ Form::label('obligatorio','Es obligatorio insertar un teléfono',['style' => 'font-size:small']) }}
     </div>
     <div class="box-header with-border"><h4>Otros</h4></div>
     <div class="box-body">
