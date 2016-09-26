@@ -107,12 +107,10 @@ class UsuarioController extends Controller
     public function edit($id){
         $usuario = Usuario::find($id);
         $data = DB::table('socios')->where('id','=',$usuario->socio_id)->first();
-   
+        if($data!=null){
+            $usuario->nombreSocio = $data->id.' '.$data->nombre.' '.$data->apellido1.' '.$data->apellido2;
+        }
         
-        $nombreSocio= $data->id.' '.$data->nombre.' '.$data->apellido1.' '.$data->apellido2;
-
-        $usuario->nombreSocio = $nombreSocio;
-        dd($usuario);
         if (is_null($usuario))
         {
             return Redirect::route('usuarios.index');
@@ -121,7 +119,7 @@ class UsuarioController extends Controller
     }
 
     public function update(UsuarioEditRequest $request, $id){
-        $input = Input::except('dni_tutor');
+        $input = Input::except('nombreSocio');
         $usuario = Usuario::find($id);
         if(!isset($input['alerta_medica'])){
             $input['alerta_medica'] = 0; 

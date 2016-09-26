@@ -32,13 +32,8 @@
                                 <td>{{ $socio->nombre }} {{ $socio->apellido1 }} {{ $socio->apellido2 }}</td>
                             </tr>
                             <tr>
-                                <td>Dirección</td>
-                                <td>{{ $socio->direccion }} {{ $socio->codigo_pos }} {{ $socio->localidad }}</td>
-                            </tr>
-                           
-                            <tr>
-                                <td>Fecha nacimiento</td>
-                                <td>{{ $socio->fecha_nac}} {{ $socio->lugar_nac }}</td>
+                                <td>Nacimiento</td>
+                                <td>Fecha {{ $socio->fecha_nac}} Lugar {{ $socio->lugar_nac }}</td>
                             </tr>
                             <tr>
                                 <td>Dirección</td>
@@ -61,6 +56,12 @@
                                 <td>{{ $socio->ocupacion}}</td>
                             </tr>                             
                         </table>
+                    </div>
+                     <div class="box-footer">
+                        {{ link_to_route('socios.edit', 'Editar socio', array($socio->id) ,array('class' => 'btn btn-warning')) }}
+                        {{ Form::open(array('route' => array('socios.destroy', $socio->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
+                                <button type="submit" class="btn btn-danger" >Borrar</button>
+                                {{ Form::close() }}
                     </div>
                 </div>
             </div>

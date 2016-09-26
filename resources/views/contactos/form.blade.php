@@ -37,26 +37,14 @@
             {!! Form::label('lcontacto','Usuario',['id'=> 'lcontacto', 'style' => 'font-size:small']) !!}
             <div class="input-group">
                 <div class="input-group-btn"> 
-                {!! Form::button('Buscar', array('class' => 'btn btn-info','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalusuario')) !!}
+                {!! Form::button('Buscar', array('class' => 'btn btn-info btn-sm','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalUsuario')) !!}
                 </div>
                 <div>
-                {!! Form::text('nombre_usuario', null, ['class' => 'form-control input-sm']) !!}
+                {!! Form::text('nombreUsuario', null, ['class' => 'form-control input-sm','id'=>'nombreUsuario','readonly']) !!}
                 </div>
             </div>
         </div>
         <!--****************************************-->
-        <div class="form-group col-md-3">
-            {!! Form::label('nombre_usuario','Nombre',['style' => 'font-size:small']) !!}
-            {!! Form::text('nombre_usuario', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-        <div class="form-group col-md-3">
-            {!! Form::label('apellido1_usuario','Primer apellido',['style' => 'font-size:small']) !!}
-            {!! Form::text('apellido1_usuario', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-        <div class="form-group col-md-3">
-            {!! Form::label('apellido2_usuario','Segundo apellido',['style' => 'font-size:small']) !!}
-            {!! Form::text('apellido2_usuario', null, ['class' => 'form-control input-sm']) !!}
-        </div>
         <div class="form-group col-md-3">
             {!! Form::label('parentesco','Relacion',['style' => 'font-size:small']) !!}
             {!! Form::text('parentesco', null, ['class' => 'form-control input-sm']) !!}
@@ -111,24 +99,31 @@
         </div>
     </div>
 </div>
-<!-- aqui puse la ventana modal -->
-<div class="modal fade" id="modalusuario" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Asignar Usuario</h4>
-      </div> 
-      <div class="modal-body">
-        <div class="form-group col-md-12">
-          {!! Form::label('nombreUsuario','Nombre y apellido',['style' => 'font-size:small']) !!}
-          {!! Form::text('nombreUsuario',$value = null, array('id' => 'nombreUsuario', 'class' => 'form-control autocomplete')) !!}         
+
+<div class="modal fade" id="modalUsuario" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">Asignar Usuario</h4>
+        </div> 
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+                {!! Form::label('nombreUsuarioM','Nombre y apellido',['style' => 'font-size:small']) !!}
+                {!! Form::text('nombreUsuarioM',$value = null, array('id' => 'nombreUsuarioM', 'class' => 'form-control autocomplete')) !!}
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" >Añadir</button> 
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" id="anadirUsuario" data-dismiss="modal" 
+                onclick="moverUsuario()">Añadir</button> 
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <script type="text/javascript">
+                    function moverUsuario(){
+                    $nombre = document.getElementById('nombreUsuarioM').value;
+                    document.getElementById('nombreUsuario').value=$nombre;
+                    }
+                </script>
+            </div>
+        </div>
     </div>
-  </div>
-</div> 
+</div>

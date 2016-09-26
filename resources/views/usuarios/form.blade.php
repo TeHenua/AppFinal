@@ -23,20 +23,20 @@
             {!! Form::label('num_socio','Número socio',['style' => 'font-size:small']) !!}
             {!! Form::text('num_socio', null, ['class' => 'form-control input-sm']) !!}
         </div>
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-4">
             {!! Form::label('dni_tutor','Socio/tutor',['id'=> 'dni_tutor', 'style' => 'font-size:small']) !!}
             <div class="input-group">
                 <span class="input-group-btn">
                     {!! Form::button('Buscar', array('class' => 'btn btn-info btn-sm','id' => 'btnBuscar', 'data-toggle' => 'modal', 'data-target' => '#modalSocio')) !!}
                 </span>
-                <input class="form-control input-sm" id="nombreSocioF" name="nombreSocio" disabled="" type="text">
+                {!! Form::text('nombreSocio', null, ['class' => 'form-control input-sm', 'id'=>'nombreSocio','readonly']) !!}
             </div>    
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
             {{ Form::text('fecha_nac', null, array('id' => 'datepicker', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-2">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}
             {!! Form::text('lugar_nac', null, ['class' => 'form-control input-sm']) !!}
         </div>
@@ -136,35 +136,31 @@
 </div>    
 
 <div class="modal fade" id="modalSocio" role="dialog">
-  <div class="modal-dialog">
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-      
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Asignar Socio / Tutor</h4>
-      </div> 
-      <div class="modal-body">
-        <div class="form-group col-md-12">
-          {!! Form::label('nombreSocio','Nombre y apellido',['style' => 'font-size:small']) !!}
-          {!! Form::text('nombreSocio',$value = null, array('id' => 'nombreSocio', 'class' => 'form-control autocomplete')) !!}
-          
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">Asignar Socio / Tutor</h4>
+        </div> 
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+                {!! Form::label('nombreSocioM','Nombre y apellido',['style' => 'font-size:small']) !!}
+                {!! Form::text('nombreSocioM',$value = null, array('id' => 'nombreSocioM', 'class' => 'form-control autocomplete')) !!}
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" 
-            onclick="miFuncion()">Añadir</button> 
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <script type="text/javascript">
-            function miFuncion(){
-                $nombre = document.getElementById('nombreSocio').value;
-                document.getElementById('nombreSocioF').value=$nombre;
-            }
-        </script>
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" id="anadir" data-dismiss="modal" 
+                onclick="moverSocio()">Añadir</button> 
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <script type="text/javascript">
+                    function moverSocio(){
+                    $nombre = document.getElementById('nombreSocioM').value;
+                    document.getElementById('nombreSocio').value=$nombre;
+                    }
+                </script>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
