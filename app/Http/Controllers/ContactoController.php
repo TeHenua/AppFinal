@@ -51,21 +51,16 @@ class ContactoController extends Controller
         $usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         if($usuario_id!=null){
             $usuarioBD = DB::table('usuarios')->where('id','=',$usuario_id)->value('id');
-            if($usuarioBD==$usuario_id){
-                $contacto->usuario_id = $usuario_id;
-            }else{
+            if($usuarioBD!=$usuario_id){            
                 return redirect()->back()->withInput()->withErrors("El usuario que has introducido no existe");
             }
         }
         /***************************************************************************************************/
 
         $contacto->save();
-
-        $nombre_usuario = ucwords(Input::get('nombre_usuario'));
-        $apellido1_usuario = ucwords(Input::get('apellido1_usuario'));
-        $apellido2_usuario = ucwords(Input::get('apellido2_usuario'));
-        $usuario_id =  DB::table('usuarios')->where([['nombre', $nombre_usuario],['apellido1', $apellido1_usuario],['apellido2', $apellido2_usuario]])->value('id');
-        DB::table('contacto_usuario')->insert(['contacto_id' => $contacto->id, 'usuario_id' => $usuario_id]);
+        if($usuario_id){
+            DB::table('contacto_usuario')->insert(['contacto_id' => $contacto->id, 'usuario_id' => $usuario_id]);
+        }
         \Session::flash('message','Contacto creado correctamente.');
 		return Redirect::route('contactos.index');
     }

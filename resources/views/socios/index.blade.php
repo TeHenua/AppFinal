@@ -49,10 +49,6 @@
 	                  		<td>{{ $soc->apellido2 }}</td>
 	                  		<td>	
 	                  			{{ link_to_route('socios.show', 'Ver', array($soc->id), array('class' => 'btn btn-info')) }}
-	                  			{{ link_to_route('socios.edit', 'Editar', array($soc->id), array('class' => 'btn btn-warning')) }}
-	                  			{{ Form::open(array('route' => array('socios.destroy', $soc->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
-	                  			<button type="submit" class="btn btn-danger" >Borrar</button>
-	                  			{{ Form::close() }}
 	                  		</td>
 	                  	</tr>
 	                @endforeach  	

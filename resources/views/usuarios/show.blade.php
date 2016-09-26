@@ -61,10 +61,12 @@
                     </div>
                     <div class="box-footer">
                         @if($socio)
-                            {{ link_to_route('lopd', 'Generar Lopd', array($usuario->id) ,array('class' => 'btn btn-success')) }}
-                            
+                            {{ link_to_route('lopd', 'Generar Lopd', array($usuario->id) ,array('class' => 'btn btn-primary')) }}
                         @endif
                         {{ link_to_route('usuarios.edit', 'Editar usuario', array($usuario->id) ,array('class' => 'btn btn-warning')) }}
+                        {{ Form::open(array('route' => array('usuarios.destroy', $usuario->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
+                                <button type="submit" class="btn btn-danger" >Borrar</button>
+                                {{ Form::close() }}
                     </div>
                 </div>
             </div>
@@ -103,11 +105,8 @@
                     <div class="box-footer">
                         @if($socio)
                             {{ link_to_route('socios.edit', 'Editar socio', array($socio->id) ,array('class' => 'btn btn-warning')) }}
-                            {{ Form::open(array('route' => array('socios.destroy', $socio->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
-                                <button type="submit" class="btn btn-danger" >Borrar</button>
-                            {{ Form::close() }}
                         @else
-                            {{ link_to_route('socios.create', 'Añadir socio',null ,array('class' => 'btn btn-success')) }}
+                            <span class="label label-info">Puedes asignar un socio pulsando en el botón "Editar usuario"</span>
                         @endif
                     </div>
                 </div>    
@@ -148,7 +147,7 @@
                         </table>
                     </div>
                     <div class="box-footer">
-                        {{ link_to_route('contactos.create', 'Añadir contacto',null ,array('class' => 'btn btn-success')) }}
+                        {{ link_to_route('contactos.create', 'Añadir contacto', null, array('class' => 'btn btn-success')) }}
                     </div>
                 </div>
             </div>

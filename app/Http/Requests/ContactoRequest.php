@@ -24,8 +24,6 @@ class ContactoRequest extends Request
     public function rules()
     {
         return [
-            'nombre_usuario' => 'required',
-            'apellido1_usuario' => 'required',
             'parentesco' => 'required',
             'nombre' => 'required',
             'apellido1' => 'required',

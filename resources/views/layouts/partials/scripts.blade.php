@@ -44,7 +44,7 @@ $(document).ready(function () {
 
   $('input:text').bind({ });
   
-  $('#nombreSocio').autocomplete({
+  $('#nombreSocioM').autocomplete({
     minLength:3,
     autoFocus: true,
     source: '{{URL('getdata')}}'
@@ -56,7 +56,7 @@ $(document).ready(function () {
     source: '{{URL('getUsuario')}}'
   });
 
-  $('#nombreUsuario').autocomplete({
+  $('#nombreUsuarioM').autocomplete({
     minLength:3,
     autoFocus: true,
     source: '{{URL('getUsuario')}}'
