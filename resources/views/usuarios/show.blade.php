@@ -14,8 +14,8 @@
                         <div class="info-box">
                             <span class="info-box-icon bg-red"><i class="fa fa-medkit"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Alerta médica</span>
-                                <span class="info-box-number">Para más información consulte...</span>
+                                <span class="info-box-number">Alerta médica</span>
+                                <span class="info-box-text">Para más información consulte...</span>
                             </div><!-- /.info-box-content -->
                         </div><!-- /.info-box -->
                     </div>    
@@ -25,8 +25,8 @@
                         <div class="info-box">
                             <span class="info-box-icon bg-red"><i class="fa fa-user-times"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Alerta custodia</span>
-                                <span class="info-box-number">Para más información consulte...</span>
+                                <span class="info-box-number">Alerta custodia</span>
+                                <span class="info-box-text">Para más información consulte...</span>
                             </div><!-- /.info-box-content -->
                         </div><!-- /.info-box -->
                     </div>    
