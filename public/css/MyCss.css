@@ -14,3 +14,8 @@ ul.ui-autocomplete {
 body{
 	padding: 0 !important;
 }
+.ob{
+	font-size: 0.5em;
+	vertical-align: super;
+	color: purple;
+}
