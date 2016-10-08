@@ -1,0 +1,1 @@
+Contenido de mi email enviado por Laravel

@@ -14,7 +14,8 @@
         "barryvdh/laravel-dompdf": "^0.7.0",
         "kartik-v/bootstrap-fileinput": "dev-master",
         "pixelpeter/laravel5-isocodes-validation": "^1.0",
-        "bassjobsen/bootstrap-3-typeahead": "^4.0"
+        "bassjobsen/bootstrap-3-typeahead": "^4.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

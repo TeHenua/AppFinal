@@ -45,9 +45,7 @@
 	                  		<td>{{ $con->apellido1 }}</td>
 	                  		<td>{{ $con->apellido2 }}</td>
 	                  		<td>	
-	                  			{{ link_to_route('contactos.show', 'Ver', array($con->id), array('class' => 'btn btn-info')) }}
 	                  			{{ link_to_route('contactos.edit', 'Editar', array($con->id), array('class' => 'btn btn-warning')) }}
-	                  			{{ link_to_route('contactos.edit', 'Contactos', array($con->id), array('class' => 'btn btn-success')) }}
 	                  		</td>
 	                  	</tr>
 	                @endforeach  	

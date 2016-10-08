@@ -50,11 +50,6 @@
 	                  		<td>{{ $usu->apellido2 }}</td>
 	                  		<td>	
 	                  			{{ link_to_route('usuarios.show', 'Ver', array($usu->id), array('class' => 'btn btn-info')) }}
-	                  			{{-- {{ link_to_route('usuarios.edit', 'Editar', array($usu->id), array('class' => 'btn btn-warning')) }}
-	                  			{{ Form::open(array('route' => array('usuarios.destroy', $usu->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
-	                  			<button type="submit" class="btn btn-danger" >Borrar</button>
-	                  			{{ Form::close() }}
-	                  			{{ link_to_route('lopd', 'Generar Lopd', array($usu->id) ,array('class' => 'btn btn-success')) }} --}}
 	                  		</td>
 	                  	</tr>
 	                @endforeach  	

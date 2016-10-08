@@ -68,6 +68,21 @@ $(document).ready(function () {
       $('#usuario_group').show();
     }
   });
+
+
+  function createTodo(text){
+      var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
+      $('#sortable').append(markup);
+      $('.add-todo').val('');
+  }
+
+  function done(doneItem){
+    var done = doneItem;
+    var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+    $('#done-items').append(markup);
+    $('.remove').remove();
+}
+
   //aqui enviamos a las routes el trabajador seleccionado
   $('.send-btn').click(function(){  
     //aqui obtengo el valor del desplegable 
@@ -126,7 +141,7 @@ $(document).ready(function () {
         dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
         weekHeader: 'Sm',
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd/mm/yy',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
