@@ -13,6 +13,7 @@ use Auth;
 use DB;
 use Carbon;
 use App\Tarea;
+use Redirect;
 
 /**
  * Class HomeController
@@ -45,7 +46,7 @@ class HomeController extends Controller
         $tarea->titulo = $request->input('nuevaTarea');
         $tarea->user_id = Auth::user()->id;
         $tarea->save();
-        return redirect('/');
+        return Redirect::to('/');
     }
 
 
