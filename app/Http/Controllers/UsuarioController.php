@@ -56,6 +56,7 @@ class UsuarioController extends Controller
         $usuario->apellido1 = ucwords(Input::get('apellido1'));
         $usuario->apellido2 = ucwords(Input::get('apellido2'));
         $usuario->fecha_nac = Input::get('fecha_nac');
+        dd($usuario->fecha_nac);
         $usuario->lugar_nac = ucwords(Input::get('lugar_nac'));
         $usuario->direccion = ucwords(Input::get('direccion'));
         $usuario->localidad = ucwords(Input::get('localidad'));

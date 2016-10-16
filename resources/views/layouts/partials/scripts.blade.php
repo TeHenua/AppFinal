@@ -68,8 +68,45 @@ $(document).ready(function () {
       $('#usuario_group').show();
     }
   });
+
+  function desmodal(){
+    $nombre = document.getElementById('trabajadores').value;
+    document.getElementById('trabajadoresM').value=$nombre;
+  }
+
+  function guardarEvento(){
+  //aqui obtengo el valor del desplegable 
+    $trabajador= [$('#trabajadores').val()];
+
+    
+    $.ajax({
+      url: 'cargaEventos',
+      type: "post",
+      data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
+      success: function(data){
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource',data);
+        $('#calendar').fullCalendar('rerenderEvents');
+      }
+    });
+  }
+
+
+  function createTodo(text){
+      var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
+      $('#sortable').append(markup);
+      $('.add-todo').val('');
+  }
+
+  function done(doneItem){
+    var done = doneItem;
+    var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+    $('#done-items').append(markup);
+    $('.remove').remove();
+}
+
   //aqui enviamos a las routes el trabajador seleccionado
-  $('.send-btn').click(function(){  
+  $('#botonVer').click(function(){  
     //aqui obtengo el valor del desplegable 
     $trabajador= [$('#trabajadores').val()];
     $.ajax({
@@ -126,7 +163,7 @@ $(document).ready(function () {
         dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
         weekHeader: 'Sm',
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd/mm/yy',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
@@ -251,6 +288,7 @@ $(document).ready(function () {
           $(".modal-body #fechaIni").val( date.format("YYYY-MM-DD HH:mm") );
           console.log(date.format("YYYY-MM-DD HH:mm"));
           $(".modal-body #fechaFin").val( fin.format("YYYY-MM-DD HH:mm") );
+          $(".modal-body .user").val($("#trabajadores").val);
         }else{
           $('#calendar').fullCalendar('gotoDate', date);
           $('#calendar').fullCalendar('changeView', 'agendaDay');

@@ -10,18 +10,23 @@
     <div class="box box-primary">
       <div class="box-body no-padding">
       <!-- aqui pulso el boton ver-->
-      {!! Form::open(array('route' => array('cargaEventos'), 'method' =>'POST')) !!}
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-        <select id="trabajadores" name="trabajadores">
-          <option selected="selected">Seleccione</option>
-          <!--aqui se genera la lista de trabajadores en la vista-->
-          @foreach($trabajadores as $tra)
-          <option value="{{ $tra }}">{{ $tra }}</option>
-          @endforeach
-          <!--***************************************************-->
-        </select>
-       {!! Form::button('Ver', array('class'=>'send-btn')) !!}
-       {!! Form::close() !!}
+        @if(Auth::user()->rol=='administrativo')
+          <div class="form-group">
+            {!! Form::open(array('route' => array('cargaEventos'), 'method' =>'POST', 'class' => 'form-inline','id'=>'botonVer')) !!}
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <select id="trabajadores" name="trabajadores" class="form-control">
+              <option selected="selected">Seleccione</option>
+              <!--aqui se genera la lista de trabajadores en la vista-->
+              @foreach($trabajadores as $tra)
+              <option value="{{ $tra }}">{{ $tra }}</option>
+              @endforeach
+              <!--***************************************************-->
+            </select>
+            {!! Form::button('Ver', array('class'=>'btn btn-default' , 'onclick' => 'desmodal()')) !!}
+            {!! Form::close() !!}
+          </div>
+        @endif
+       
         <!-- THE CALENDAR -->
         <div id="calendar"></div>
       </div>
@@ -36,13 +41,14 @@
     
     <!-- Modal content-->
     <div class="modal-content">
-      {!! Form::model(new App\Calendario, ['route' => ['guardaEventos'], 'role' => 'form']) !!}
+{{--       {!! Form::model(new App\Calendario, ['route' => ['guardaEventos'], 'role' => 'form']) !!} --}}
       {{ Form::token() }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h4 class="modal-title">Nuevo evento</h4>
       </div>
       <div class="modal-body">
+        <input type="hidden" name="trabajadoresM" id="trabajadoresM" value="">
         <div class="form-group">
           {!! Form::label('titulo','Título',['style' => 'font-size:small']) !!}
           {!! Form::text('titulo', null, ['class' => 'form-control input-sm']) !!}
@@ -68,12 +74,16 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-default pull-left">Guardar</button> 
+        <button type="submit" onclick="guardarEvento()" class="btn btn-default pull-left">Guardar</button> 
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
-        {!! Form::close() !!}
+      {{--   {!! Form::close() !!} --}}
     </div>
   </div>
 </div>
 
 @endsection
+
+<script type="text/javascript">
+  
+</script>

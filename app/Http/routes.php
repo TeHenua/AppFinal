@@ -14,8 +14,8 @@ use App\User;
 use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::auth();
   Route::get('/', ['as' => 'inicio', 'uses' => 'HomeController@index']);
+  Route::post('guardaTareas', ['as' => 'guardaTareas', 'uses' => 'HomeController@store']);
   Route::resource('usuarios', 'UsuarioController');
   Route::resource('contactos', 'ContactoController');
   Route::resource('socios', 'SocioController');
@@ -60,13 +60,12 @@ Route::group(['middleware' => 'auth'], function () {
     return Response::json($return_array);
   });
 
-  /*Route::post('guardarTrabajador',array('as'=>'guardarTrabajador', function(Request $request){
-    $trabajador = $request->trabajador;
-    $trabajadores = array();
-    $trabajadores = User::all()->lists('name');
-    session(['trabajador' => $trabajador]);
-    return view('calendario');
-  }));*/
+      Route::get("test-email", function() {
+        Mail::send("emails.bienvenido", [], function($message) {
+            $message->to("tehenua@gmail.com", "Usue")
+            ->subject("Probando el correo!");
+        });
+    });
 
 });
 

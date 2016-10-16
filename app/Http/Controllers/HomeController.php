@@ -9,6 +9,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Auth;
+use DB;
+use Carbon;
+use App\Tarea;
+use Redirect;
 
 /**
  * Class HomeController
@@ -21,8 +26,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
     }
 
@@ -31,8 +35,19 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function index()
-    {
-        return view('home');
+    public function index(){
+        $user_id= Auth::user()->id;
+        $tareas = DB::table('tareas')->where('user_id','=',$user_id)->paginate(7);
+        return view('home',['tareas'=>$tareas]);
     }
+
+    public function store(Request $request){
+        $tarea = new Tarea;
+        $tarea->titulo = $request->input('nuevaTarea');
+        $tarea->user_id = Auth::user()->id;
+        $tarea->save();
+        return Redirect::to('/');
+    }
+
+
 }
