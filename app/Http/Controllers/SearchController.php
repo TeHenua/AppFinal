@@ -17,7 +17,6 @@ class SearchController extends Controller
     public function autocomplete(Request $request){
 
 	    $data = Usuario::select("nombre")->where("nombre","LIKE","%{$request->input('query')}%")->get();
-	    dd($data);
 		return response()->json($data);
 	}
 }
