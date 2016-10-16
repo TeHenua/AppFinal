@@ -179,9 +179,30 @@ class UsuarioController extends Controller
     public function guardararchivos($request, $id){
         /*************** aqui se guardan los archivos ***************/
         //obtenemos el archivo
-        $fcustodia = $request -> file('custodia');
-        $fmedica = $request -> file('medica');
-        $flopd = $request -> file('lopd');
+        $fvoto = $request->file('voto');
+        $fdiagnostico = $request->file('diagnostico');
+        $flibrofamilia = $request->file('librofamilia');
+        $fcustodia = $request->file('custodia');
+        $fmedica = $request->file('medica');
+        $flopd = $request->file('lopd');
+
+        if($flibrofamilia != null){
+            //obtenemos el nombre del archivo librofamilia y lo guardamos si existe
+            $nlibrofamilia = $id.'.'.$flibrofamilia -> guessExtension();
+            \Storage::disk('dlibrofamilia')->put($nlibrofamilia, \File::get($flibrofamilia));
+        }
+
+        if($fdiagnostico != null){
+            //obtenemos el nombre del archivo diagnostico y lo guardamos si existe
+            $ndiagnostico = $id.'.'.$fdiagnostico -> guessExtension();
+            \Storage::disk('ddiagnostico')->put($ndiagnostico, \File::get($fdiagnostico));
+        }
+
+        if($fvoto != null){
+            //obtenemos el nombre del archivo voto y lo guardamos si existe
+            $nvoto = $id.'.'.$fvoto -> guessExtension();
+            \Storage::disk('dvoto')->put($nvoto, \File::get($fvoto));
+        }
 
         if($fcustodia != null){
             //obtenemos el nombre del archivo custodia y lo guardamos si existe

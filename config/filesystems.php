@@ -78,6 +78,21 @@ return [
             'root' => realpath('c:/nombreprograma/lopdsocios'),
         ],
 
+        'ddni' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/dniSocios'),
+        ],
+
+        'ddiagnostico' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/diagnostico'),
+        ],
+
+        'dlibrofamilia' => [
+            'driver' => 'local',
+            'root' => realpath('c:/nombreprograma/libroFamilia'),
+        ],
+
 /*************************************************************/
         'public' => [
             'driver' => 'local',

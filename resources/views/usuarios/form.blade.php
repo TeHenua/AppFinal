@@ -110,8 +110,24 @@
             {!! Form::text('puntos_mov', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
-    <div class="box-header with-border"><h4>Otros</h4></div>
+    <div class="box-header with-border"><h4>Archivos</h4></div>
     <div class="box-body">
+
+        <div class="form-group col-md-4">
+            {!! Form::label('voto','Voto',['style' => 'font-size:small']) !!}
+            <input type="file" id="file" name="voto">       
+        </div>
+
+        <div class="form-group col-md-4">
+            {!! Form::label('diagnostico','Diagnóstico',['style' => 'font-size:small']) !!}
+            <input type="file" id="file" name="diagnostico">       
+        </div>
+
+        <div class="form-group col-md-4">
+            {!! Form::label('librofamilia','Libro de familia / Tutoria',['style' => 'font-size:small']) !!}
+            <input type="file" id="file" name="dlibrofamilia">       
+        </div>
+
         <div class="form-group col-md-4">
             {!! Form::label('custodia','Custodia',['style' => 'font-size:small']) !!}
             <input type="file" id="file" name="custodia">
