@@ -56,7 +56,6 @@ class ContactoController extends Controller
             }
         }
         /***************************************************************************************************/
-
         $contacto->save();
         if($usuario_id){
             DB::table('contacto_usuario')->insert(['contacto_id' => $contacto->id, 'usuario_id' => $usuario_id]);
@@ -82,6 +81,11 @@ class ContactoController extends Controller
     public function edit($id)
     {
         $contacto = Contacto::find($id);
+        $usuario_id = DB::table('contacto_usuario')->where('contacto_id','=',$id)->value('usuario_id');
+        $data = DB::table('usuarios')->where('id','=',$usuario_id)->first();
+        if($data!=null){
+            $contacto->nombreUsuario = $data->id.' '.$data->nombre.' '.$data->apellido1.' '.$data->apellido2;
+        }
         if (is_null($contacto))
         {
             return Redirect::route('contactos.index');
@@ -90,25 +94,24 @@ class ContactoController extends Controller
     }
 
     public function update($id, ContactoRequest $request){
-        $input = Input::all();
+        $input = Input::except('usuario_id');
         $contacto = Contacto::find($id);
-        
-        
-        \Session::flash('message','Contacto editado correctamente.');
+        $contacto->update($input);
+
         /**************** aqui pongo  que si actualiza el contacto para añadir un usuario ******************/
         $nombreUsuario = Input::get('nombreUsuario');
         $usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         if($usuario_id!=null){
             $usuarioBD = DB::table('usuarios')->where('id','=',$usuario_id)->value('id');
             if($usuarioBD==$usuario_id){
-                $contacto->usuario_id = $usuario_id;
+                DB::table('contacto_usuario')->insert(['usuario_id' => $usuario_id, 'contacto_id' => $contacto->id]);
             }else{
                 return redirect()->back()->withInput()->withErrors("El usuario que has introducido no existe");
             }
         }
         /***************************************************************************************************/
 
-        $contacto->update($input);
+
         \Session::flash('message','Contacto editado correctamente.');
         return Redirect::route('contactos.index');
     }

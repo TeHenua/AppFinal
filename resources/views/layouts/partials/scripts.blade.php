@@ -92,18 +92,18 @@ $(document).ready(function () {
   }
 
 
-  function createTodo(text){
-      var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
-      $('#sortable').append(markup);
-      $('.add-todo').val('');
-  }
+//   function createTodo(text){
+//       var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
+//       $('#sortable').append(markup);
+//       $('.add-todo').val('');
+//   }
 
-  function done(doneItem){
-    var done = doneItem;
-    var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
-    $('#done-items').append(markup);
-    $('.remove').remove();
-}
+//   function done(doneItem){
+//     var done = doneItem;
+//     var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+//     $('#done-items').append(markup);
+//     $('.remove').remove();
+// }
 
   //aqui enviamos a las routes el trabajador seleccionado
   $('#botonVer').click(function(){  
