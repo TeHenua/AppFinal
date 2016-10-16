@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/', ['as' => 'inicio', 'uses' => 'HomeController@index']);
   Route::post('guardaTareas', ['as' => 'guardaTareas', 'uses' => 'HomeController@store']);
+  Route::delete('borraTareas/{id}', ['as' => 'borraTareas', 'uses' => 'HomeController@destroy']);
   Route::resource('usuarios', 'UsuarioController');
   Route::resource('contactos', 'ContactoController');
   Route::resource('socios', 'SocioController');

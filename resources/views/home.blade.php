@@ -15,10 +15,10 @@
             </div>
         </div>
         <div class="box-body" >
+        	<!-- Aqui se abre la lista de las tareas-->
         	
-        	<hr>
-            	<ul class="todo-list ui-sortable">
-            	@foreach($tareas as $t)
+            <ul class="todo-list ui-sortable">
+            	@foreach($tareas as $tarea)
 	                <li>
 	                  	<!-- drag handle -->
 	                    <span class="handle ui-sortable-handle">
@@ -26,14 +26,18 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                    </span>
 	                  	<!-- todo text -->
-	                  	<span class="text">{{ $t->titulo }}</span>
+	                  	<span class="text">{{ $tarea->titulo }}</span>
 	                  	<div class="tools">
-	                    	<i class="fa fa-trash-o"></i>
+	                  		
+	                    	{{ Form::open(array('route' => array('borraTareas', $tarea->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"','id' => 'celsius')) }}
+								<button type="submit" class="btn btn-default btn-sm"><i class="fa fa-trash"></i></button>
+                        	{{ Form::close() }}
+
 	                  	</div>
 	                </li>
 	            @endforeach
             </ul>
-
+            <!-- Aqui se termina la lista de las tareas-->
         </div>
         <!-- /.box-body -->
 	    <div class="box-footer">
