@@ -49,5 +49,10 @@ class HomeController extends Controller
         return Redirect::to('/');
     }
 
+    public function destroy($id){
+        DB::table('tareas')->where('id', '=', $id)->delete();
+        \Session::flash('message','Tarea borrado correctamente.');
+        return Redirect::route('inicio');
+    }
 
 }
