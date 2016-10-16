@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-12">
                 @if($usuario->alerta_medica == 1)
-                    <div class="col-md-6">
+                    <div class="col-md-6 hidden-print">
                         <div class="info-box">
                             <span class="info-box-icon bg-red"><i class="fa fa-medkit"></i></span>
                             <div class="info-box-content">
@@ -21,7 +21,7 @@
                     </div>    
                 @endif  
                 @if($usuario->alerta_custodia ==1)
-                    <div class="col-md-6">
+                    <div class="col-md-6 hidden-print">
                         <div class="info-box">
                             <span class="info-box-icon bg-red"><i class="fa fa-user-times"></i></span>
                             <div class="info-box-content">
@@ -84,7 +84,7 @@
                             
                         </table>
                     </div>
-                    <div class="box-footer">
+                    <div class="box-footer hidden-print">
                         @if($socio)
                             {{ link_to_route('lopd', 'Generar Lopd', array($usuario->id) ,array('class' => 'btn btn-primary')) }}
                         @endif
@@ -95,6 +95,48 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-md-6">  
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Socio</h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-striped table-bordered table-condensed">
+                            @if($socio)
+                                <tr>
+                                    <td>Nombre y apellidos</td>
+                                    <td colspan="2">{{ $socio->nombre }} {{ $socio->apellido1 }} {{ $socio->apellido2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dirección</td>
+                                    <td colspan="2">{{ $socio->direccion }} {{ $socio->codigo_pos }} {{ $socio->localidad }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Teléfonos</td>
+                                    <td>Fijo {{ $socio->fijo }} </td>
+                                    <td>Móvil {{ $socio->movil }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td colspan="2">{{ $socio->email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo comunicación</td>
+                                    <td colspan="2">{{ $socio->tipo_comunicacion }}</td>
+                                </tr>
+                            @endif
+                        </table>
+                    </div>
+                    <div class="box-footer hidden-print">
+                        @if($socio)
+                            {{ link_to_route('socios.edit', 'Editar socio', array($socio->id) ,array('class' => 'btn btn-warning')) }}
+                        @else
+                            <span class="label label-info">Puedes asignar un socio pulsando en el botón "Editar usuario"</span>
+                        @endif
+                    </div>
+                </div>  
+            </div>   
             <div class="col-md-6">
                 <div class="box">
                     <div class="box-header with-border">
@@ -130,54 +172,11 @@
             
                         </table>
                     </div>
-                    <div class="box-footer">
+                    <div class="box-footer  hidden-print">
                         {{ link_to_route('contactos.create', 'Añadir contacto', null, array('class' => 'btn btn-success')) }}
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">  
-            <div class="col-md-6">  
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Socio</h3>
-                    </div>
-                    <div class="box-body">
-                        <table class="table table-striped table-bordered table-condensed">
-                            @if($socio)
-                                <tr>
-                                    <td>Nombre y apellidos</td>
-                                    <td colspan="2">{{ $socio->nombre }} {{ $socio->apellido1 }} {{ $socio->apellido2 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dirección</td>
-                                    <td colspan="2">{{ $socio->direccion }} {{ $socio->codigo_pos }} {{ $socio->localidad }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Teléfonos</td>
-                                    <td>Fijo {{ $socio->fijo }} </td>
-                                    <td>Móvil {{ $socio->movil }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td colspan="2">{{ $socio->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tipo comunicación</td>
-                                    <td colspan="2">{{ $socio->tipo_comunicacion }}</td>
-                                </tr>
-                            @endif
-                        </table>
-                    </div>
-                    <div class="box-footer">
-                        @if($socio)
-                            {{ link_to_route('socios.edit', 'Editar socio', array($socio->id) ,array('class' => 'btn btn-warning')) }}
-                        @else
-                            <span class="label label-info">Puedes asignar un socio pulsando en el botón "Editar usuario"</span>
-                        @endif
-                    </div>
-                </div>  
-            </div>    
+            </div> 
         </div>
     </div>    
 @endsection
