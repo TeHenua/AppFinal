@@ -106,13 +106,8 @@
         <i class="fa fa-asterisk ob"></i>
         {{ Form::label('obligatorio','Es obligatorio insertar un teléfono',['style' => 'font-size:small']) }}
     </div>
-    <div class="box-header with-border"><h4>Otros</h4></div>
+    <div class="box-header with-border"><h4>Archivos</h4></div>
     <div class="box-body">
-        <div class="form-group col-md-4">
-            {!! Form::label('voto','Voto',['style' => 'font-size:small']) !!}
-            <input type="file" id="file" name="voto">
-                   
-        </div> 
         <div class="form-group col-md-4">
             {!! Form::label('comunicacion','Comunicación',['style' => 'font-size:small']) !!}
             <input type="file" id="file1" name="comunicacion">
@@ -123,6 +118,11 @@
             <input type="file" id="file2" name="lopd">
 
         </div>
+        <div class="form-group col-md-4">
+            {!! Form::label('dni','DNI',['style' => 'font-size:small']) !!}
+            <input type="file" id="file" name="dni">
+                   
+        </div> 
     </div>
     <div class="box-footer">    
         <div class="form-group col-md-12">

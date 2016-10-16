@@ -142,18 +142,11 @@ class SocioController extends Controller
     public function guardararchivos($request, $id){
         /*************** aqui se guardan los archivos ***************/
         //obtenemos el archivo
-        $fvoto = $request->file('voto');
-        $fcomunicacion = $request -> file('comunicacion');
-        $flopd = $request -> file('lopd');
-
-        if($fvoto != null){
-            //obtenemos el nombre del archivo voto y lo guardamos si existe
-            $nvoto = $id.'.'.$fvoto -> guessExtension();
-            \Storage::disk('dvoto')->put($nvoto, \File::get($fvoto));
-        }
-        
+        $fcomunicacion = $request->file('comunicacion');
+        $flopd = $request->file('lopd');
+        $fdni = $request->file('dni');
+        //obtenemos el nombre del archivo comunicacion y lo guardamos si existe
         if($fcomunicacion != null){
-            //obtenemos el nombre del archivo comunicacion y lo guardamos si existe
             $ncomunicacion = $id.'.'.$fcomunicacion -> guessExtension();
             \Storage::disk('dcomunicacion')->put($ncomunicacion, \File::get($fcomunicacion));
         }
@@ -161,6 +154,11 @@ class SocioController extends Controller
         if($flopd != null){
             $nlopd = $id.'.'.$flopd -> guessExtension();
             \Storage::disk('dlopds')->put($nlopd, \File::get($flopd));
+        }
+        //obtenemos el nombre del archivo dni y lo guardamos si existe
+        if($fdni != null){
+            $ndni = $id.'.'.$fdni -> guessExtension();
+            \Storage::disk('ddni')->put($ndni, \File::get($fdni));
         }
     }//termina la funcion de guardar archivos
 
