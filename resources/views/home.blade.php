@@ -7,7 +7,7 @@
 @section('main-content')
 <div class="col-md-6">
 	<div class="box box-primary">
-        <div class="box-header">
+        <div class="box-header ui-sortable-handle">
             <i class="ion ion-clipboard"></i>
             <h3 class="box-title">Tareas pendientes</h3>
 			<div class="box-tools pull-right">

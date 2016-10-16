@@ -33,7 +33,17 @@ class CalendarController extends Controller
         $evento->titulo = Input::get('titulo');
         $evento->fechaIni = Input::get('fechaIni');
         $evento->fechaFin = Input::get('fechaFin');
-        $evento->user_id = Auth::user()->id;
+        /****************************************************************************/
+       $trabajadorSeleccionado = Input::get('trabajadoresM');
+       dd($trabajadorSeleccionado);
+       //si es null es que no se a seleccionado ninguno
+       if($trabajadorSeleccionado == null){
+           $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
+       }
+       else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
+           $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
+       }
+       /***************************************************************************/
         $nombreUsuario = Input::get('usuario');
         $tipoCita = Input::get('tipo_evento');
         switch ($tipoCita) {

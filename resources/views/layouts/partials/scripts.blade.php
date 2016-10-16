@@ -69,6 +69,28 @@ $(document).ready(function () {
     }
   });
 
+  function desmodal(){
+    $nombre = document.getElementById('trabajadores').value;
+    document.getElementById('trabajadoresM').value=$nombre;
+  }
+
+  function guardarEvento(){
+  //aqui obtengo el valor del desplegable 
+    $trabajador= [$('#trabajadores').val()];
+
+    
+    $.ajax({
+      url: 'cargaEventos',
+      type: "post",
+      data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
+      success: function(data){
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource',data);
+        $('#calendar').fullCalendar('rerenderEvents');
+      }
+    });
+  }
+
 
   function createTodo(text){
       var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
@@ -84,7 +106,7 @@ $(document).ready(function () {
 }
 
   //aqui enviamos a las routes el trabajador seleccionado
-  $('.send-btn').click(function(){  
+  $('#botonVer').click(function(){  
     //aqui obtengo el valor del desplegable 
     $trabajador= [$('#trabajadores').val()];
     $.ajax({
@@ -266,6 +288,7 @@ $(document).ready(function () {
           $(".modal-body #fechaIni").val( date.format("YYYY-MM-DD HH:mm") );
           console.log(date.format("YYYY-MM-DD HH:mm"));
           $(".modal-body #fechaFin").val( fin.format("YYYY-MM-DD HH:mm") );
+          $(".modal-body .user").val($("#trabajadores").val);
         }else{
           $('#calendar').fullCalendar('gotoDate', date);
           $('#calendar').fullCalendar('changeView', 'agendaDay');
