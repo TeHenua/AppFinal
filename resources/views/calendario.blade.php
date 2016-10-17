@@ -51,7 +51,7 @@
         <input type="hidden" name="trabajadoresM" id="trabajadoresM" value="">
         <div class="form-group">
           {!! Form::label('titulo','Título',['style' => 'font-size:small']) !!}
-          {!! Form::text('titulo', null, ['class' => 'form-control input-sm']) !!}
+          {!! Form::text('titulo', null, ['class' => 'form-control input-sm', 'id' => 'titulo']) !!}
         </div>
         <div class="form-group">
           {!! Form::label('tipo_evento','Tipo de evento',['style' => 'font-size:small']) !!}

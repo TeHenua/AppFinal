@@ -30,12 +30,11 @@ class CalendarController extends Controller
     public function create(){
        
         $evento = new Calendario;
-        $evento->titulo = Input::get('titulo');
-        $evento->fechaIni = Input::get('fechaIni');
-        $evento->fechaFin = Input::get('fechaFin');
+        $evento->titulo = $_POST['titulo'];
+        $evento->fechaIni = $_POST['fechaIni'];
+        $evento->fechaFin = $_POST['fechaFin'];
         /****************************************************************************/
-       $trabajadorSeleccionado = Input::get('trabajadoresM');
-       dd($trabajadorSeleccionado);
+       $trabajadorSeleccionado = $_POST['trabajador'];
        //si es null es que no se a seleccionado ninguno
        if($trabajadorSeleccionado == null){
            $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
@@ -44,8 +43,8 @@ class CalendarController extends Controller
            $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
        }
        /***************************************************************************/
-        $nombreUsuario = Input::get('usuario');
-        $tipoCita = Input::get('tipo_evento');
+        $nombreUsuario = $_POST['usuarioCalendario'];
+        $tipoCita = $_POST['tipo_evento'];
         switch ($tipoCita) {
             case 'Usuario':
                 $evento->color = "#00BFFF";
@@ -64,10 +63,8 @@ class CalendarController extends Controller
                 break;
         }
         $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
+
         $evento->save();
-        $trabajadores = array();
-      $trabajadores = User::all()->lists('name');
-        return view('calendario')->with('trabajadores', $trabajadores);
     }
 
     public function update(){

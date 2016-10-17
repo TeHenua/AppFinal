@@ -35,6 +35,43 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script>
 
+function desmodal(){
+    $nombre = document.getElementById('trabajadores').value;
+    document.getElementById('trabajadoresM').value=$nombre;
+  }
+
+function guardarEvento(){
+//aqui obtengo el valor del desplegable 
+  $trabajador= [$('#trabajadores').val()];
+  $titulo = [$('#titulo').val()];
+  $tipo_evento = [$('#tipo_evento').val()];
+  $usuarioCalendario = [$('#usuarioCalendario').val()];
+  $fechaIni = [$('#fechaIni').val()];
+  $fechaFin = [$('#fechaFin').val()];
+  $.ajax({
+    url: 'guardaEventos',
+    data: 'titulo=' + $titulo +'&tipo_evento=' + $tipo_evento+'&usuarioCalendario=' + $usuarioCalendario+ '&fechaIni='+$fechaIni+'&fechaFin='+$fechaFin+'&trabajador='+$trabajador,
+    type: "POST",
+    success: function(){
+      $('#myModal').modal('hide');
+       $('#calendar').fullCalendar('removeEvents');
+      $('#calendar').fullCalendar('addEventSource',data);
+      $('#calendar').fullCalendar('rerenderEvents');
+    }
+  });
+  
+  // $.ajax({
+  //   url: 'cargaEventos',
+  //   type: "post",
+  //   data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
+  //   success: function(data){
+  //     $('#calendar').fullCalendar('removeEvents');
+  //     $('#calendar').fullCalendar('addEventSource',data);
+  //     $('#calendar').fullCalendar('rerenderEvents');
+  //   }
+  // });
+}
+
 $(document).ready(function () { 
 
   $.ajaxSetup({
@@ -69,27 +106,7 @@ $(document).ready(function () {
     }
   });
 
-  function desmodal(){
-    $nombre = document.getElementById('trabajadores').value;
-    document.getElementById('trabajadoresM').value=$nombre;
-  }
-
-  function guardarEvento(){
-  //aqui obtengo el valor del desplegable 
-    $trabajador= [$('#trabajadores').val()];
-
-    
-    $.ajax({
-      url: 'cargaEventos',
-      type: "post",
-      data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
-      success: function(data){
-        $('#calendar').fullCalendar('removeEvents');
-        $('#calendar').fullCalendar('addEventSource',data);
-        $('#calendar').fullCalendar('rerenderEvents');
-      }
-    });
-  }
+  
 
 
 //   function createTodo(text){
