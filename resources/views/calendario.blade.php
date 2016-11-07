@@ -48,7 +48,7 @@
         <h4 class="modal-title">Nuevo evento</h4>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="trabajadoresM" id="trabajadoresM" value="">
+        <input type="hidden" name="trabajadoresM" id="trabajadoresM" value="" class="input-sm">
         <div class="form-group">
           {!! Form::label('titulo','Título',['style' => 'font-size:small']) !!}
           {!! Form::text('titulo', null, ['class' => 'form-control input-sm', 'id' => 'titulo']) !!}

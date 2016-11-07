@@ -35,6 +35,13 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script>
 
+$.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
+
+
 function desmodal(){
     $nombre = document.getElementById('trabajadores').value;
     document.getElementById('trabajadoresM').value=$nombre;
@@ -42,37 +49,49 @@ function desmodal(){
 
 function guardarEvento(){
 //aqui obtengo el valor del desplegable 
+  
   $trabajador= [$('#trabajadores').val()];
+  if($trabajador==null){
+    $trabajador={{ Auth::user()->name }}
+  }
   $titulo = [$('#titulo').val()];
   $tipo_evento = [$('#tipo_evento').val()];
   $usuarioCalendario = [$('#usuarioCalendario').val()];
+  if($usuarioCalendario==""){
+    $usuarioCalendario=null;
+  }
   $fechaIni = [$('#fechaIni').val()];
   $fechaFin = [$('#fechaFin').val()];
   $.ajax({
     url: 'guardaEventos',
-    data: 'titulo=' + $titulo +'&tipo_evento=' + $tipo_evento+'&usuarioCalendario=' + $usuarioCalendario+ '&fechaIni='+$fechaIni+'&fechaFin='+$fechaFin+'&trabajador='+$trabajador,
+    data: {'titulo': $titulo, 'tipo_evento': $tipo_evento, 'usuarioCalendario': $usuarioCalendario, 'fechaIni': $fechaIni,
+      'fechaFin': $fechaFin, 'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
     type: "POST",
     success: function(){
       $('#myModal').modal('hide');
-       $('#calendar').fullCalendar('removeEvents');
-      $('#calendar').fullCalendar('addEventSource',data);
-      $('#calendar').fullCalendar('rerenderEvents');
+      
+      $.ajax({
+        url: 'cargaEventos',
+        type: "post",
+        data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
+        success: function(data){
+          $('#calendar').fullCalendar('removeEvents');
+          $('#calendar').fullCalendar('addEventSource',data);
+          $('#calendar').fullCalendar('rerenderEvents');
+    }
+  });
+      // $('#calendar').fullCalendar('removeEvents');
+      // $('#calendar').fullCalendar('addEventSource',data);
+      // $('#calendar').fullCalendar('rerenderEvents');
     }
   });
   
-  // $.ajax({
-  //   url: 'cargaEventos',
-  //   type: "post",
-  //   data: {'trabajador': $trabajador, '_token': $('input[name=_token]').val()},
-  //   success: function(data){
-  //     $('#calendar').fullCalendar('removeEvents');
-  //     $('#calendar').fullCalendar('addEventSource',data);
-  //     $('#calendar').fullCalendar('rerenderEvents');
-  //   }
-  // });
+
 }
 
 $(document).ready(function () { 
+
+  
 
   $.ajaxSetup({
             headers:
@@ -106,21 +125,6 @@ $(document).ready(function () {
     }
   });
 
-  
-
-
-//   function createTodo(text){
-//       var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />'+ text +'</label></div></li>';
-//       $('#sortable').append(markup);
-//       $('.add-todo').val('');
-//   }
-
-//   function done(doneItem){
-//     var done = doneItem;
-//     var markup = '<li>'+ done +'<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
-//     $('#done-items').append(markup);
-//     $('.remove').remove();
-// }
 
   //aqui enviamos a las routes el trabajador seleccionado
   $('#botonVer').click(function(){  
@@ -139,6 +143,7 @@ $(document).ready(function () {
 
     });
   });
+
   function ConfirmDelete(){
     var x = confirm("¿Seguro que quieres borrarlo?");
     if (x)

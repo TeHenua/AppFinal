@@ -13,6 +13,8 @@
 use App\User;
 use Illuminate\Http\Request;
 
+
+
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/', ['as' => 'inicio', 'uses' => 'HomeController@index']);
   Route::post('guardaTareas', ['as' => 'guardaTareas', 'uses' => 'HomeController@store']);

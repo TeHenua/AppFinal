@@ -30,13 +30,16 @@ class CalendarController extends Controller
     public function create(){
        
         $evento = new Calendario;
-        $evento->titulo = $_POST['titulo'];
-        $evento->fechaIni = $_POST['fechaIni'];
-        $evento->fechaFin = $_POST['fechaFin'];
+        $titulo =  $_POST['titulo'];
+        $evento->titulo = $titulo[0];
+        $fechaIni =  $_POST['fechaIni'];
+        $evento->fechaIni = $fechaIni[0];
+        $fechaFin = $_POST['fechaFin'];
+        $evento->fechaFin = $fechaFin[0];
         /****************************************************************************/
-       $trabajadorSeleccionado = $_POST['trabajador'];
+       $trabajadorSeleccionado[] = $_POST['trabajador'];
        //si es null es que no se a seleccionado ninguno
-       if($trabajadorSeleccionado == null){
+       if($trabajadorSeleccionado == ""){
            $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
        }
        else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
@@ -44,6 +47,9 @@ class CalendarController extends Controller
        }
        /***************************************************************************/
         $nombreUsuario = $_POST['usuarioCalendario'];
+        if($nombreUsuario!=null){
+            $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
+        }
         $tipoCita = $_POST['tipo_evento'];
         switch ($tipoCita) {
             case 'Usuario':
@@ -62,7 +68,6 @@ class CalendarController extends Controller
                 # code...
                 break;
         }
-        $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
 
         $evento->save();
     }
