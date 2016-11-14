@@ -27,10 +27,10 @@ class ContactoRequest extends Request
             'parentesco' => 'required',
             'nombre' => 'required',
             'apellido1' => 'required',
-            'direccion' => 'requiredrequired_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
-            'localidad' => 'requiredrequired_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
-            'codigo_pos' => 'requiredrequired_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin|min:5|max:5',
-            'provincia' => 'requiredrequired_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
+            'direccion' => 'required_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
+            'localidad' => 'required_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
+            'codigo_pos' => 'required_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin|min:5|max:5',
+            'provincia' => 'required_if:tipo_comunicacion,carta|required_if:tipo_comunicacion,carta_sin',
             'email' => 'required_if:tipo_comunicacion,email'
         ];
     }
