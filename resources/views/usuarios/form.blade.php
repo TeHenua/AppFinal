@@ -37,7 +37,7 @@
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
             <i class="fa fa-asterisk ob"></i>
-            {{ Form::text('fecha_nac', null, array('id' => 'datepicker', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
+            {{ Form::text('fecha_nac', null, array('id' => 'dpUsuarioNac', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}
@@ -63,8 +63,8 @@
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('primera_entrevista','Primera entrevista',['style' => 'font-size:small']) !!}
-            <i class="fa fa-asterisk ob"></i>
-            {{ Form::text('primera_entrevista', null, array('id' => 'datepicker2', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
+            {{-- <i class="fa fa-asterisk ob"></i> --}}
+            {{ Form::text('primera_entrevista', null, array('id' => 'dpUsuarioEnt', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
     </div>
     <div class="box-header with-border"><h4>Domicilio</h4></div>
@@ -89,12 +89,14 @@
             <i class="fa fa-asterisk ob"></i>
             {!! Form::text('provincia', null, ['class' => 'form-control input-sm']) !!}
         </div>
+
+    @if(Auth::user()->rol=='social')
     </div>
         <div class="box-header with-border"><h4>Datos médicos</h4></div>
     <div class="box-body">
         <div class="form-group col-md-6">
             {!! Form::label('diagnostico','Diagnóstico',['style' => 'font-size:small']) !!}
-            <i class="fa fa-asterisk ob"></i>
+            {{-- <i class="fa fa-asterisk ob"></i> --}}
             {!! Form::text('diagnostico', null, ['class' => 'form-control input-sm']) !!}
         </div>
         <div class="form-group col-md-2">
@@ -110,6 +112,8 @@
             {!! Form::text('puntos_mov', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
+    @endif
+
     <div class="box-header with-border"><h4>Archivos</h4></div>
     <div class="box-body">
 

@@ -37,14 +37,18 @@ class CalendarController extends Controller
         $fechaFin = $_POST['fechaFin'];
         $evento->fechaFin = $fechaFin[0];
         /****************************************************************************/
-       $trabajadorSeleccionado[] = $_POST['trabajador'];
-       //si es null es que no se a seleccionado ninguno
-       if($trabajadorSeleccionado == ""){
-           $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
-       }
-       else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
-           $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
-       }
+        if(Auth::user()->rol=='administrativo'){
+           $trabajadorSeleccionado[] = $_POST['trabajador'];
+           //si es null es que no se a seleccionado ninguno
+           if($trabajadorSeleccionado == ""){
+               $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
+           }
+           else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
+               $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
+           }
+        }else{
+            $evento->user_id = Auth::user()->id;
+        }
        /***************************************************************************/
         $nombreUsuario = $_POST['usuarioCalendario'];
         if($nombreUsuario!=null){

@@ -90,9 +90,6 @@ function guardarEvento(){
 }
 
 $(document).ready(function () { 
-
-  
-
   $.ajaxSetup({
             headers:
             { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -162,17 +159,24 @@ $(document).ready(function () {
 
   $( function() {
     //Esto es para que la fecha de nacimiento de socio aparezca 40 años atras
-    $("#datepickerSocio").datepicker({
+    $("#dpSocio").datepicker({
       defaultDate: "-40y",
+      changeMonth: true,
+      changeYear: true
     });
     /************************************************************************/
-    $( "#datepicker,#datepicker2,#datepicker3" ).datepicker({
+    $( "#dpUsuarioNac,#dpUsuarioEnt,#dpSocio,#dpContacto" ).datepicker({
       changeMonth: true,
       changeYear: true, 
-
+      dateFormat: 'yy-mm-dd',
+      beforeShow: function() {
+        setTimeout(function(){
+            $('.ui-datepicker').css('z-index', 99999999999999);
+        }, 0);
+    }
     });
   });
-
+    
   $(function($){
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',

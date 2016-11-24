@@ -40,7 +40,7 @@
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
             <i class="fa fa-asterisk ob"></i>
-            {{ Form::text('fecha_nac', null, array('id' => 'datepickerSocio', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
+            {{ Form::text('fecha_nac', null, array('id' => 'dpSocio', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
         <div class="form-group col-md-4">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}

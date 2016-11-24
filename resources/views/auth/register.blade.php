@@ -48,7 +48,9 @@
                         'administrador' => 'Administrador',
                         'psicologo' => 'Psicologo',
                         'administrativo' => 'Administrativo',
-                        'actividades' => 'Actividades'
+                        'actividades' => 'Actividades',
+                        'social' => 'Social',
+                        'director' => 'Director'
                 ), null, ['placeholder' => 'Tipo de usuario', 'class' => 'form-control input-sm']); !!}
                 </div>
                 <div class="row">

@@ -19,3 +19,6 @@ body{
 	vertical-align: super;
 	color: purple;
 }
+.ui-datepicker .ui-widget .ui-widget-content .ui-helper-clearfix .ui-corner-all{
+	z-index: 5;
+}
