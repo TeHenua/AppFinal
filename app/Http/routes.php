@@ -13,8 +13,6 @@
 use App\User;
 use Illuminate\Http\Request;
 
-
-
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/', ['as' => 'inicio', 'uses' => 'HomeController@index']);
   Route::post('guardaTareas', ['as' => 'guardaTareas', 'uses' => 'HomeController@store']);
@@ -26,11 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
  	Route::any('cargaEventos',array('as'=>'cargaEventos','uses'=>'CalendarController@cargadorEventos'));
  	Route::post('actualizaEventos','CalendarController@update');
  	Route::post('eliminarEvento','CalendarController@delete');
-  //Route::post('guardarTrabajador',array('as'=>'guardarTrabajador','uses'=>'CalendarController@asignador'));
- 	//calendario nos lleva a la funcion index del controlador
   Route::get('calendario','CalendarController@index');
 
-  Route::get('lopd/{id}', ['as' => 'lopd', 'uses' => 'PdfController@usuarioLopd']);
+  Route::get('actualizacion/{id}', ['as' => 'actuLopd', 'uses' => 'PdfController@actualizacionLopd']);
 
   Route::any('getdata', function(){
    $term = Input::get('term');

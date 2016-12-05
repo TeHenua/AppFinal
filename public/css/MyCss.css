@@ -22,3 +22,12 @@ body{
 .ui-datepicker .ui-widget .ui-widget-content .ui-helper-clearfix .ui-corner-all{
 	z-index: 5;
 }
+
+main h3,main h4{
+		font-family: 'Oswald', sans-serif;
+		
+	}
+main p{
+		font-family: 'Open Sans', sans-serif;
+	}
+    
