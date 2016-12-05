@@ -3,7 +3,7 @@
 <header><img src="img/cabecera.jpg" width="100%"></header>
 
 <main>
-<h3 style="color:red">ACTUALIZACIÓN DATOS SOCIOS/AS</h3>
+<h3>ACTUALIZACIÓN DATOS SOCIOS/AS</h3>
 
 <h4>Padre/ Madre/ Tutor@</h4>
 
