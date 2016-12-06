@@ -85,9 +85,7 @@
                         </table>
                     </div>
                     <div class="box-footer hidden-print">
-                        @if($socio)
-                            {{ link_to_route('lopd', 'Generar Lopd', array($usuario->id) ,array('class' => 'btn btn-primary')) }}
-                        @endif
+                        
                         {{ link_to_route('usuarios.edit', 'Editar usuario', array($usuario->id) ,array('class' => 'btn btn-warning')) }}
                         {{ Form::open(array('route' => array('usuarios.destroy', $usuario->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
                                 <button type="submit" class="btn btn-danger" >Borrar</button>

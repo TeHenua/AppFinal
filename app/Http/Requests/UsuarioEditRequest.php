@@ -33,8 +33,8 @@ class UsuarioEditRequest extends Request
             'fecha_nac' => 'required',
             'lugar_nac' => 'required',
             'num_ss' => 'required',
-            'primera_entrevista' => 'required',
-            'diagnostico' => 'required'
+            //'primera_entrevista' => 'required',
+            //'diagnostico' => 'required'
         ];
     }
 }

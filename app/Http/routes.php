@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('calendario','CalendarController@index');
 
   Route::get('actualizacion/{id}', ['as' => 'actuLopd', 'uses' => 'PdfController@actualizacionLopd']);
+  Route::get('lopd/{id}', ['as' => 'nuevaLopd', 'uses' => 'PdfController@nuevaLopd']);
 
   Route::any('getdata', function(){
    $term = Input::get('term');
