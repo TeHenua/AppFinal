@@ -68,6 +68,7 @@ class UsuarioController extends Controller
         $usuario->grado_dependencia = Input::get('grado_dependencia');
         $usuario->puntos_movilidad = Input::get('puntos_movilidad');
         $usuario->num_ss = Input::get('num_ss');
+        $usuario->tis = Input::get('tis');
         $usuario->primera_entrevista = Input::get('primera_entrevista');
         $usuario->alerta_medica = Input::get('alerta_medica');
         $usuario->alerta_custodia = Input::get('alerta_custodia');
