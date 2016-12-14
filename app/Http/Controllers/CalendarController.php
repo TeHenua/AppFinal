@@ -55,7 +55,7 @@ class CalendarController extends Controller
             $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         }
         $tipoCita = $_POST['tipo_evento'];
-        switch ($tipoCita) {
+        switch ($tipoCita[0]) {
             case 'Usuario':
                 $evento->color = "#00BFFF";
                 break;
