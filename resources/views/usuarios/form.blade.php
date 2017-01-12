@@ -157,7 +157,13 @@
         <div class="form-group col-md-4">
             {!! Form::label('lopd','LOPD',['style' => 'font-size:small']) !!}
             <input type="file" id="file2" name="lopd">
-
+            <div class="checkbox">
+                <label>
+                    <input name="estado" value="1" type="checkbox" @if ($usuario->estado == '1') checked @endif>
+                    Datos completados
+                </label>
+                
+            </div>    
         </div>
     </div>
     <div class="box-footer">    

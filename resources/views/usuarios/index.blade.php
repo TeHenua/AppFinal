@@ -36,7 +36,7 @@
             <table class="table table-striped table-bordered">
                 <tbody>
                 	<tr>
-	                  	<th>Dni</th>
+	                  	<th>Estado</th>
 	                  	<th>Nombre</th>
 	                  	<th>Primer apellido</th>
 	                  	<th>Segundo apellido</th>
@@ -44,7 +44,7 @@
                 	</tr>
                 	@foreach ($usuarios as $usu)
 	                	<tr>
-	                  		<td>{{ $usu->dni }}</td>
+	                  		<td>@if($usu->estado == 1) Completado @endif</td>
 	                  		<td>{{ $usu->nombre }}</td>
 	                  		<td>{{ $usu->apellido1 }}</td>
 	                  		<td>{{ $usu->apellido2 }}</td>
