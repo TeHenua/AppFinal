@@ -160,7 +160,7 @@
             <div class="checkbox">
                 <label>
                     <input name="estado" value="1" type="checkbox" @if ($usuario->estado == '1') checked @endif>
-                    Datos completados
+                    Datos incompletos
                 </label>
                 
             </div>    
