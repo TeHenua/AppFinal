@@ -95,6 +95,14 @@ $(document).ready(function () {
             { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
         });
 
+
+$(function () {
+  $(window).load(function () {
+    $(':input:visible:enabled:first').focus();
+  });
+})
+
+
   $('input:text').bind({ });
   
   $('#nombreSocioM').autocomplete({
