@@ -115,7 +115,7 @@
         <div class="modal-body">
             <div class="form-group col-md-12">
                 {!! Form::label('nombreUsuarioM','Nombre y apellido',['style' => 'font-size:small']) !!}
-                {!! Form::text('nombreUsuarioM',$value = null, array('id' => 'nombreUsuarioM', 'class' => 'form-control autocomplete')) !!}
+                {!! Form::text('nombreUsuarioM',$value = null, array( 'class' => 'form-control autocomplete usuarioAuto')) !!}
             </div>
         </div>
         <div class="modal-footer">

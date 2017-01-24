@@ -26,9 +26,9 @@
     <link href="{{ asset('/plugins/bootstrap-input/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/MyCss.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{asset('/plugins/datetimepicker/build/jquery.datetimepicker.min.css')}}">
 
-   <link href="{{ asset('/plugins/jQueryUI/jquery-ui.min.css') }}" rel="stylesheet"/>
-     
+    <link href="{{ asset('/plugins/jQueryUI/jquery-ui.min.css') }}" rel="stylesheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

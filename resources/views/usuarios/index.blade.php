@@ -21,7 +21,7 @@
 	<div class="box box-primary">
 		<div class="box-header">
 			<h3 class="box-title">Listado de usuarios</h3>
-			<label><h6>(Para ver los usuarios incompletos escribe 0)</h6></label>
+
 			<div class="box-tools">
 				{!! Form::open(array('url'=>'usuarios','method' => 'GET', 'role' => 'search')) !!}
 					<div class="input-group input-group-sm" style="width: 150px;">

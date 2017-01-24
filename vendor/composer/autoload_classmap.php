@@ -43,6 +43,7 @@ return array(
     'App\\Http\\Requests\\UsuarioEditRequest' => $baseDir . '/app/Http/Requests/UsuarioEditRequest.php',
     'App\\Http\\Requests\\UsuarioRequest' => $baseDir . '/app/Http/Requests/UsuarioRequest.php',
     'App\\Jobs\\Job' => $baseDir . '/app/Jobs/Job.php',
+    'App\\Llamada' => $baseDir . '/app/Llamada.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',

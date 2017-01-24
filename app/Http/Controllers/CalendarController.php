@@ -27,11 +27,16 @@ class CalendarController extends Controller
         return view('calendario')->with('trabajadores',$trabajadores);
     }
 
+    public function edit(Request $request){
+        $evento = DB::table('calendarios')->where('id','=',$request->id);
+
+    }
+
     public function create(){
        
         $evento = new Calendario;
         $titulo =  $_POST['titulo'];
-        $evento->titulo = $titulo[0];
+        //$evento->titulo = $titulo[0];
         $fechaIni =  $_POST['fechaIni'];
         $evento->fechaIni = $fechaIni[0];
         $fechaFin = $_POST['fechaFin'];
@@ -59,21 +64,83 @@ class CalendarController extends Controller
             case 'Usuario':
                 $evento->color = "#00BFFF";
                 break;
+            case 'Interna':
+                $evento->color = "#30912e";
+                break;
             case 'Externa':
                 $evento->color = "#ffa64d";
                 break;
-            case 'Coordinación':
+            case 'Coordinación interna':
                 $evento->color = "#66cc66";
                 break;
-            case 'Otro':
+            case 'Coordinación externa':
+                $evento->color = "#963048";
+                break;
+            case 'Grupo':
                 $evento->color = "#b366ff";
+                break;
+            case 'Otro':
                 break;
             default:
                 # code...
                 break;
         }
+        $evento->grupo_id = $_POST['grupo'];
+        $evento->titulo = $tipoCita[0]." ".preg_replace('/[0-9]+/', '', $nombreUsuario).$evento->grupo_id;
 
         $evento->save();
+    }
+
+    public function updateEventos(Request $request){
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $start = $_POST['start'];
+        $end = $_POST['end'];
+        $tipo_evento = $_POST['tipo_evento'];
+        $usuario = $_POST['usuario'];
+        $grupo = $_POST['grupo'];
+        $evento=Calendario::find($id);
+        if ($title=='') {
+            $evento->titulo = $title." ".$tipo_evento." ".preg_replace('/[0-9]+/', '', $usuario.$grupo);
+
+        }else{
+            $evento->titulo = $title;
+        }
+        
+        $evento->fechaIni = $start;
+        $evento->fechaFin = $end;
+        switch ($tipo_evento) {
+            case 'Usuario':
+                $evento->color = "#00BFFF";
+                break;
+            case 'Interna':
+                $evento->color = "#30912e";
+                break;
+            case 'Externa':
+                $evento->color = "#ffa64d";
+                break;
+            case 'Coordinación interna':
+                $evento->color = "#66cc66";
+                break;
+            case 'Coordinación externa':
+                $evento->color = "#963048";
+                break;
+            case 'Grupo':
+                $evento->color = "#b366ff";
+                break;
+            case 'Otro':
+                break;
+            default:
+                # code...
+                break;
+        }
+        if ($usuario!=null) {
+          $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $usuario), 10); 
+        }
+        $evento->grupo_id = $grupo;
+        //falta grupo
+        $evento->update();
+        
     }
 
     public function update(){

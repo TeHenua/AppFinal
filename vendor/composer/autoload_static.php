@@ -433,6 +433,7 @@ class ComposerStaticInita651977bd1784e5c545b2e08137ffd8b
         'App\\Http\\Requests\\UsuarioEditRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UsuarioEditRequest.php',
         'App\\Http\\Requests\\UsuarioRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UsuarioRequest.php',
         'App\\Jobs\\Job' => __DIR__ . '/../..' . '/app/Jobs/Job.php',
+        'App\\Llamada' => __DIR__ . '/../..' . '/app/Llamada.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
