@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('updateEventos', 'CalendarController@updateEventos');
  	Route::post('eliminarEvento','CalendarController@delete');
   Route::get('calendario','CalendarController@index');
+  Route::get('psicologia/index','PsicologiaController@index');
   Route::get('psicologia/grupos', array('as' => 'psicologia/grupos', 'uses' => 'GrupoController@index'));
   Route::post('psicologia/grupos', array('as' => 'psicologia/grupos', 'uses' => 'GrupoController@update'));
   Route::get('actualizacion/{id}', ['as' => 'actuLopd', 'uses' => 'PdfController@actualizacionLopd']);
