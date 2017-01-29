@@ -22,7 +22,7 @@ class CalendarController extends Controller
 	public function index(){   
         /**************************   LA LISTA DE TRABAJADORES    **************************/
         $trabajadores = array();
-        $trabajadores = User::all()->lists('name');
+        $trabajadores = User::where('rol','!=', 'administrador')->lists('name');
         /**********************************************************************************/
         return view('calendario')->with('trabajadores',$trabajadores);
     }

@@ -40,7 +40,7 @@ class HomeController extends Controller
     public function index(){
         $user_id= Auth::user()->id;
         $tareas = DB::table('tareas')->where('user_id','=',$user_id)->paginate(7);
-        $trabajadores = User::all()->lists('name');
+        $trabajadores = User::where('rol','!=', 'administrador')->lists('name');
         return view('home',['tareas'=>$tareas, 'trabajadores' => $trabajadores]);
     }
 
