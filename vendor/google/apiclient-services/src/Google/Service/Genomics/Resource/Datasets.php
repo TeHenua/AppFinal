@@ -102,7 +102,8 @@ class Google_Service_Genomics_Resource_Datasets extends Google_Service_Resource
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string projectId Required. The project to list datasets for.
+   * @opt_param string projectId Required. The Google Cloud project ID to list
+   * datasets for.
    * @opt_param int pageSize The maximum number of results to return in a single
    * page. If unspecified, defaults to 50. The maximum value is 1024.
    * @opt_param string pageToken The continuation token, which is used to page

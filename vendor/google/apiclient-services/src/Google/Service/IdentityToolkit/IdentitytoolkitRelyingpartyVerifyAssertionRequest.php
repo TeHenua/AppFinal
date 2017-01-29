@@ -23,6 +23,7 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyAssertionR
   public $pendingIdToken;
   public $postBody;
   public $requestUri;
+  public $returnIdpCredential;
   public $returnRefreshToken;
   public $returnSecureToken;
   public $sessionId;
@@ -74,6 +75,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyVerifyAssertionR
   public function getRequestUri()
   {
     return $this->requestUri;
+  }
+  public function setReturnIdpCredential($returnIdpCredential)
+  {
+    $this->returnIdpCredential = $returnIdpCredential;
+  }
+  public function getReturnIdpCredential()
+  {
+    return $this->returnIdpCredential;
   }
   public function setReturnRefreshToken($returnRefreshToken)
   {

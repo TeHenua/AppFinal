@@ -57,6 +57,9 @@ class Google_Service_AdExchangeBuyer_Resource_Accounts extends Google_Service_Re
    * @param int $id The account id
    * @param Google_Service_AdExchangeBuyer_Account $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool confirmUnsafeAccountChange Confirmation for erasing bidder
+   * and cookie matching urls.
    * @return Google_Service_AdExchangeBuyer_Account
    */
   public function patch($id, Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())
@@ -71,6 +74,9 @@ class Google_Service_AdExchangeBuyer_Resource_Accounts extends Google_Service_Re
    * @param int $id The account id
    * @param Google_Service_AdExchangeBuyer_Account $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool confirmUnsafeAccountChange Confirmation for erasing bidder
+   * and cookie matching urls.
    * @return Google_Service_AdExchangeBuyer_Account
    */
   public function update($id, Google_Service_AdExchangeBuyer_Account $postBody, $optParams = array())

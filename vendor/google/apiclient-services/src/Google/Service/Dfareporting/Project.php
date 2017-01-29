@@ -37,6 +37,7 @@ class Google_Service_Dfareporting_Project extends Google_Model
   public $targetConversions;
   public $targetCpaNanos;
   public $targetCpcNanos;
+  public $targetCpmActiveViewNanos;
   public $targetCpmNanos;
   public $targetImpressions;
 
@@ -191,6 +192,14 @@ class Google_Service_Dfareporting_Project extends Google_Model
   public function getTargetCpcNanos()
   {
     return $this->targetCpcNanos;
+  }
+  public function setTargetCpmActiveViewNanos($targetCpmActiveViewNanos)
+  {
+    $this->targetCpmActiveViewNanos = $targetCpmActiveViewNanos;
+  }
+  public function getTargetCpmActiveViewNanos()
+  {
+    return $this->targetCpmActiveViewNanos;
   }
   public function setTargetCpmNanos($targetCpmNanos)
   {

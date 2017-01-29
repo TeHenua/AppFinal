@@ -5,7 +5,7 @@
 @endsection
 
 @section('main-content')
-	
+	<section class="content">
 	<!-- <?php $nav_usuario_create = 'active';
 	$nav_usuario = 'active'; ?> -->
 	<div class="box box-primary">
@@ -22,11 +22,11 @@
                 	@foreach ($grupos as $g)
 	                	<tr>
 	                  		<td>{{ $g->numero }}</td>
-	                  		<td>{{ $g->usuario1_nombre }}</td>
-	                  		<td>{{ $g->usuario2_nombre }}</td>
-	                  		<td>{{ $g->usuario3_nombre }}</td>
-	                  		<td>{{ $g->usuario4_nombre }}</td>
-	                  		<td>{{ $g->usuario5_nombre }}</td>
+	                  		<td>@if($g->usuario1_nombre){{ $g->usuario1_nombre }}@endif</td>
+	                  		<td>@if($g->usuario2_nombre){{ $g->usuario2_nombre }}@endif</td>
+	                  		<td>@if($g->usuario3_nombre){{ $g->usuario3_nombre }}@endif</td>
+	                  		<td>@if($g->usuario4_nombre){{ $g->usuario4_nombre }}@endif</td>
+	                  		<td>@if($g->usuario5_nombre){{ $g->usuario5_nombre }}@endif</td>
 	                  	</tr>
 	                @endforeach  	
                 </tbody>
@@ -72,5 +72,5 @@
     		{!! Form::close()!!}
   		</div>
 	</div>
-	
+	</section>
 @endsection

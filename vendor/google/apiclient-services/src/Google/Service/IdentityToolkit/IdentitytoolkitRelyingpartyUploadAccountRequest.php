@@ -18,15 +18,26 @@
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountRequest extends Google_Collection
 {
   protected $collection_key = 'users';
+  public $allowOverwrite;
   public $delegatedProjectNumber;
   public $hashAlgorithm;
   public $memoryCost;
   public $rounds;
   public $saltSeparator;
+  public $sanityCheck;
   public $signerKey;
+  public $targetProjectId;
   protected $usersType = 'Google_Service_IdentityToolkit_UserInfo';
   protected $usersDataType = 'array';
 
+  public function setAllowOverwrite($allowOverwrite)
+  {
+    $this->allowOverwrite = $allowOverwrite;
+  }
+  public function getAllowOverwrite()
+  {
+    return $this->allowOverwrite;
+  }
   public function setDelegatedProjectNumber($delegatedProjectNumber)
   {
     $this->delegatedProjectNumber = $delegatedProjectNumber;
@@ -67,6 +78,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountReq
   {
     return $this->saltSeparator;
   }
+  public function setSanityCheck($sanityCheck)
+  {
+    $this->sanityCheck = $sanityCheck;
+  }
+  public function getSanityCheck()
+  {
+    return $this->sanityCheck;
+  }
   public function setSignerKey($signerKey)
   {
     $this->signerKey = $signerKey;
@@ -74,6 +93,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyUploadAccountReq
   public function getSignerKey()
   {
     return $this->signerKey;
+  }
+  public function setTargetProjectId($targetProjectId)
+  {
+    $this->targetProjectId = $targetProjectId;
+  }
+  public function getTargetProjectId()
+  {
+    return $this->targetProjectId;
   }
   public function setUsers($users)
   {

@@ -59,8 +59,8 @@ class CalendarController extends Controller
         if($nombreUsuario!=null){
             $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         }
-        $tipoCita = $_POST['tipo_evento'];
-        switch ($tipoCita[0]) {
+        $tipoCita = $_POST['tipo_evento'][0];
+        switch ($tipoCita) {
             case 'Usuario':
                 $evento->color = "#00BFFF";
                 break;
@@ -86,7 +86,8 @@ class CalendarController extends Controller
                 break;
         }
         $evento->grupo_id = $_POST['grupo'];
-        $evento->titulo = $tipoCita[0]." ".preg_replace('/[0-9]+/', '', $nombreUsuario[0]).$evento->grupo_id;
+        $evento->titulo = $tipoCita." ".preg_replace('/[0-9]+/', '', $nombreUsuario).$evento->grupo_id;
+       
         $evento->save();
     }
 

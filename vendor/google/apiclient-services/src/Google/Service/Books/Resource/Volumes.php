@@ -58,6 +58,9 @@ class Google_Service_Books_Resource_Volumes extends Google_Service_Resource
    * @opt_param string langRestrict Restrict results to books with this language
    * code.
    * @opt_param string libraryRestrict Restrict search to this user's library.
+   * @opt_param string maxAllowedMaturityRating The maximum allowed maturity
+   * rating of returned recommendations. Books with a higher maturity rating are
+   * filtered out.
    * @opt_param string maxResults Maximum number of results to return.
    * @opt_param string orderBy Sort search results.
    * @opt_param string partner Restrict and brand results for partner ID.

@@ -20,6 +20,7 @@ class Google_Service_Fitness_ListSessionsResponse extends Google_Collection
   protected $collection_key = 'session';
   protected $deletedSessionType = 'Google_Service_Fitness_Session';
   protected $deletedSessionDataType = 'array';
+  public $hasMoreData;
   public $nextPageToken;
   protected $sessionType = 'Google_Service_Fitness_Session';
   protected $sessionDataType = 'array';
@@ -31,6 +32,14 @@ class Google_Service_Fitness_ListSessionsResponse extends Google_Collection
   public function getDeletedSession()
   {
     return $this->deletedSession;
+  }
+  public function setHasMoreData($hasMoreData)
+  {
+    $this->hasMoreData = $hasMoreData;
+  }
+  public function getHasMoreData()
+  {
+    return $this->hasMoreData;
   }
   public function setNextPageToken($nextPageToken)
   {

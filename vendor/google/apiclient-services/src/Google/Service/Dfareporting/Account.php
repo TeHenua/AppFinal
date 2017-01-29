@@ -24,7 +24,6 @@ class Google_Service_Dfareporting_Account extends Google_Collection
   public $activeAdsLimitTier;
   public $activeViewOptOut;
   public $availablePermissionIds;
-  public $comscoreVceEnabled;
   public $countryId;
   public $currencyId;
   public $defaultCreativeSizeId;
@@ -37,6 +36,7 @@ class Google_Service_Dfareporting_Account extends Google_Collection
   public $nielsenOcrEnabled;
   protected $reportsConfigurationType = 'Google_Service_Dfareporting_ReportsConfiguration';
   protected $reportsConfigurationDataType = '';
+  public $shareReportsWithTwitter;
   public $teaserSizeLimit;
 
   public function setAccountPermissionIds($accountPermissionIds)
@@ -86,14 +86,6 @@ class Google_Service_Dfareporting_Account extends Google_Collection
   public function getAvailablePermissionIds()
   {
     return $this->availablePermissionIds;
-  }
-  public function setComscoreVceEnabled($comscoreVceEnabled)
-  {
-    $this->comscoreVceEnabled = $comscoreVceEnabled;
-  }
-  public function getComscoreVceEnabled()
-  {
-    return $this->comscoreVceEnabled;
   }
   public function setCountryId($countryId)
   {
@@ -182,6 +174,14 @@ class Google_Service_Dfareporting_Account extends Google_Collection
   public function getReportsConfiguration()
   {
     return $this->reportsConfiguration;
+  }
+  public function setShareReportsWithTwitter($shareReportsWithTwitter)
+  {
+    $this->shareReportsWithTwitter = $shareReportsWithTwitter;
+  }
+  public function getShareReportsWithTwitter()
+  {
+    return $this->shareReportsWithTwitter;
   }
   public function setTeaserSizeLimit($teaserSizeLimit)
   {

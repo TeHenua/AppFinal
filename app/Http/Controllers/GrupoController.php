@@ -28,8 +28,8 @@ class GrupoController extends Controller{
     		DB::table('usuarios')->where('id','=',$g->usuario4)->value('apellido2');
     		$g->usuario5_nombre = DB::table('usuarios')->where('id','=',$g->usuario5)->value('nombre')." ".         		DB::table('usuarios')->where('id','=',$g->usuario5)->value('apellido1')." ".
     		DB::table('usuarios')->where('id','=',$g->usuario5)->value('apellido2');
-        return view('psicologia.grupos', ["grupos"=>$grupos]);
         }
+        return view('psicologia.grupos', ["grupos"=>$grupos]);
     }
     public function update(Request $request){
     	$grupo = DB::table('grupos')->where('numero','=',$request->numero);

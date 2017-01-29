@@ -15,15 +15,14 @@
  * the License.
  */
 
-class Google_Service_Appengine_Deployment extends Google_Collection
+class Google_Service_Appengine_Deployment extends Google_Model
 {
-  protected $collection_key = 'sourceReferences';
   protected $containerType = 'Google_Service_Appengine_ContainerInfo';
   protected $containerDataType = '';
   protected $filesType = 'Google_Service_Appengine_FileInfo';
   protected $filesDataType = 'map';
-  protected $sourceReferencesType = 'Google_Service_Appengine_SourceReference';
-  protected $sourceReferencesDataType = 'array';
+  protected $zipType = 'Google_Service_Appengine_ZipInfo';
+  protected $zipDataType = '';
 
   public function setContainer(Google_Service_Appengine_ContainerInfo $container)
   {
@@ -41,12 +40,12 @@ class Google_Service_Appengine_Deployment extends Google_Collection
   {
     return $this->files;
   }
-  public function setSourceReferences($sourceReferences)
+  public function setZip(Google_Service_Appengine_ZipInfo $zip)
   {
-    $this->sourceReferences = $sourceReferences;
+    $this->zip = $zip;
   }
-  public function getSourceReferences()
+  public function getZip()
   {
-    return $this->sourceReferences;
+    return $this->zip;
   }
 }

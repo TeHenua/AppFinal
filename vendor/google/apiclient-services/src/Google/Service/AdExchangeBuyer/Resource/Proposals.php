@@ -60,7 +60,8 @@ class Google_Service_AdExchangeBuyer_Resource_Proposals extends Google_Service_R
    * the head revision in the marketplace database has since changed, an error
    * will be thrown. The caller should then fetch the latest proposal at head
    * revision and retry the update at that revision.
-   * @param string $updateAction The proposed action to take on the proposal.
+   * @param string $updateAction The proposed action to take on the proposal. This
+   * field is required and it must be set when updating a proposal.
    * @param Google_Service_AdExchangeBuyer_Proposal $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_AdExchangeBuyer_Proposal
@@ -106,7 +107,8 @@ class Google_Service_AdExchangeBuyer_Resource_Proposals extends Google_Service_R
    * the head revision in the marketplace database has since changed, an error
    * will be thrown. The caller should then fetch the latest proposal at head
    * revision and retry the update at that revision.
-   * @param string $updateAction The proposed action to take on the proposal.
+   * @param string $updateAction The proposed action to take on the proposal. This
+   * field is required and it must be set when updating a proposal.
    * @param Google_Service_AdExchangeBuyer_Proposal $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_AdExchangeBuyer_Proposal

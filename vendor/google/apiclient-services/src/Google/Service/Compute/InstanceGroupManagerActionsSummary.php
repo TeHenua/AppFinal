@@ -19,6 +19,7 @@ class Google_Service_Compute_InstanceGroupManagerActionsSummary extends Google_M
 {
   public $abandoning;
   public $creating;
+  public $creatingWithoutRetries;
   public $deleting;
   public $none;
   public $recreating;
@@ -40,6 +41,14 @@ class Google_Service_Compute_InstanceGroupManagerActionsSummary extends Google_M
   public function getCreating()
   {
     return $this->creating;
+  }
+  public function setCreatingWithoutRetries($creatingWithoutRetries)
+  {
+    $this->creatingWithoutRetries = $creatingWithoutRetries;
+  }
+  public function getCreatingWithoutRetries()
+  {
+    return $this->creatingWithoutRetries;
   }
   public function setDeleting($deleting)
   {

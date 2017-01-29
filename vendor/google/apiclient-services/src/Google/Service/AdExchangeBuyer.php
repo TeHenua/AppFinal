@@ -90,6 +90,10 @@ class Google_Service_AdExchangeBuyer extends Google_Service
                   'type' => 'integer',
                   'required' => true,
                 ),
+                'confirmUnsafeAccountChange' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
               ),
             ),'update' => array(
               'path' => 'accounts/{id}',
@@ -99,6 +103,10 @@ class Google_Service_AdExchangeBuyer extends Google_Service
                   'location' => 'path',
                   'type' => 'integer',
                   'required' => true,
+                ),
+                'confirmUnsafeAccountChange' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ),
               ),
             ),
@@ -258,6 +266,21 @@ class Google_Service_AdExchangeBuyer extends Google_Service
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+              ),
+            ),'listDeals' => array(
+              'path' => 'creatives/{accountId}/{buyerCreativeId}/listDeals',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'integer',
+                  'required' => true,
+                ),
+                'buyerCreativeId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),'removeDeal' => array(

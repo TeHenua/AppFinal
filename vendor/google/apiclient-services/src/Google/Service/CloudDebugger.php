@@ -24,7 +24,7 @@
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://cloud.google.com/tools/cloud-debugger" target="_blank">Documentation</a>
+ * <a href="http://cloud.google.com/debugger" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -37,9 +37,6 @@ class Google_Service_CloudDebugger extends Google_Service
   /** Manage cloud debugger. */
   const CLOUD_DEBUGGER =
       "https://www.googleapis.com/auth/cloud_debugger";
-  /** Manage active breakpoints in cloud debugger. */
-  const CLOUD_DEBUGLETCONTROLLER =
-      "https://www.googleapis.com/auth/cloud_debugletcontroller";
 
   public $controller_debuggees;
   public $controller_debuggees_breakpoints;

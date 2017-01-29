@@ -25,6 +25,7 @@ class Google_Service_Bigquery_QueryResponse extends Google_Collection
   protected $jobReferenceType = 'Google_Service_Bigquery_JobReference';
   protected $jobReferenceDataType = '';
   public $kind;
+  public $numDmlAffectedRows;
   public $pageToken;
   protected $rowsType = 'Google_Service_Bigquery_TableRow';
   protected $rowsDataType = 'array';
@@ -72,6 +73,14 @@ class Google_Service_Bigquery_QueryResponse extends Google_Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  public function setNumDmlAffectedRows($numDmlAffectedRows)
+  {
+    $this->numDmlAffectedRows = $numDmlAffectedRows;
+  }
+  public function getNumDmlAffectedRows()
+  {
+    return $this->numDmlAffectedRows;
   }
   public function setPageToken($pageToken)
   {

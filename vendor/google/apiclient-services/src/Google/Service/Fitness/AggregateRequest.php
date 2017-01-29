@@ -17,7 +17,7 @@
 
 class Google_Service_Fitness_AggregateRequest extends Google_Collection
 {
-  protected $collection_key = 'aggregateBy';
+  protected $collection_key = 'filteredDataQualityStandard';
   protected $aggregateByType = 'Google_Service_Fitness_AggregateBy';
   protected $aggregateByDataType = 'array';
   protected $bucketByActivitySegmentType = 'Google_Service_Fitness_BucketByActivity';
@@ -29,6 +29,7 @@ class Google_Service_Fitness_AggregateRequest extends Google_Collection
   protected $bucketByTimeType = 'Google_Service_Fitness_BucketByTime';
   protected $bucketByTimeDataType = '';
   public $endTimeMillis;
+  public $filteredDataQualityStandard;
   public $startTimeMillis;
 
   public function setAggregateBy($aggregateBy)
@@ -78,6 +79,14 @@ class Google_Service_Fitness_AggregateRequest extends Google_Collection
   public function getEndTimeMillis()
   {
     return $this->endTimeMillis;
+  }
+  public function setFilteredDataQualityStandard($filteredDataQualityStandard)
+  {
+    $this->filteredDataQualityStandard = $filteredDataQualityStandard;
+  }
+  public function getFilteredDataQualityStandard()
+  {
+    return $this->filteredDataQualityStandard;
   }
   public function setStartTimeMillis($startTimeMillis)
   {

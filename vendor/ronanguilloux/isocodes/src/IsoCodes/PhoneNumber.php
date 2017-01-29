@@ -2,6 +2,7 @@
 
 namespace IsoCodes;
 
+use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberUtil;
 
 /**
@@ -17,7 +18,7 @@ class PhoneNumber
      *
      * @throws \InvalidArgumentException
      */
-    public static function validate($phoneNumber, $country)
+    public static function validate($phoneNumber, $country = null)
     {
         $phoneNumber = trim($phoneNumber);
         if (empty($phoneNumber)) {
@@ -25,7 +26,11 @@ class PhoneNumber
         }
         $country = strtoupper($country);
         $phoneUtil = PhoneNumberUtil::getInstance();
-        $numberProto = $phoneUtil->parse($phoneNumber, $country);
+        try {
+            $numberProto = $phoneUtil->parse($phoneNumber, $country);
+        } catch (NumberParseException $e) {
+            return false;
+        }
 
         return $phoneUtil->isValidNumber($numberProto);
     }

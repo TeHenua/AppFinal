@@ -15,15 +15,19 @@
  * the License.
  */
 
-class Google_Service_Bigquery_QueryRequest extends Google_Model
+class Google_Service_Bigquery_QueryRequest extends Google_Collection
 {
+  protected $collection_key = 'queryParameters';
   protected $defaultDatasetType = 'Google_Service_Bigquery_DatasetReference';
   protected $defaultDatasetDataType = '';
   public $dryRun;
   public $kind;
   public $maxResults;
+  public $parameterMode;
   public $preserveNulls;
   public $query;
+  protected $queryParametersType = 'Google_Service_Bigquery_QueryParameter';
+  protected $queryParametersDataType = 'array';
   public $timeoutMs;
   public $useLegacySql;
   public $useQueryCache;
@@ -60,6 +64,14 @@ class Google_Service_Bigquery_QueryRequest extends Google_Model
   {
     return $this->maxResults;
   }
+  public function setParameterMode($parameterMode)
+  {
+    $this->parameterMode = $parameterMode;
+  }
+  public function getParameterMode()
+  {
+    return $this->parameterMode;
+  }
   public function setPreserveNulls($preserveNulls)
   {
     $this->preserveNulls = $preserveNulls;
@@ -75,6 +87,14 @@ class Google_Service_Bigquery_QueryRequest extends Google_Model
   public function getQuery()
   {
     return $this->query;
+  }
+  public function setQueryParameters($queryParameters)
+  {
+    $this->queryParameters = $queryParameters;
+  }
+  public function getQueryParameters()
+  {
+    return $this->queryParameters;
   }
   public function setTimeoutMs($timeoutMs)
   {

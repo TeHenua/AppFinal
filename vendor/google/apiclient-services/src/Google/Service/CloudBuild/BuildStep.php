@@ -17,11 +17,14 @@
 
 class Google_Service_CloudBuild_BuildStep extends Google_Collection
 {
-  protected $collection_key = 'env';
+  protected $collection_key = 'waitFor';
   public $args;
   public $dir;
+  public $entrypoint;
   public $env;
+  public $id;
   public $name;
+  public $waitFor;
 
   public function setArgs($args)
   {
@@ -39,6 +42,14 @@ class Google_Service_CloudBuild_BuildStep extends Google_Collection
   {
     return $this->dir;
   }
+  public function setEntrypoint($entrypoint)
+  {
+    $this->entrypoint = $entrypoint;
+  }
+  public function getEntrypoint()
+  {
+    return $this->entrypoint;
+  }
   public function setEnv($env)
   {
     $this->env = $env;
@@ -47,6 +58,14 @@ class Google_Service_CloudBuild_BuildStep extends Google_Collection
   {
     return $this->env;
   }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
   public function setName($name)
   {
     $this->name = $name;
@@ -54,5 +73,13 @@ class Google_Service_CloudBuild_BuildStep extends Google_Collection
   public function getName()
   {
     return $this->name;
+  }
+  public function setWaitFor($waitFor)
+  {
+    $this->waitFor = $waitFor;
+  }
+  public function getWaitFor()
+  {
+    return $this->waitFor;
   }
 }

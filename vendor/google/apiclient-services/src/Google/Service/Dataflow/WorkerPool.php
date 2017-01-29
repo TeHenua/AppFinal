@@ -26,6 +26,7 @@ class Google_Service_Dataflow_WorkerPool extends Google_Collection
   public $diskSizeGb;
   public $diskSourceImage;
   public $diskType;
+  public $ipConfiguration;
   public $kind;
   public $machineType;
   public $metadata;
@@ -90,6 +91,14 @@ class Google_Service_Dataflow_WorkerPool extends Google_Collection
   public function getDiskType()
   {
     return $this->diskType;
+  }
+  public function setIpConfiguration($ipConfiguration)
+  {
+    $this->ipConfiguration = $ipConfiguration;
+  }
+  public function getIpConfiguration()
+  {
+    return $this->ipConfiguration;
   }
   public function setKind($kind)
   {

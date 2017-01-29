@@ -19,6 +19,8 @@ class Google_Service_IdentityToolkit_ResetPasswordResponse extends Google_Model
 {
   public $email;
   public $kind;
+  public $newEmail;
+  public $requestType;
 
   public function setEmail($email)
   {
@@ -35,5 +37,21 @@ class Google_Service_IdentityToolkit_ResetPasswordResponse extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+  public function setNewEmail($newEmail)
+  {
+    $this->newEmail = $newEmail;
+  }
+  public function getNewEmail()
+  {
+    return $this->newEmail;
+  }
+  public function setRequestType($requestType)
+  {
+    $this->requestType = $requestType;
+  }
+  public function getRequestType()
+  {
+    return $this->requestType;
   }
 }

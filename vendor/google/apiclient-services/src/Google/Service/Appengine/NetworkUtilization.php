@@ -17,41 +17,41 @@
 
 class Google_Service_Appengine_NetworkUtilization extends Google_Model
 {
-  public $targetReceivedBytesPerSec;
-  public $targetReceivedPacketsPerSec;
-  public $targetSentBytesPerSec;
-  public $targetSentPacketsPerSec;
+  public $targetReceivedBytesPerSecond;
+  public $targetReceivedPacketsPerSecond;
+  public $targetSentBytesPerSecond;
+  public $targetSentPacketsPerSecond;
 
-  public function setTargetReceivedBytesPerSec($targetReceivedBytesPerSec)
+  public function setTargetReceivedBytesPerSecond($targetReceivedBytesPerSecond)
   {
-    $this->targetReceivedBytesPerSec = $targetReceivedBytesPerSec;
+    $this->targetReceivedBytesPerSecond = $targetReceivedBytesPerSecond;
   }
-  public function getTargetReceivedBytesPerSec()
+  public function getTargetReceivedBytesPerSecond()
   {
-    return $this->targetReceivedBytesPerSec;
+    return $this->targetReceivedBytesPerSecond;
   }
-  public function setTargetReceivedPacketsPerSec($targetReceivedPacketsPerSec)
+  public function setTargetReceivedPacketsPerSecond($targetReceivedPacketsPerSecond)
   {
-    $this->targetReceivedPacketsPerSec = $targetReceivedPacketsPerSec;
+    $this->targetReceivedPacketsPerSecond = $targetReceivedPacketsPerSecond;
   }
-  public function getTargetReceivedPacketsPerSec()
+  public function getTargetReceivedPacketsPerSecond()
   {
-    return $this->targetReceivedPacketsPerSec;
+    return $this->targetReceivedPacketsPerSecond;
   }
-  public function setTargetSentBytesPerSec($targetSentBytesPerSec)
+  public function setTargetSentBytesPerSecond($targetSentBytesPerSecond)
   {
-    $this->targetSentBytesPerSec = $targetSentBytesPerSec;
+    $this->targetSentBytesPerSecond = $targetSentBytesPerSecond;
   }
-  public function getTargetSentBytesPerSec()
+  public function getTargetSentBytesPerSecond()
   {
-    return $this->targetSentBytesPerSec;
+    return $this->targetSentBytesPerSecond;
   }
-  public function setTargetSentPacketsPerSec($targetSentPacketsPerSec)
+  public function setTargetSentPacketsPerSecond($targetSentPacketsPerSecond)
   {
-    $this->targetSentPacketsPerSec = $targetSentPacketsPerSec;
+    $this->targetSentPacketsPerSecond = $targetSentPacketsPerSecond;
   }
-  public function getTargetSentPacketsPerSec()
+  public function getTargetSentPacketsPerSecond()
   {
-    return $this->targetSentPacketsPerSec;
+    return $this->targetSentPacketsPerSecond;
   }
 }

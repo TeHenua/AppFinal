@@ -148,13 +148,35 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'responseValueRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'valueInputOption' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
+                'responseDateTimeRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'includeValuesInResponse' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
                 'insertDataOption' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+              ),
+            ),'batchClear' => array(
+              'path' => 'v4/spreadsheets/{spreadsheetId}/values:batchClear',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'spreadsheetId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),'batchGet' => array(
@@ -189,6 +211,21 @@ class Google_Service_Sheets extends Google_Service
               'httpMethod' => 'POST',
               'parameters' => array(
                 'spreadsheetId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'clear' => array(
+              'path' => 'v4/spreadsheets/{spreadsheetId}/values/{range}:clear',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'spreadsheetId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'range' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -235,9 +272,21 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'responseValueRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'valueInputOption' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'responseDateTimeRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'includeValuesInResponse' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ),
               ),
             ),

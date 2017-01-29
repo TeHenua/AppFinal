@@ -1,9 +1,9 @@
 /*!
- * bootstrap-fileinput v4.3.5
+ * bootstrap-fileinput v4.3.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2016, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -109,6 +109,7 @@
 
 .file-preview-image {
     vertical-align: middle;
+    image-orientation: from-image;
 }
 
 .file-preview-text {
@@ -372,11 +373,17 @@
     display: inline;
     margin-right: 2px;
     font-size: 16px;
-    cursor: move;
-    cursor: -webkit-grabbing;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.file-drag-handle:hover {
+.file-sortable .file-drag-handle {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    opacity: 1;
+}
+
+.file-sortable .file-drag-handle:hover {
     opacity: 0.7;
 }
 

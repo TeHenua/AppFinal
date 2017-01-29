@@ -28,12 +28,14 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   public $fieldDelimiter;
   public $ignoreUnknownValues;
   public $maxBadRecords;
+  public $nullMarker;
   public $projectionFields;
   public $quote;
   protected $schemaType = 'Google_Service_Bigquery_TableSchema';
   protected $schemaDataType = '';
   public $schemaInline;
   public $schemaInlineFormat;
+  public $schemaUpdateOptions;
   public $skipLeadingRows;
   public $sourceFormat;
   public $sourceUris;
@@ -111,6 +113,14 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   {
     return $this->maxBadRecords;
   }
+  public function setNullMarker($nullMarker)
+  {
+    $this->nullMarker = $nullMarker;
+  }
+  public function getNullMarker()
+  {
+    return $this->nullMarker;
+  }
   public function setProjectionFields($projectionFields)
   {
     $this->projectionFields = $projectionFields;
@@ -150,6 +160,14 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   public function getSchemaInlineFormat()
   {
     return $this->schemaInlineFormat;
+  }
+  public function setSchemaUpdateOptions($schemaUpdateOptions)
+  {
+    $this->schemaUpdateOptions = $schemaUpdateOptions;
+  }
+  public function getSchemaUpdateOptions()
+  {
+    return $this->schemaUpdateOptions;
   }
   public function setSkipLeadingRows($skipLeadingRows)
   {

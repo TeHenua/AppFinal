@@ -23,6 +23,7 @@ class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Mod
   public $photoUrl;
   public $providerId;
   public $rawId;
+  public $screenName;
 
   public function setDisplayName($displayName)
   {
@@ -71,5 +72,13 @@ class Google_Service_IdentityToolkit_UserInfoProviderUserInfo extends Google_Mod
   public function getRawId()
   {
     return $this->rawId;
+  }
+  public function setScreenName($screenName)
+  {
+    $this->screenName = $screenName;
+  }
+  public function getScreenName()
+  {
+    return $this->screenName;
   }
 }

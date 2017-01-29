@@ -20,6 +20,7 @@ class Google_Service_Genomics_BatchCreateAnnotationsRequest extends Google_Colle
   protected $collection_key = 'annotations';
   protected $annotationsType = 'Google_Service_Genomics_Annotation';
   protected $annotationsDataType = 'array';
+  public $requestId;
 
   public function setAnnotations($annotations)
   {
@@ -28,5 +29,13 @@ class Google_Service_Genomics_BatchCreateAnnotationsRequest extends Google_Colle
   public function getAnnotations()
   {
     return $this->annotations;
+  }
+  public function setRequestId($requestId)
+  {
+    $this->requestId = $requestId;
+  }
+  public function getRequestId()
+  {
+    return $this->requestId;
   }
 }

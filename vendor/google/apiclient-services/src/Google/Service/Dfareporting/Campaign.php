@@ -32,7 +32,6 @@ class Google_Service_Dfareporting_Campaign extends Google_Collection
   protected $clickThroughUrlSuffixPropertiesType = 'Google_Service_Dfareporting_ClickThroughUrlSuffixProperties';
   protected $clickThroughUrlSuffixPropertiesDataType = '';
   public $comment;
-  public $comscoreVceEnabled;
   protected $createInfoType = 'Google_Service_Dfareporting_LastModifiedInfo';
   protected $createInfoDataType = '';
   public $creativeGroupIds;
@@ -137,14 +136,6 @@ class Google_Service_Dfareporting_Campaign extends Google_Collection
   public function getComment()
   {
     return $this->comment;
-  }
-  public function setComscoreVceEnabled($comscoreVceEnabled)
-  {
-    $this->comscoreVceEnabled = $comscoreVceEnabled;
-  }
-  public function getComscoreVceEnabled()
-  {
-    return $this->comscoreVceEnabled;
   }
   public function setCreateInfo(Google_Service_Dfareporting_LastModifiedInfo $createInfo)
   {

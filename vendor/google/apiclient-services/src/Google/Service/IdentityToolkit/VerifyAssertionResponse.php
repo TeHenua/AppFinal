@@ -27,6 +27,7 @@ class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Coll
   public $email;
   public $emailRecycled;
   public $emailVerified;
+  public $errorMessage;
   public $expiresIn;
   public $federatedId;
   public $firstName;
@@ -50,6 +51,7 @@ class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Coll
   public $originalEmail;
   public $photoUrl;
   public $providerId;
+  public $rawUserInfo;
   public $refreshToken;
   public $screenName;
   public $timeZone;
@@ -126,6 +128,14 @@ class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Coll
   public function getEmailVerified()
   {
     return $this->emailVerified;
+  }
+  public function setErrorMessage($errorMessage)
+  {
+    $this->errorMessage = $errorMessage;
+  }
+  public function getErrorMessage()
+  {
+    return $this->errorMessage;
   }
   public function setExpiresIn($expiresIn)
   {
@@ -310,6 +320,14 @@ class Google_Service_IdentityToolkit_VerifyAssertionResponse extends Google_Coll
   public function getProviderId()
   {
     return $this->providerId;
+  }
+  public function setRawUserInfo($rawUserInfo)
+  {
+    $this->rawUserInfo = $rawUserInfo;
+  }
+  public function getRawUserInfo()
+  {
+    return $this->rawUserInfo;
   }
   public function setRefreshToken($refreshToken)
   {

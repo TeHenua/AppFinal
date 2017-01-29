@@ -19,6 +19,7 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
 {
   protected $collection_key = 'shipments';
   public $acknowledged;
+  public $channelType;
   protected $customerType = 'Google_Service_ShoppingContent_OrderCustomer';
   protected $customerDataType = '';
   protected $deliveryDetailsType = 'Google_Service_ShoppingContent_OrderDeliveryDetails';
@@ -55,6 +56,14 @@ class Google_Service_ShoppingContent_Order extends Google_Collection
   public function getAcknowledged()
   {
     return $this->acknowledged;
+  }
+  public function setChannelType($channelType)
+  {
+    $this->channelType = $channelType;
+  }
+  public function getChannelType()
+  {
+    return $this->channelType;
   }
   public function setCustomer(Google_Service_ShoppingContent_OrderCustomer $customer)
   {

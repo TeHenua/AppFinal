@@ -21,6 +21,7 @@ class Google_Service_Bigquery_BigtableOptions extends Google_Collection
   protected $columnFamiliesType = 'Google_Service_Bigquery_BigtableColumnFamily';
   protected $columnFamiliesDataType = 'array';
   public $ignoreUnspecifiedColumnFamilies;
+  public $readRowkeyAsString;
 
   public function setColumnFamilies($columnFamilies)
   {
@@ -37,5 +38,13 @@ class Google_Service_Bigquery_BigtableOptions extends Google_Collection
   public function getIgnoreUnspecifiedColumnFamilies()
   {
     return $this->ignoreUnspecifiedColumnFamilies;
+  }
+  public function setReadRowkeyAsString($readRowkeyAsString)
+  {
+    $this->readRowkeyAsString = $readRowkeyAsString;
+  }
+  public function getReadRowkeyAsString()
+  {
+    return $this->readRowkeyAsString;
   }
 }

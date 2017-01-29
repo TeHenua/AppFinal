@@ -60,7 +60,8 @@ class Google_Service_SQLAdmin_Resource_BackupRuns extends Google_Service_Resourc
     return $this->call('get', array($params), "Google_Service_SQLAdmin_BackupRun");
   }
   /**
-   * Creates a new backup run on demand. (backupRuns.insert)
+   * Creates a new backup run on demand. This method is applicable only to Second
+   * Generation instances. (backupRuns.insert)
    *
    * @param string $project Project ID of the project that contains the instance.
    * @param string $instance Cloud SQL instance ID. This does not include the

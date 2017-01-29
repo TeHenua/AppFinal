@@ -30,6 +30,7 @@ class Google_Service_Dfareporting_CreativeAsset extends Google_Collection
   public $childAssetType;
   protected $collapsedSizeType = 'Google_Service_Dfareporting_Size';
   protected $collapsedSizeDataType = '';
+  public $companionCreativeIds;
   public $customStartTimeValue;
   public $detectedFeatures;
   public $displayType;
@@ -43,6 +44,8 @@ class Google_Service_Dfareporting_CreativeAsset extends Google_Collection
   public $hideSelectionBoxes;
   public $horizontallyLocked;
   public $id;
+  protected $idDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
+  protected $idDimensionValueDataType = '';
   public $mimeType;
   protected $offsetType = 'Google_Service_Dfareporting_OffsetPosition';
   protected $offsetDataType = '';
@@ -140,6 +143,14 @@ class Google_Service_Dfareporting_CreativeAsset extends Google_Collection
   {
     return $this->collapsedSize;
   }
+  public function setCompanionCreativeIds($companionCreativeIds)
+  {
+    $this->companionCreativeIds = $companionCreativeIds;
+  }
+  public function getCompanionCreativeIds()
+  {
+    return $this->companionCreativeIds;
+  }
   public function setCustomStartTimeValue($customStartTimeValue)
   {
     $this->customStartTimeValue = $customStartTimeValue;
@@ -235,6 +246,14 @@ class Google_Service_Dfareporting_CreativeAsset extends Google_Collection
   public function getId()
   {
     return $this->id;
+  }
+  public function setIdDimensionValue(Google_Service_Dfareporting_DimensionValue $idDimensionValue)
+  {
+    $this->idDimensionValue = $idDimensionValue;
+  }
+  public function getIdDimensionValue()
+  {
+    return $this->idDimensionValue;
   }
   public function setMimeType($mimeType)
   {

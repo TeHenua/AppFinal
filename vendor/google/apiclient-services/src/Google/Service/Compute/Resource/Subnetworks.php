@@ -59,6 +59,16 @@ class Google_Service_Compute_Resource_Subnetworks extends Google_Service_Resourc
    * should be returned. If the number of available results is larger than
    * maxResults, Compute Engine returns a nextPageToken that can be used to get
    * the next page of results in subsequent list requests.
+   * @opt_param string orderBy Sorts list results by a certain order. By default,
+   * results are returned in alphanumerical order based on the resource name.
+   *
+   * You can also sort results in descending order based on the creation timestamp
+   * using orderBy="creationTimestamp desc". This sorts results based on the
+   * creationTimestamp field in reverse chronological order (newest result first).
+   * Use this to sort resources like operations so that the newest operation is
+   * returned first.
+   *
+   * Currently, only sorting by name or creationTimestamp desc is supported.
    * @opt_param string pageToken Specifies a page token to use. Set pageToken to
    * the nextPageToken returned by a previous list request to get the next page of
    * results.
@@ -84,6 +94,23 @@ class Google_Service_Compute_Resource_Subnetworks extends Google_Service_Resourc
     $params = array('project' => $project, 'region' => $region, 'subnetwork' => $subnetwork);
     $params = array_merge($params, $optParams);
     return $this->call('delete', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
+   * Expands the IP CIDR range of the subnetwork to a specified value.
+   * (subnetworks.expandIpCidrRange)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $region Name of the region scoping this request.
+   * @param string $subnetwork Name of the Subnetwork resource to update.
+   * @param Google_Service_Compute_SubnetworksExpandIpCidrRangeRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function expandIpCidrRange($project, $region, $subnetwork, Google_Service_Compute_SubnetworksExpandIpCidrRangeRequest $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'region' => $region, 'subnetwork' => $subnetwork, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('expandIpCidrRange', array($params), "Google_Service_Compute_Operation");
   }
   /**
    * Returns the specified subnetwork. Get a list of available subnetworks list()
@@ -153,6 +180,16 @@ class Google_Service_Compute_Resource_Subnetworks extends Google_Service_Resourc
    * should be returned. If the number of available results is larger than
    * maxResults, Compute Engine returns a nextPageToken that can be used to get
    * the next page of results in subsequent list requests.
+   * @opt_param string orderBy Sorts list results by a certain order. By default,
+   * results are returned in alphanumerical order based on the resource name.
+   *
+   * You can also sort results in descending order based on the creation timestamp
+   * using orderBy="creationTimestamp desc". This sorts results based on the
+   * creationTimestamp field in reverse chronological order (newest result first).
+   * Use this to sort resources like operations so that the newest operation is
+   * returned first.
+   *
+   * Currently, only sorting by name or creationTimestamp desc is supported.
    * @opt_param string pageToken Specifies a page token to use. Set pageToken to
    * the nextPageToken returned by a previous list request to get the next page of
    * results.
