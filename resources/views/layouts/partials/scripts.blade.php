@@ -44,7 +44,7 @@ function updateEventos(){
   var inicio = $('#datetimepicker').val();
   var fin = $('#datetimepicker2').val();
   var tipo_evento = $('#tipo_evento').val();
-  var usuario = $('#usuarioCalendario').val();
+  var usuario = $('#usuario').val();
   var grupo = $('#grupoCalendario').val();
   crsfToken = document.getElementsByName("_token")[0].value;
   $.ajax({
@@ -119,7 +119,7 @@ function guardarEvento(){
   }
   $titulo = [$('#titulo').val()];
   $tipo_evento = [$('#tipo_evento').val()];
-  $usuarioCalendario = [$('#usuarioCalendario').val()];
+  $usuarioCalendario = [$('#usuario').val()];
   if($usuarioCalendario==""){
     $usuarioCalendario=null;
   }

@@ -35,7 +35,7 @@ class CalendarController extends Controller
     public function create(){
        
         $evento = new Calendario;
-        $titulo =  $_POST['titulo'];
+        $titulo =  $_POST['titulo'][0];
         //$evento->titulo = $titulo[0];
         $fechaIni =  $_POST['fechaIni'];
         $evento->fechaIni = $fechaIni[0];
@@ -86,8 +86,7 @@ class CalendarController extends Controller
                 break;
         }
         $evento->grupo_id = $_POST['grupo'];
-        $evento->titulo = $tipoCita[0]." ".preg_replace('/[0-9]+/', '', $nombreUsuario).$evento->grupo_id;
-
+        $evento->titulo = $tipoCita[0]." ".preg_replace('/[0-9]+/', '', $nombreUsuario[0]).$evento->grupo_id;
         $evento->save();
     }
 
