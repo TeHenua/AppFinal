@@ -17,7 +17,7 @@
 
 			<div class="box-tools">
 				{!! Form::open(array('url'=>'psicologia/index','method' => 'GET', 'role' => 'search')) !!}
-					<div class="input-group input-group-sm" style="width: 150px;">
+					<div class="input-group input-group-sm" style="width: 170px;">
                   		<input type="text" name="searchText" value='{{ $searchText }}' class="form-control pull-right" placeholder="Buscar por apellido">
                   		<div class="input-group-btn">
                     		<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -30,7 +30,7 @@
             <table class="table table-striped table-bordered">
                 <tbody>
                 	<tr>
-	                  	<th>Estado</th>
+	                  	<th>Num. clínica</th>
 	                  	<th>Nombre</th>
 	                  	<th>Primer apellido</th>
 	                  	<th>Segundo apellido</th>
@@ -38,12 +38,12 @@
                 	</tr>
                 	@foreach ($usuarios as $usu)
 	                	<tr>
-	                  		<td>@if($usu->estado == 1) Incompleto @endif</td>
+	                  		<td>{{ $usu->num_clinica }}</td>
 	                  		<td>{{ $usu->nombre }}</td>
 	                  		<td>{{ $usu->apellido1 }}</td>
 	                  		<td>{{ $usu->apellido2 }}</td>
 	                  		<td>	
-	                  			{{ link_to_route('usuarios.show', 'Ver', array($usu->id), array('class' => 'btn btn-info')) }}
+	                  			{{ link_to_route('psicologia.show', 'Ver', array($usu->id), array('class' => 'btn btn-info')) }}
 	                  		</td>
 	                  	</tr>
 	                @endforeach  	

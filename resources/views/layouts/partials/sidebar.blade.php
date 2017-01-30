@@ -47,7 +47,7 @@
                     <a href="#"><i class='fa fa-user-md'></i> <span>Psicología</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu ">
                         <li class="{{ $nav_clinico_index or '' }}">
-                            <a href="{{ url('clinico') }}"><i class="fa fa-search"></i>Buscar</a>
+                            <a href="{{ url('psicologia/index') }}"><i class="fa fa-search"></i>Buscar</a>
                         </li>
                         <li class="{{ $nav_clinico_buscar or '' }}">
                             <a href="{{ url('clinico/create') }}"><i class="fa fa-user-plus"></i>Añadir nuevo</a>
