@@ -36,11 +36,8 @@ class CalendarController extends Controller
        
         $evento = new Calendario;
         $titulo =  $_POST['titulo'][0];
-        //$evento->titulo = $titulo[0];
-        $fechaIni =  $_POST['fechaIni'];
-        $evento->fechaIni = $fechaIni[0];
-        $fechaFin = $_POST['fechaFin'];
-        $evento->fechaFin = $fechaFin[0];
+        $evento->fechaIni = $_POST['fechaIni'][0];
+        $evento->fechaFin = $_POST['fechaFin'][0];
         /****************************************************************************/
         if(Auth::user()->rol=='administrativo'){
            $trabajadorSeleccionado[] = $_POST['trabajador'];
@@ -55,7 +52,7 @@ class CalendarController extends Controller
             $evento->user_id = Auth::user()->id;
         }
        /***************************************************************************/
-        $nombreUsuario = $_POST['usuarioCalendario'];
+        $nombreUsuario = $_POST['usuarioCalendario'][0];
         if($nombreUsuario!=null){
             $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         }
@@ -86,7 +83,7 @@ class CalendarController extends Controller
                 break;
         }
         $evento->grupo_id = $_POST['grupo'];
-        $evento->titulo = $tipoCita." ".preg_replace('/[0-9]+/', '', $nombreUsuario).$evento->grupo_id;
+        $evento->titulo = $tipoCita." ".preg_replace('/[0-9]+/', '', $nombreUsuario)." ".$evento->grupo_id;
        
         $evento->save();
     }
@@ -215,4 +212,16 @@ class CalendarController extends Controller
         json_encode($data); //convertimos el array principal $data a un objeto Json 
         return $data;    //para luego retornarlo y estar listo para consumirlo
    }//aqui termina la funcion cargadordeeventos
+
+    public function cargadorDatos(){
+        $idEvento = $_POST['id'];
+        $idUsuario = DB::table('calendarios')->where('id','=',$idEvento)->value('usuario_id');
+        if($idUsuario !=null){
+            $usuario = Usuario::find($idUsuario);
+            $nombreUsuario = $usuario->id." ".$usuario->nombre." ".$usuario->apellido1." ".$usuario->apellido2;
+        
+        json_encode($nombreUsuario);
+        return $nombreUsuario;
+    }
+    }
 }

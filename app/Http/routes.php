@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
  	Route::post('actualizaEventos','CalendarController@update');
   Route::post('updateEventos', 'CalendarController@updateEventos');
  	Route::post('eliminarEvento','CalendarController@delete');
+  Route::post('cargaDatos', 'CalendarController@cargadorDatos');
   Route::get('calendario','CalendarController@index');
   Route::get('psicologia/index','PsicologiaController@index');
   Route::get('psicologia/grupos', array('as' => 'psicologia/grupos', 'uses' => 'GrupoController@index'));

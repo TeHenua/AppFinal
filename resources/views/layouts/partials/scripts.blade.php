@@ -100,7 +100,7 @@ function limpiarEvento(){
   $('#datetimepicker').val('');
   $('#datetimepicker2').val('');
   $('#tipo_evento').val('');
-  $('#usuarioCalendario').val('');
+  $('#usuario').val('');
   $('#grupoCalendario').val('');
   $('#guardarBoton').attr("disabled", false);
 }
@@ -413,7 +413,22 @@ $(function () {
         break;
       }
       $('#tipo_evento').val(tipo);
-      $('#usuarioCalendario').val('');
+      crsfToken = document.getElementsByName("_token")[0].value;
+      $.ajax({
+        url: 'cargaDatos',
+        data: '&id='+event.id,
+        type: "POST",
+        headers: {
+          "X-CSRF-TOKEN": crsfToken
+        },
+        success: function(data){
+          $('#usuario').val(data);
+        },
+        error: function(json){
+          console.log("error al cargar datos de usuario");
+        }
+      });
+      $('#usuario').val('');
       $('#grupoCalendario').val('');
       $('#idEvento').val(event._id);
       $('#guardarBoton').attr("disabled", true);
