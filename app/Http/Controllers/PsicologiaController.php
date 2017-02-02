@@ -44,4 +44,14 @@ class PsicologiaController extends Controller
         return View::make('psicologia.show', compact('usuario', 'socio'));
     }
 
+    public function store(Requests $request){
+        $consulta = new Consulta;
+        $consulta->titulo = $request->input('titulo');
+        $consulta->texto = $request->input('texto');
+        $consulta->user_id = Auth::user()->id;
+        $consulta->usuario_id = $request->usuario->id;
+        $consulta->save();
+        return redirect('psicologia/show');
+    }
+
 }
