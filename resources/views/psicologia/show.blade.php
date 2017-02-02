@@ -99,12 +99,13 @@
 						<div class="box-body">
 						{!! Form::open(array('route' => array('psicologia/store', $usuario->id))) !!}
 							{{ csrf_field()}}
+							<input type="text" hidden="hidden" name="usuarioId" value="{{$usuario->id}}">
 							<div class="form-group col-md-12">
             					{!! Form::label('titulo','Título',['style' => 'font-size:small']) !!}
             					{!! Form::text('titulo', null, ['class' => 'form-control input-sm']) !!}
         					</div>
 					        <div class="form-group col-md-12">
-					            {{ Form::textarea('texto'), null, ['class' => 'form-control', 'id' => 'textConsulta'] }}
+					            <textarea id="texto" class="texto"></textarea>
 					        </div>
 		  				</div>
 		  				<div class="box-footer">

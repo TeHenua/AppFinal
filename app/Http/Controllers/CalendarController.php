@@ -139,8 +139,9 @@ class CalendarController extends Controller
         if ($usuario!=null) {
           $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $usuario), 10); 
         }
-        $evento->grupo_id = $grupo;
-        //falta grupo
+        if ($evento->grupo_id!= null or $evento->grupo_id!="") {
+            $evento->grupo_id = $grupo;
+        }
         $evento->update();
         
     }
