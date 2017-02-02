@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('cargaDatos', 'CalendarController@cargadorDatos');
   Route::get('calendario','CalendarController@index');
   Route::get('psicologia/index','PsicologiaController@index');
-  Route::get('psicologia/{id}', array( 'as' => 'psicologia.show','uses' =>'PsicologiaController@show'));
+  Route::get('psicologia/show/{id}', array( 'as' => 'psicologia.show','uses' =>'PsicologiaController@show'));
   Route::post('psicologia/store', array( 'as' => 'psicologia/store' , 'uses' => 'PsicologiaController@store'));
   Route::get('psicologia/grupos', array('as' => 'psicologia/grupos', 'uses' => 'GrupoController@index'));
   Route::post('psicologia/grupos', array('as' => 'psicologia/grupos', 'uses' => 'GrupoController@update'));

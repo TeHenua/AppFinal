@@ -37,11 +37,11 @@ class PsicologiaController extends Controller
     }
 
     public function show($id){
-        $usuario = Usuario::find($id);
+        /*$usuario = Usuario::find($id);
         if($usuario->socio_id!=null){
             $socio = Socio::find($usuario->socio_id);
         }
-        return View::make('psicologia.show', compact('usuario', 'socio'));
+        return View::make('psicologia.show', compact('usuario', 'socio'));*/
     }
 
     public function store(Requests $request){

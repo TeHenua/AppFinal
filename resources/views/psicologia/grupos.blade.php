@@ -36,7 +36,7 @@
 	</div>
 	<div class="box box-primary">
 		<div class="box-header">
-			<h3>Editar grupo</h3>
+			<h3 class="box-title">Editar grupo</h3>
 		</div>
 		<div class="box-body">
 			{{ Form::model(new App\Grupo, array('method' => 'POST', 'files' => 'true', 
