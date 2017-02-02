@@ -35,6 +35,7 @@
             <table class="table table-striped table-bordered">
                 <tbody>
                 	<tr>
+                		<th>Estado</th>
 	                  	<th>Dni</th>
 	                  	<th>Nombre</th>
 	                  	<th>Primer apellido</th>
@@ -43,6 +44,7 @@
                 	</tr>
                 	@foreach ($socios as $soc)
 	                	<tr>
+	                		<td>@if($soc->estado == 1) Incompleto @endif</td>
 	                  		<td>{{ $soc->dni }}</td>
 	                  		<td>{{ $soc->nombre }}</td>
 	                  		<td>{{ $soc->apellido1 }}</td>

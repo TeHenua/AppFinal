@@ -90,7 +90,7 @@
                         {{ Form::open(array('route' => array('usuarios.destroy', $usuario->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
                                 <button type="submit" class="btn btn-danger" >Borrar</button>
                         {{ Form::close() }}
-                        {{ link_to_route('actuLopd', 'Lopd', array($usuario->id) ,array('class' => 'btn btn-info', 'target' => '_blank')) }}
+                        
                     </div>
                 </div>
             </div>

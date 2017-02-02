@@ -52,8 +52,9 @@ class CalendarController extends Controller
             $evento->user_id = Auth::user()->id;
         }
        /***************************************************************************/
-        $nombreUsuario = $_POST['usuarioCalendario'][0];
+        $nombreUsuario = $_POST['usuarioCalendario'];
         if($nombreUsuario!=null){
+            $nombreUsuario = $nombreUsuario[0];
             $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
         }
         $tipoCita = $_POST['tipo_evento'][0];
@@ -82,7 +83,11 @@ class CalendarController extends Controller
                 # code...
                 break;
         }
-        $evento->grupo_id = $_POST['grupo'];
+        $grupo_id = $_POST['grupo'];
+        if($grupo_id!=null or $grupo_id!=""){
+            $evento->grupo_id = $grupo_id;
+        }
+        
         $evento->titulo = $tipoCita." ".preg_replace('/[0-9]+/', '', $nombreUsuario)." ".$evento->grupo_id;
        
         $evento->save();
