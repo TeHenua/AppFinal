@@ -63,19 +63,19 @@ class CalendarController extends Controller
                 $evento->color = "#00BFFF";
                 break;
             case 'Interna':
-                $evento->color = "#30912e";
+                $evento->color = "#87d153";
                 break;
             case 'Externa':
                 $evento->color = "#ffa64d";
                 break;
             case 'Coordinación interna':
-                $evento->color = "#66cc66";
+                $evento->color = "#c130b0";
                 break;
             case 'Coordinación externa':
                 $evento->color = "#963048";
                 break;
             case 'Grupo':
-                $evento->color = "#b366ff";
+                $evento->color = "#9943ef";
                 break;
             case 'Otro':
                 break;
@@ -116,19 +116,19 @@ class CalendarController extends Controller
                 $evento->color = "#00BFFF";
                 break;
             case 'Interna':
-                $evento->color = "#30912e";
+                $evento->color = "#87d153";
                 break;
             case 'Externa':
                 $evento->color = "#ffa64d";
                 break;
             case 'Coordinación interna':
-                $evento->color = "#66cc66";
+                $evento->color = "#c130b0";
                 break;
             case 'Coordinación externa':
                 $evento->color = "#963048";
                 break;
             case 'Grupo':
-                $evento->color = "#b366ff";
+                $evento->color = "#9943ef";
                 break;
             case 'Otro':
                 break;

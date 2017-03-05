@@ -43,10 +43,6 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => realpath('c:/pu'),
-        ],
 /***** aqui pongo las rutas donde se guardan los archivos *****/
         'dcustodia' => [
             'driver' => 'local',

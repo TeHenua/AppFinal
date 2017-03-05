@@ -42,7 +42,7 @@
                     </li>
                 </ul>
             </li>   
-            @if(Auth::user()->rol == 'psicologo' or Auth::user()->rol=='administrador')   
+            @if(Auth::user()->rol=='psicologo' or Auth::user()->rol=='administrador')   
                 <li class="treeview {{ $abierto_clinico or '' }}">   
                     <a href="#"><i class='fa fa-user-md'></i> <span>Psicología</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu ">
