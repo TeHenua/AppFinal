@@ -17,6 +17,7 @@
 
 class Google_Service_Datastore_Mutation extends Google_Model
 {
+  public $baseVersion;
   protected $deleteType = 'Google_Service_Datastore_Key';
   protected $deleteDataType = '';
   protected $insertType = 'Google_Service_Datastore_Entity';
@@ -26,6 +27,14 @@ class Google_Service_Datastore_Mutation extends Google_Model
   protected $upsertType = 'Google_Service_Datastore_Entity';
   protected $upsertDataType = '';
 
+  public function setBaseVersion($baseVersion)
+  {
+    $this->baseVersion = $baseVersion;
+  }
+  public function getBaseVersion()
+  {
+    return $this->baseVersion;
+  }
   public function setDelete(Google_Service_Datastore_Key $delete)
   {
     $this->delete = $delete;

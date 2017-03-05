@@ -21,6 +21,8 @@ class Google_Service_Compute_Backend extends Google_Model
   public $capacityScaler;
   public $description;
   public $group;
+  public $maxConnections;
+  public $maxConnectionsPerInstance;
   public $maxRate;
   public $maxRatePerInstance;
   public $maxUtilization;
@@ -56,6 +58,22 @@ class Google_Service_Compute_Backend extends Google_Model
   public function getGroup()
   {
     return $this->group;
+  }
+  public function setMaxConnections($maxConnections)
+  {
+    $this->maxConnections = $maxConnections;
+  }
+  public function getMaxConnections()
+  {
+    return $this->maxConnections;
+  }
+  public function setMaxConnectionsPerInstance($maxConnectionsPerInstance)
+  {
+    $this->maxConnectionsPerInstance = $maxConnectionsPerInstance;
+  }
+  public function getMaxConnectionsPerInstance()
+  {
+    return $this->maxConnectionsPerInstance;
   }
   public function setMaxRate($maxRate)
   {

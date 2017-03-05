@@ -15,7 +15,9 @@
         "kartik-v/bootstrap-fileinput": "dev-master",
         "pixelpeter/laravel5-isocodes-validation": "^1.0",
         "bassjobsen/bootstrap-3-typeahead": "^4.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "components/bootstrap-datetimepicker": "^2.4",
+        "fenos/notifynder": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

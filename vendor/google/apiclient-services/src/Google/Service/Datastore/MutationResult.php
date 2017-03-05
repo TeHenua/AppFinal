@@ -17,9 +17,19 @@
 
 class Google_Service_Datastore_MutationResult extends Google_Model
 {
+  public $conflictDetected;
   protected $keyType = 'Google_Service_Datastore_Key';
   protected $keyDataType = '';
+  public $version;
 
+  public function setConflictDetected($conflictDetected)
+  {
+    $this->conflictDetected = $conflictDetected;
+  }
+  public function getConflictDetected()
+  {
+    return $this->conflictDetected;
+  }
   public function setKey(Google_Service_Datastore_Key $key)
   {
     $this->key = $key;
@@ -27,5 +37,13 @@ class Google_Service_Datastore_MutationResult extends Google_Model
   public function getKey()
   {
     return $this->key;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
   }
 }

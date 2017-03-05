@@ -24,7 +24,7 @@ class UsuarioEditRequest extends Request
     public function rules()
     {
          return [
-            'nombre' => 'required',
+            /*'nombre' => 'required',
             'apellido1' => 'required',
             'direccion' => 'required',
             'localidad' => 'required',
@@ -34,7 +34,7 @@ class UsuarioEditRequest extends Request
             'lugar_nac' => 'required',
             'num_ss' => 'required',
             'primera_entrevista' => 'required',
-            'diagnostico' => 'required'
+            'diagnostico' => 'required'*/
         ];
     }
 }

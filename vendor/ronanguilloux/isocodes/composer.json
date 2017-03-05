@@ -1,7 +1,7 @@
 {
     "name": "ronanguilloux/isocodes",
-    "description": "PHP library, validating various ISO codes, such as IBAN, SWIFT/BIC, BBAN, RIB, Credit Card number, INSEE, VAT, NSS, Siren, Siret, Ssn, NINO, Zipcode (US, Canada, France...), ISBN, EAN13, UPC-A, GS1 / GTIN, SSCC, Spanish CIF & NIF, SEDOL, ISIN, Phone number",
-    "keywords": ["ISO codes", "IBAN", "SWIFT", "BIC", "BBAN", "RIB", "Credit Card number", "INSEE", "VAT", "NSS", "Siren", "Siret", "Ssn", "NINO", "ZipCode", "ISBN", "SSCC", "GS1", "GS-1", "EAN13", "GTIN", "UPC-A", "UCC-13", "DUN-14", "ITF" ,"CIF", "NIF", "SEDOL", "ISIN", "Phone number"],
+    "description": "PHP library - Validators for standards from ISO, International Finance, Public Administrations, GS1, Book and Music Industries, Phone numbers & Zipcodes for many countries",
+    "keywords": ["validator", "standard", "ISO", "Finance", "Public Administrations", "GS1", "Book", "IBAN", "SWIFT", "BIC", "BBAN", "RIB", "Credit Card number", "INSEE", "VAT", "NSS", "Siren", "Siret", "Ssn", "NINO", "ZipCode", "ISBN", "ISMN", "ISWC", "SSCC", "GS1", "GS-1", "UDI", "EAN13", "GTIN", "GLN", "GRAI", "GDTI", "GSRN", "DUN", "ITF", "UPC-A", "UCC-13", "DUN-14", "ITF" ,"CIF", "NIF", "SEDOL", "ISIN", "phone number", "zipcode"],
     "type": "library",
     "homepage": "https://github.com/ronanguilloux/IsoCodes",
     "authors": [
@@ -16,24 +16,25 @@
     },
     "license": "GPL-3.0+",
     "require": {
-        "php": ">=5.6.0",
+        "php": "^5.6 || ^7.0",
         "ext-bcmath": "*",
-        "giggsey/libphonenumber-for-php": "^7.2"
+        "giggsey/libphonenumber-for-php": "^7.2|~8.0"
     },
     "require-dev": {
         "phpunit/phpunit":                          "~5.2",
         "squizlabs/php_codesniffer":                "~2.5",
-        "sebastian/phpcpd":                         "2.0",
-        "phploc/phploc" :                           "3.0",
+        "sebastian/phpcpd":                         "~2.0",
+        "phploc/phploc" :                           "~3.0",
         "phpmd/phpmd" :                             "@stable",
         "pdepend/pdepend" :                         "~2.1",
-        "fabpot/php-cs-fixer":                      "~1.11",
+        "friendsofphp/php-cs-fixer":                "~1.11",
         "satooshi/php-coveralls":                   "~1.0",
         "symfony/phpunit-bridge":                   "^3.0"
     },
     "suggest": {
         "sllh/iso-codes-validator": "For Symfony or Silex integration with ease",
-        "gourmet/validation": "For CakePHP 3 integration"
+        "gourmet/validation": "For CakePHP 3 integration",
+        "pixelpeter/laravel5-isocodes-validation": "For Laravel 5 integration"
     },
     "autoload": {
         "psr-0": {"IsoCodes": "src/"}
@@ -43,7 +44,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     }
 }

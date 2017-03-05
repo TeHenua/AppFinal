@@ -1,7 +1,9 @@
 {{ Form::token() }}
 
 <div class="box box-primary">  
-    <div class="box-header with-border"><h4>Datos personales</h4></div>
+    <div class="box-header with-border">
+        <h4>Datos personales</h4>
+    </div>
     <div class="box-body">  
         <div class="form-group col-md-4">
             {!! Form::label('nombre','Nombre',['style' => 'font-size:small']) !!}
@@ -37,7 +39,7 @@
         <div class="form-group col-md-2">
             {!! Form::label('fecha_nac','Fecha de nacimiento',['style' => 'font-size:small']) !!}
             <i class="fa fa-asterisk ob"></i>
-            {{ Form::text('fecha_nac', null, array('id' => 'datepicker', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
+            {{ Form::text('fecha_nac', null, array('id' => 'dpUsuarioNac', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('lugar_nac','Lugar de nacimiento',['style' => 'font-size:small']) !!}
@@ -63,16 +65,18 @@
         </div>
         <div class="form-group col-md-2">
             {!! Form::label('primera_entrevista','Primera entrevista',['style' => 'font-size:small']) !!}
-            <i class="fa fa-asterisk ob"></i>
-            {{ Form::text('primera_entrevista', null, array('id' => 'datepicker2', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
+            {{-- <i class="fa fa-asterisk ob"></i> --}}
+            {{ Form::text('primera_entrevista', null, array('id' => 'dpUsuarioEnt', 'class' => 'form-control input-sm', 'placeholder' => 'AAAA-MM-DD')) }}
         </div>
     </div>
-    <div class="box-header with-border"><h4>Domicilio</h4></div>
+    <div class="box-header with-border">
+        <h4>Domicilio</h4>
+    </div>
     <div class="box-body">        
         <div class="form-group col-md-6">
             {!! Form::label('direccion','Dirección',['style' => 'font-size:small']) !!}
             <i class="fa fa-asterisk ob"></i>
-            {!! Form::text('direccion', null, ['class' => 'form-control input-sm']) !!}
+            {!! Form::text('direccion', null, ['class' => 'form-control input-sm', 'enabled']) !!}
         </div>
         <div class="form-group col-md-3">
             {!! Form::label('localidad','Localidad',['style' => 'font-size:small']) !!}
@@ -90,44 +94,46 @@
             {!! Form::text('provincia', null, ['class' => 'form-control input-sm']) !!}
         </div>
     </div>
+    @if(Auth::user()->rol=='social')
         <div class="box-header with-border"><h4>Datos médicos</h4></div>
-    <div class="box-body">
-        <div class="form-group col-md-6">
-            {!! Form::label('diagnostico','Diagnóstico',['style' => 'font-size:small']) !!}
-            <i class="fa fa-asterisk ob"></i>
-            {!! Form::text('diagnostico', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-        <div class="form-group col-md-2">
-            {!! Form::label('grado_discapacidad','G. discapacidad',['style' => 'font-size:small']) !!}
-            {!! Form::text('grado_discapacidad', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-        <div class="form-group col-md-2">
-            {!! Form::label('grado_dependencia','G. dependencia',['style' => 'font-size:small']) !!}
-            {!! Form::text('grado_dependencia', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-        <div class="form-group col-md-2">
-            {!! Form::label('puntos_mov','P. movilidad',['style' => 'font-size:small']) !!}
-            {!! Form::text('puntos_mov', null, ['class' => 'form-control input-sm']) !!}
-        </div>
-    </div>
-    <div class="box-header with-border"><h4>Archivos</h4></div>
-    <div class="box-body">
+            <div class="box-body">
+                <div class="form-group col-md-6">
+                    {!! Form::label('diagnostico','Diagnóstico',['style' => 'font-size:small']) !!}
+                    {{-- <i class="fa fa-asterisk ob"></i> --}}
+                    {!! Form::text('diagnostico', null, ['class' => 'form-control input-sm']) !!}
+                </div>
+                <div class="form-group col-md-2">
+                    {!! Form::label('grado_discapacidad','G. discapacidad',['style' => 'font-size:small']) !!}
+                    {!! Form::text('grado_discapacidad', null, ['class' => 'form-control input-sm']) !!}
+                </div>
+                <div class="form-group col-md-2">
+                    {!! Form::label('grado_dependencia','G. dependencia',['style' => 'font-size:small']) !!}
+                    {!! Form::text('grado_dependencia', null, ['class' => 'form-control input-sm']) !!}
+                </div>
+                <div class="form-group col-md-2">
+                    {!! Form::label('puntos_mov','P. movilidad',['style' => 'font-size:small']) !!}
+                    {!! Form::text('puntos_mov', null, ['class' => 'form-control input-sm']) !!}
+                </div>
+            </div>
+        </div>    
+    @endif
 
+    <div class="box-header with-border">
+        <h4>Archivos</h4>   
+    </div>
+    <div class="box-body">
         <div class="form-group col-md-4">
             {!! Form::label('voto','Voto',['style' => 'font-size:small']) !!}
             <input type="file" id="file" name="voto">       
         </div>
-
         <div class="form-group col-md-4">
             {!! Form::label('diagnostico','Diagnóstico',['style' => 'font-size:small']) !!}
             <input type="file" id="file" name="diagnostico">       
         </div>
-
         <div class="form-group col-md-4">
             {!! Form::label('librofamilia','Libro de familia / Tutoria',['style' => 'font-size:small']) !!}
             <input type="file" id="file" name="dlibrofamilia">       
         </div>
-
         <div class="form-group col-md-4">
             {!! Form::label('custodia','Custodia',['style' => 'font-size:small']) !!}
             <input type="file" id="file" name="custodia">
@@ -136,7 +142,6 @@
                     <input name="alerta_custodia" value="1" type="checkbox" @if ($usuario->alerta_custodia == '1') checked @endif>
                     Marcar si existe una alerta de custodia
                 </label>
-                
             </div>            
         </div> 
         <div class="form-group col-md-4">
@@ -147,13 +152,17 @@
                     <input name="alerta_medica" value="1" type="checkbox" @if ($usuario->alerta_medica == '1') checked @endif>
                     Marcar si existe una alerta médica
                 </label>
-                
             </div>    
         </div> 
         <div class="form-group col-md-4">
             {!! Form::label('lopd','LOPD',['style' => 'font-size:small']) !!}
             <input type="file" id="file2" name="lopd">
-
+            <div class="checkbox">
+                <label>
+                    <input name="estado" value="1" type="checkbox" @if ($usuario->estado == '1') checked @endif>
+                    Datos incompletos
+                </label>
+            </div>    
         </div>
     </div>
     <div class="box-footer">    

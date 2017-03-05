@@ -96,6 +96,10 @@ class Google_Service_CivicInfo extends Google_Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
+                'returnAllAvailableData' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
               ),
             ),
           )

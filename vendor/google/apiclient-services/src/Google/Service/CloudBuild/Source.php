@@ -17,9 +17,19 @@
 
 class Google_Service_CloudBuild_Source extends Google_Model
 {
+  protected $repoSourceType = 'Google_Service_CloudBuild_RepoSource';
+  protected $repoSourceDataType = '';
   protected $storageSourceType = 'Google_Service_CloudBuild_StorageSource';
   protected $storageSourceDataType = '';
 
+  public function setRepoSource(Google_Service_CloudBuild_RepoSource $repoSource)
+  {
+    $this->repoSource = $repoSource;
+  }
+  public function getRepoSource()
+  {
+    return $this->repoSource;
+  }
   public function setStorageSource(Google_Service_CloudBuild_StorageSource $storageSource)
   {
     $this->storageSource = $storageSource;

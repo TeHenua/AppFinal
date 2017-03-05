@@ -17,17 +17,26 @@
 
 class Google_Service_Dfareporting_RichMediaExitOverride extends Google_Model
 {
-  public $customExitUrl;
+  protected $clickThroughUrlType = 'Google_Service_Dfareporting_ClickThroughUrl';
+  protected $clickThroughUrlDataType = '';
+  public $enabled;
   public $exitId;
-  public $useCustomExitUrl;
 
-  public function setCustomExitUrl($customExitUrl)
+  public function setClickThroughUrl(Google_Service_Dfareporting_ClickThroughUrl $clickThroughUrl)
   {
-    $this->customExitUrl = $customExitUrl;
+    $this->clickThroughUrl = $clickThroughUrl;
   }
-  public function getCustomExitUrl()
+  public function getClickThroughUrl()
   {
-    return $this->customExitUrl;
+    return $this->clickThroughUrl;
+  }
+  public function setEnabled($enabled)
+  {
+    $this->enabled = $enabled;
+  }
+  public function getEnabled()
+  {
+    return $this->enabled;
   }
   public function setExitId($exitId)
   {
@@ -36,13 +45,5 @@ class Google_Service_Dfareporting_RichMediaExitOverride extends Google_Model
   public function getExitId()
   {
     return $this->exitId;
-  }
-  public function setUseCustomExitUrl($useCustomExitUrl)
-  {
-    $this->useCustomExitUrl = $useCustomExitUrl;
-  }
-  public function getUseCustomExitUrl()
-  {
-    return $this->useCustomExitUrl;
   }
 }

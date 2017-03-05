@@ -104,6 +104,16 @@ class Google_Service_Compute_Resource_Networks extends Google_Service_Resource
    * should be returned. If the number of available results is larger than
    * maxResults, Compute Engine returns a nextPageToken that can be used to get
    * the next page of results in subsequent list requests.
+   * @opt_param string orderBy Sorts list results by a certain order. By default,
+   * results are returned in alphanumerical order based on the resource name.
+   *
+   * You can also sort results in descending order based on the creation timestamp
+   * using orderBy="creationTimestamp desc". This sorts results based on the
+   * creationTimestamp field in reverse chronological order (newest result first).
+   * Use this to sort resources like operations so that the newest operation is
+   * returned first.
+   *
+   * Currently, only sorting by name or creationTimestamp desc is supported.
    * @opt_param string pageToken Specifies a page token to use. Set pageToken to
    * the nextPageToken returned by a previous list request to get the next page of
    * results.
@@ -114,5 +124,20 @@ class Google_Service_Compute_Resource_Networks extends Google_Service_Resource
     $params = array('project' => $project);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Compute_NetworkList");
+  }
+  /**
+   * Switches the network mode from auto subnet mode to custom subnet mode.
+   * (networks.switchToCustomMode)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $network Name of the network to be updated.
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Operation
+   */
+  public function switchToCustomMode($project, $network, $optParams = array())
+  {
+    $params = array('project' => $project, 'network' => $network);
+    $params = array_merge($params, $optParams);
+    return $this->call('switchToCustomMode', array($params), "Google_Service_Compute_Operation");
   }
 }

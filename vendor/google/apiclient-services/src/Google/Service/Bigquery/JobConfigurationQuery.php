@@ -27,9 +27,13 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public $flattenResults;
   public $maximumBillingTier;
   public $maximumBytesBilled;
+  public $parameterMode;
   public $preserveNulls;
   public $priority;
   public $query;
+  protected $queryParametersType = 'Google_Service_Bigquery_QueryParameter';
+  protected $queryParametersDataType = 'array';
+  public $schemaUpdateOptions;
   protected $tableDefinitionsType = 'Google_Service_Bigquery_ExternalDataConfiguration';
   protected $tableDefinitionsDataType = 'map';
   public $useLegacySql;
@@ -94,6 +98,14 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   {
     return $this->maximumBytesBilled;
   }
+  public function setParameterMode($parameterMode)
+  {
+    $this->parameterMode = $parameterMode;
+  }
+  public function getParameterMode()
+  {
+    return $this->parameterMode;
+  }
   public function setPreserveNulls($preserveNulls)
   {
     $this->preserveNulls = $preserveNulls;
@@ -117,6 +129,22 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public function getQuery()
   {
     return $this->query;
+  }
+  public function setQueryParameters($queryParameters)
+  {
+    $this->queryParameters = $queryParameters;
+  }
+  public function getQueryParameters()
+  {
+    return $this->queryParameters;
+  }
+  public function setSchemaUpdateOptions($schemaUpdateOptions)
+  {
+    $this->schemaUpdateOptions = $schemaUpdateOptions;
+  }
+  public function getSchemaUpdateOptions()
+  {
+    return $this->schemaUpdateOptions;
   }
   public function setTableDefinitions($tableDefinitions)
   {

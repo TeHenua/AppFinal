@@ -18,6 +18,7 @@
 class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
 {
   public $brandingType;
+  public $crossListedExternalDealIdType;
   public $description;
   protected $estimatedGrossSpendType = 'Google_Service_AdExchangeBuyer_Price';
   protected $estimatedGrossSpendDataType = '';
@@ -39,6 +40,14 @@ class Google_Service_AdExchangeBuyer_DealTerms extends Google_Model
   public function getBrandingType()
   {
     return $this->brandingType;
+  }
+  public function setCrossListedExternalDealIdType($crossListedExternalDealIdType)
+  {
+    $this->crossListedExternalDealIdType = $crossListedExternalDealIdType;
+  }
+  public function getCrossListedExternalDealIdType()
+  {
+    return $this->crossListedExternalDealIdType;
   }
   public function setDescription($description)
   {

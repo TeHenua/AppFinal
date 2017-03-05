@@ -56,7 +56,6 @@ class UsuarioController extends Controller
         $usuario->apellido1 = ucwords(Input::get('apellido1'));
         $usuario->apellido2 = ucwords(Input::get('apellido2'));
         $usuario->fecha_nac = Input::get('fecha_nac');
-        dd($usuario->fecha_nac);
         $usuario->lugar_nac = ucwords(Input::get('lugar_nac'));
         $usuario->direccion = ucwords(Input::get('direccion'));
         $usuario->localidad = ucwords(Input::get('localidad'));
@@ -69,9 +68,11 @@ class UsuarioController extends Controller
         $usuario->grado_dependencia = Input::get('grado_dependencia');
         $usuario->puntos_movilidad = Input::get('puntos_movilidad');
         $usuario->num_ss = Input::get('num_ss');
+        $usuario->tis = Input::get('tis');
         $usuario->primera_entrevista = Input::get('primera_entrevista');
         $usuario->alerta_medica = Input::get('alerta_medica');
         $usuario->alerta_custodia = Input::get('alerta_custodia');
+        $usuario->estado = Input::get('estado');
         $nombreSocio = Input::get('nombreSocio');
 
         $socio_id = intval(preg_replace('/[^0-9]+/', '', $nombreSocio), 10);  
@@ -127,6 +128,9 @@ class UsuarioController extends Controller
         }
         if(!isset($input['alerta_custodia'])){
             $input['alerta_custodia'] = 0; 
+        }
+        if(!isset($input['estado'])){
+            $input['estado'] = 0; 
         }
         $dni = ['nif' => $usuario->dni];
         $rules = ['nif' => 'nif'];

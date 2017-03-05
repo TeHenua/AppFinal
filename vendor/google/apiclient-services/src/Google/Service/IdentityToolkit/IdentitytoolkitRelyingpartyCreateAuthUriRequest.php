@@ -18,9 +18,11 @@
 class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriRequest extends Google_Model
 {
   public $appId;
+  public $authFlowType;
   public $clientId;
   public $context;
   public $continueUri;
+  public $customParameter;
   public $hostedDomain;
   public $identifier;
   public $oauthConsumerKey;
@@ -28,6 +30,7 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriReq
   public $openidRealm;
   public $otaApp;
   public $providerId;
+  public $sessionId;
 
   public function setAppId($appId)
   {
@@ -36,6 +39,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriReq
   public function getAppId()
   {
     return $this->appId;
+  }
+  public function setAuthFlowType($authFlowType)
+  {
+    $this->authFlowType = $authFlowType;
+  }
+  public function getAuthFlowType()
+  {
+    return $this->authFlowType;
   }
   public function setClientId($clientId)
   {
@@ -60,6 +71,14 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriReq
   public function getContinueUri()
   {
     return $this->continueUri;
+  }
+  public function setCustomParameter($customParameter)
+  {
+    $this->customParameter = $customParameter;
+  }
+  public function getCustomParameter()
+  {
+    return $this->customParameter;
   }
   public function setHostedDomain($hostedDomain)
   {
@@ -116,5 +135,13 @@ class Google_Service_IdentityToolkit_IdentitytoolkitRelyingpartyCreateAuthUriReq
   public function getProviderId()
   {
     return $this->providerId;
+  }
+  public function setSessionId($sessionId)
+  {
+    $this->sessionId = $sessionId;
+  }
+  public function getSessionId()
+  {
+    return $this->sessionId;
   }
 }

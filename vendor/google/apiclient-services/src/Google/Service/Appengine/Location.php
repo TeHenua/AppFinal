@@ -18,6 +18,7 @@
 class Google_Service_Appengine_Location extends Google_Model
 {
   public $labels;
+  public $locationId;
   public $metadata;
   public $name;
 
@@ -28,6 +29,14 @@ class Google_Service_Appengine_Location extends Google_Model
   public function getLabels()
   {
     return $this->labels;
+  }
+  public function setLocationId($locationId)
+  {
+    $this->locationId = $locationId;
+  }
+  public function getLocationId()
+  {
+    return $this->locationId;
   }
   public function setMetadata($metadata)
   {

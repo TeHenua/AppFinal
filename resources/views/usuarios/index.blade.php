@@ -21,6 +21,7 @@
 	<div class="box box-primary">
 		<div class="box-header">
 			<h3 class="box-title">Listado de usuarios</h3>
+
 			<div class="box-tools">
 				{!! Form::open(array('url'=>'usuarios','method' => 'GET', 'role' => 'search')) !!}
 					<div class="input-group input-group-sm" style="width: 150px;">
@@ -36,7 +37,7 @@
             <table class="table table-striped table-bordered">
                 <tbody>
                 	<tr>
-	                  	<th>Dni</th>
+	                  	<th>Estado</th>
 	                  	<th>Nombre</th>
 	                  	<th>Primer apellido</th>
 	                  	<th>Segundo apellido</th>
@@ -44,7 +45,7 @@
                 	</tr>
                 	@foreach ($usuarios as $usu)
 	                	<tr>
-	                  		<td>{{ $usu->dni }}</td>
+	                  		<td>@if($usu->estado == 1) Incompleto @endif</td>
 	                  		<td>{{ $usu->nombre }}</td>
 	                  		<td>{{ $usu->apellido1 }}</td>
 	                  		<td>{{ $usu->apellido2 }}</td>

@@ -1,9 +1,9 @@
 /*!
- * bootstrap-fileinput v4.3.5
+ * bootstrap-fileinput v4.3.7
  * http://plugins.krajee.com/file-input
  *
  * Author: Kartik Visweswaran
- * Copyright: 2014 - 2016, Kartik Visweswaran, Krajee.com
+ * Copyright: 2014 - 2017, Kartik Visweswaran, Krajee.com
  *
  * Licensed under the BSD 3-Clause
  * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
@@ -30,8 +30,8 @@
     $.fn.fileinputLocales = {};
     $.fn.fileinputThemes = {};
 
-    var NAMESPACE, MODAL_ID, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, objUrl, compare, isIE, handler,
-        previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss, tMain1, tMain2,
+    var NAMESPACE, MODAL_ID, FRAMES, SORT_CSS, STYLE_SETTING, OBJECT_PARAMS, DEFAULT_PREVIEW, objUrl, compare, handler,
+        isIE, previewCache, getNum, hasFileAPISupport, hasDragDropSupport, hasFileUploadSupport, addCss, tMain1, tMain2,
         tPreview, tFileIcon, tClose, tCaption, tBtnDefault, tBtnLink, tBtnBrowse, tModalMain, tModal, tProgress, tSize,
         tFooter, tActions, tActionDelete, tActionUpload, tActionZoom, tActionDrag, tTagBef, tTagBef1, tTagBef2, tTagAft,
         tGeneric, tHtml, tImage, tText, tVideo, tAudio, tFlash, tObject, tPdf, tOther, defaultFileActionSettings,
@@ -41,6 +41,8 @@
 
     NAMESPACE = '.fileinput';
     MODAL_ID = 'kvFileinputModal';
+    FRAMES = '.kv-preview-thumb';
+    SORT_CSS = 'file-sortable';
     STYLE_SETTING = 'style="width:{width};height:{height};"';
     OBJECT_PARAMS = '<param name="controller" value="true" />\n' +
         '<param name="allowFullScreen" value="true" />\n' +
@@ -73,7 +75,9 @@
     };
     handler = function ($el, event, callback, skipNS) {
         var ev = skipNS ? event : event.split(' ').join(NAMESPACE + ' ') + NAMESPACE;
-        $el.off(ev).on(ev, callback);
+        if ($el.length) {
+            $el.off(ev).on(ev, callback);
+        }
     };
     previewCache = {
         data: {},
@@ -95,9 +99,9 @@
                 getSize: function (size) {
                     return obj._getSize(size);
                 },
-                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind) {
-                    var fc = ' file-preview-initial';
-                    return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind);
+                parseTemplate: function (cat, data, fname, ftype, pId, ftr, ind, tmpl) {
+                    var fc = ' file-preview-initial ' + SORT_CSS;
+                    return obj._generatePreviewTemplate(cat, data, fname, ftype, pId, false, null, fc, ftr, ind, tmpl);
                 },
                 msg: function (n) {
                     return obj._getMsgSelected(n);
@@ -122,8 +126,8 @@
         },
         get: function (id, i, isDisabled) {
             var ind = 'init_' + i, data = previewCache.data[id], config = data.config[i], content = data.content[i],
-                previewId = data.initId + '-' + ind, out, $tmp, frameClass = ' file-preview-initial', cat, cap, ftr,
-                ftype, asData = ifSet('previewAsData', config, data.previewAsData);
+                previewId = data.initId + '-' + ind, out, $tmp, cat, ftr, fname, ftype,
+                asData = ifSet('previewAsData', config, data.previewAsData);
             isDisabled = isDisabled === undefined ? true : isDisabled;
             /** @namespace config.frameAttr */
             /** @namespace config.frameClass */
@@ -131,21 +135,15 @@
             if (!content) {
                 return '';
             }
-            if (config && config.frameClass) {
-                frameClass += ' ' + config.frameClass;
-            }
+            cat = ifSet('type', config, data.previewFileType || 'generic');
+            fname = ifSet('filename', config, ifSet('caption', config));
+            ftype = ifSet('filetype', config, cat);
+            ftr = previewCache.footer(id, i, isDisabled, (config && config.size || null));
             if (asData) {
-                cat = data.previewAsData ? ifSet('type', config, data.previewFileType || 'generic') : 'generic';
-                cap = ifSet('caption', config);
-                ftr = previewCache.footer(id, i, isDisabled, (config && config.size || null));
-                ftype = ifSet('filetype', config, cat);
-                out = data.parseTemplate(cat, content, cap, ftype, previewId, ftr, ind, null);
+                out = data.parseTemplate(cat, content, fname, ftype, previewId, ftr, ind);
             } else {
-                out = data.template
-                    .replace(/\{previewId}/g, previewId).replace(/\{frameClass}/g, frameClass)
-                    .replace(/\{fileindex}/g, ind).replace(/\{content}/g, data.content[i])
-                    .replace(/\{template}/g, ifSet('type', config, data.previewFileType))
-                    .replace(/\{footer}/g, previewCache.footer(id, i, isDisabled, (config && config.size || null)));
+                out = data.parseTemplate('generic', content, fname, ftype, previewId, ftr, ind, cat)
+                    .replace(/\{content}/g, data.content[i]);
             }
             if (data.tags.length && data.tags[i]) {
                 out = replaceTags(out, data.tags[i]);
@@ -222,20 +220,24 @@
             }
             previewCache.data[id] = data;
         },
-        unset: function (id, index) {
-            var chk = previewCache.count(id);
+        unset: function (obj, index) {
+            var chk = previewCache.count(obj.id);
             if (!chk) {
                 return;
             }
             if (chk === 1) {
-                previewCache.data[id].content = [];
-                previewCache.data[id].config = [];
-                previewCache.data[id].tags = [];
+                previewCache.data[obj.id].content = [];
+                previewCache.data[obj.id].config = [];
+                previewCache.data[obj.id].tags = [];
+                obj.initialPreview = [];
+                obj.initialPreviewConfig = [];
+                obj.initialPreviewThumbTags = [];
                 return;
             }
-            previewCache.data[id].content[index] = null;
-            previewCache.data[id].config[index] = null;
-            previewCache.data[id].tags[index] = null;
+
+            previewCache.data[obj.id].content[index] = null;
+            previewCache.data[obj.id].config[index] = null;
+            previewCache.data[obj.id].tags[index] = null;
         },
         out: function (id) {
             var html = '', data = previewCache.data[id], caption, len = previewCache.count(id, true);
@@ -246,12 +248,12 @@
                 html += previewCache.get(id, i);
             }
             caption = data.msg(previewCache.count(id));
-            return {content: '<div class="file-initial-thumbs">' + html + '</div>', caption: caption};
+            return {content: html, caption: caption};
         },
         footer: function (id, i, isDisabled, size) {
             var data = previewCache.data[id];
             isDisabled = isDisabled === undefined ? true : isDisabled;
-            if (data.config.length === 0 || isEmpty(data.config[i])) {
+            if (!data || !data.config || data.config.length === 0 || isEmpty(data.config[i])) {
                 return '';
             }
             var config = data.config[i], caption = ifSet('caption', config), width = ifSet('width', config, 'auto'),
@@ -456,7 +458,7 @@
         other: {width: "160px", height: "160px"}
     };
     defaultPreviewZoomSettings = {
-        image: {width: "100%", height: "100%"},
+        image: {width: "auto", height: "auto", 'max-width': "100%", 'max-height': "100%"},
         html: {width: "100%", height: "100%", 'min-height': "480px"},
         text: {width: "100%", height: "100%", 'min-height': "480px"},
         video: {width: "auto", height: "100%", 'max-width': "100%"},
@@ -478,8 +480,8 @@
                 compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
         },
         video: function (vType, vName) {
-            return compare(vType, 'video.*') && (compare(vType, /(ogg|mp4|mp?g|webm|3gp)$/i) ||
-                compare(vName, /\.(og?|mp4|webm|mp?g|3gp)$/i));
+            return compare(vType, 'video.*') && (compare(vType, /(ogg|mp4|mp?g|mov|webm|3gp)$/i) ||
+                compare(vName, /\.(og?|mp4|webm|mp?g|mov|3gp)$/i));
         },
         audio: function (vType, vName) {
             return compare(vType, 'audio.*') && (compare(vName, /(ogg|mp3|mp?g|wav)$/i) ||
@@ -552,34 +554,35 @@
             document.msFullscreenElement;
     };
     toggleFullScreen = function (maximize) {
-        if (maximize && !checkFullScreen()) {
-            /** @namespace document.documentElement.requestFullscreen */
-            /** @namespace document.documentElement.msRequestFullscreen */
-            /** @namespace document.documentElement.mozRequestFullScreen */
-            /** @namespace document.documentElement.webkitRequestFullscreen */
+        var doc = document, de = doc.documentElement;
+        if (de && maximize && !checkFullScreen()) {
+            /** @namespace document.requestFullscreen */
+            /** @namespace document.msRequestFullscreen */
+            /** @namespace document.mozRequestFullScreen */
+            /** @namespace document.webkitRequestFullscreen */
             /** @namespace Element.ALLOW_KEYBOARD_INPUT */
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            if (de.requestFullscreen) {
+                de.requestFullscreen();
+            } else if (de.msRequestFullscreen) {
+                de.msRequestFullscreen();
+            } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+            } else if (de.webkitRequestFullscreen) {
+                de.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
             }
         } else {
             /** @namespace document.exitFullscreen */
             /** @namespace document.msExitFullscreen */
             /** @namespace document.mozCancelFullScreen */
             /** @namespace document.webkitExitFullscreen */
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
+            if (doc.exitFullscreen) {
+                doc.exitFullscreen();
+            } else if (doc.msExitFullscreen) {
+                doc.msExitFullscreen();
+            } else if (doc.mozCancelFullScreen) {
+                doc.mozCancelFullScreen();
+            } else if (doc.webkitExitFullscreen) {
+                doc.webkitExitFullscreen();
             }
         }
     };
@@ -629,6 +632,9 @@
             self.fileBatchCompleted = true;
             if (!self.isPreviewable) {
                 self.showPreview = false;
+            }
+            if (self.allowedPreviewTypes === undefined) {
+                self.allowedPreviewTypes = defaultPreviewTypes;
             }
             self.uploadFileAttr = !isEmpty($el.attr('name')) ? $el.attr('name') : 'file_data';
             self.reader = null;
@@ -697,17 +703,23 @@
             }
             self._initZoom();
         },
-        _validate: function () {
-            var self = this, $exception;
-            if (self.$element.attr('type') === 'file') {
-                return true;
+        _log: function (msg) {
+            var self = this, id = self.$element.attr('id');
+            if (id) {
+                msg = '"' + id + '": ' + msg;
             }
-            $exception = '<div class="help-block alert alert-warning">' +
-                '<h4>Invalid Input Type</h4>' +
-                'You must set an input <code>type = file</code> for <b>bootstrap-fileinput</b> plugin to initialize.' +
-                '</div>';
-            self.$element.after($exception);
-            return false;
+            if (typeof window.console.log !== "undefined") {
+                window.console.log(msg);
+            } else {
+                window.alert(msg);
+            }
+        },
+        _validate: function () {
+            var self = this, status = self.$element.attr('type') === 'file';
+            if (!status) {
+                self._log('The input "type" must be set to "file" for initializing the "bootstrap-fileinput" plugin.');
+            }
+            return status;
         },
         _errorsExist: function () {
             var self = this, $err;
@@ -839,25 +851,29 @@
             }
             return 'other';
         },
-        _parseFilePreviewIcon: function (content, fname) {
-            var self = this, proceed, ext, icn = self.previewFileIcon;
+        _getPreviewIcon: function (fname) {
+            var self = this, ext, out = null;
             if (fname && fname.indexOf('.') > -1) {
                 ext = fname.split('.').pop();
                 if (self.previewFileIconSettings && self.previewFileIconSettings[ext]) {
-                    icn = self.previewFileIconSettings[ext];
+                    out = self.previewFileIconSettings[ext];
                 }
                 if (self.previewFileExtSettings) {
                     $.each(self.previewFileExtSettings, function (key, func) {
                         if (self.previewFileIconSettings[key] && func(ext)) {
-                            icn = self.previewFileIconSettings[key];
+                            out = self.previewFileIconSettings[key];
+                            //noinspection UnnecessaryReturnStatementJS
                             return;
                         }
-                        proceed = true;
                     });
                 }
             }
+            return out;
+        },
+        _parseFilePreviewIcon: function (content, fname) {
+            var self = this, icn = self._getPreviewIcon(fname) || self.previewFileIcon;
             if (content.indexOf('{previewFileIcon}') > -1) {
-                return content.replace(/\{previewFileIconClass}/g, self.previewFileIconClass).replace(
+                content = content.replace(/\{previewFileIconClass}/g, self.previewFileIconClass).replace(
                     /\{previewFileIcon}/g, icn);
             }
             return content;
@@ -957,9 +973,8 @@
             addCss($zone, 'clickable');
             $zone.attr('tabindex', -1);
             handler($zone, 'click', function (e) {
-                var $target = $(e.target);
-                if (!$target.parents('.file-preview-thumbnails').length || $target.parents(
-                        '.file-default-preview').length) {
+                var $tar = $(e.target);
+                if (!$tar.parents('.file-preview-thumbnails').length || $tar.parents('.file-default-preview').length) {
                     self.$element.trigger('click');
                     $zone.blur();
                 }
@@ -1037,30 +1052,40 @@
             return !self._abort({});
         },
         _clearPreview: function () {
-            var self = this, $thumbs = !self.showUploadedThumbs ? self.$preview.find('.file-preview-frame') :
-                self.$preview.find('.file-preview-frame:not(.file-preview-success)');
-            $thumbs.remove();
-            if (!self.$preview.find('.file-preview-frame').length || !self.showPreview) {
+            var self = this, $p = self.$preview,
+                $thumbs = self.showUploadedThumbs ? $p.find(FRAMES + ':not(.file-preview-success)') : $p.find(FRAMES);
+            $thumbs.each(function () {
+                var $thumb = $(this), $cache = $p.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
+                $thumb.remove();
+                $cache.remove();
+            });
+            if (!self.$preview.find(FRAMES).length || !self.showPreview) {
                 self._resetUpload();
             }
             self._validateDefaultPreview();
         },
         _initSortable: function () {
-            var self = this, $preview = self.$preview, $el, settings;
-            if (!window.KvSortable) {
+            var self = this, $el = self.$preview, settings, selector = '.' + SORT_CSS;
+            if (!window.KvSortable || $el.find(selector).length === 0) {
                 return;
             }
-            $el = $preview.find('.file-initial-thumbs');
             //noinspection JSUnusedGlobalSymbols
             settings = {
                 handle: '.drag-handle-init',
                 dataIdAttr: 'data-preview-id',
-                draggable: '.file-preview-initial',
+                draggable: selector,
                 onSort: function (e) {
-                    var oldIndex = e.oldIndex, newIndex = e.newIndex;
+                    var oldIndex = e.oldIndex, newIndex = e.newIndex, key, $frame;
                     self.initialPreview = moveArray(self.initialPreview, oldIndex, newIndex);
                     self.initialPreviewConfig = moveArray(self.initialPreviewConfig, oldIndex, newIndex);
                     previewCache.init(self);
+                    for (var i = 0; i < self.initialPreviewConfig.length; i++) {
+                        if (self.initialPreviewConfig[i] !== null) {
+                            key = self.initialPreviewConfig[i].key;
+                            $frame = $(".kv-file-remove[data-key='" + key + "']").closest(FRAMES);
+                            $frame.attr('data-fileindex', 'init_' + i).data('fileindex', 'init_' + i);
+                        }
+                    }
                     self._raise('filesorted', {
                         previewId: $(e.item).attr('id'),
                         'oldIndex': oldIndex,
@@ -1156,15 +1181,22 @@
             self._listenModalEvent('loaded');
         },
         _initZoomButtons: function () {
-            var self = this, previewId = self.$modal.data('previewId') || '', $first, $last,
-                frames = self.$preview.find('.file-preview-frame').toArray(), len = frames.length,
+            var self = this, previewId = self.$modal.data('previewId') || '', $first, $last, $preview = self.$preview,
+                thumbs = $preview.find(FRAMES).toArray(), len = thumbs.length,
                 $prev = self.$modal.find('.btn-prev'), $next = self.$modal.find('.btn-next');
-
+            if (thumbs.length < 2) {
+                $prev.hide();
+                $next.hide();
+                return;
+            } else {
+                $prev.show();
+                $next.show();
+            }
             if (!len) {
                 return;
             }
-            $first = $(frames[0]);
-            $last = $(frames[len - 1]);
+            $first = $(thumbs[0]);
+            $last = $(thumbs[len - 1]);
             $prev.removeAttr('disabled');
             $next.removeAttr('disabled');
             if ($first.length && $first.attr('id') === previewId) {
@@ -1221,17 +1253,18 @@
             }
             $modal.focus();
         },
-        _setZoomContent: function ($preview, animate) {
-            var self = this, $content, tmplt, body, title, $body, $dataEl, config, previewId = $preview.attr('id'),
+        _setZoomContent: function ($frame, animate) {
+            var self = this, $content, tmplt, body, title, $body, $dataEl, config, pid = $frame.attr('id'),
                 $modal = self.$modal, $prev = $modal.find('.btn-prev'), $next = $modal.find('.btn-next'), $tmp,
                 $btnFull = $modal.find('.btn-fullscreen'), $btnBord = $modal.find('.btn-borderless'),
-                $btnTogh = $modal.find('.btn-toggleheader');
-            tmplt = $preview.data('template') || 'generic';
-            $content = $preview.find('.kv-file-content');
+                $btnTogh = $modal.find('.btn-toggleheader'),$zoomPreview = self.$preview.find('#zoom-' + pid);
+            tmplt = $zoomPreview.attr('data-template') || 'generic';
+            $content = $zoomPreview.find('.kv-file-content');
             body = $content.length ? $content.html() : '';
-            title = $preview.find('.file-footer-caption').text() || '';
+            title = $zoomPreview.find('.file-footer-caption').text() || '';
             $modal.find('.kv-zoom-title').html(title);
             $body = $modal.find('.kv-zoom-body');
+            $modal.removeClass('kv-single-content');
             if (animate) {
                 $tmp = $body.clone().insertAfter($body);
                 $body.html(body).hide();
@@ -1253,12 +1286,12 @@
                     }
                 });
             }
-            $modal.data('previewId', previewId);
+            $modal.data('previewId', pid);
             handler($prev, 'click', function () {
-                self._zoomSlideShow('prev', previewId);
+                self._zoomSlideShow('prev', pid);
             });
             handler($next, 'click', function () {
-                self._zoomSlideShow('next', previewId);
+                self._zoomSlideShow('next', pid);
             });
             handler($btnFull, 'click', function () {
                 self._resizeZoomDialog(true);
@@ -1295,40 +1328,40 @@
             handler($modal, 'keydown', function (e) {
                 var key = e.which || e.keyCode;
                 if (key === 37 && !$prev.attr('disabled')) {
-                    self._zoomSlideShow('prev', previewId);
+                    self._zoomSlideShow('prev', pid);
                 }
                 if (key === 39 && !$next.attr('disabled')) {
-                    self._zoomSlideShow('next', previewId);
+                    self._zoomSlideShow('next', pid);
                 }
             });
         },
         _zoomPreview: function ($btn) {
-            var self = this, $preview;
+            var self = this, $frame;
             if (!$btn.length) {
                 throw 'Cannot zoom to detailed preview!';
             }
             self.$modal.html(self._getModalContent());
-            $preview = $btn.closest('.file-preview-frame');
-            self._setZoomContent($preview);
+            $frame = $btn.closest(FRAMES);
+            self._setZoomContent($frame);
             self.$modal.modal('show');
             self._initZoomButtons();
         },
         _zoomSlideShow: function (dir, previewId) {
             var self = this, $btn = self.$modal.find('.kv-zoom-actions .btn-' + dir), $targFrame, i,
-                frames = self.$preview.find('.file-preview-frame').toArray(), len = frames.length, out;
+                thumbs = self.$preview.find(FRAMES).toArray(), len = thumbs.length, out;
             if ($btn.attr('disabled')) {
                 return;
             }
             for (i = 0; i < len; i++) {
-                if ($(frames[i]).attr('id') === previewId) {
+                if ($(thumbs[i]).attr('id') === previewId) {
                     out = dir === 'prev' ? i - 1 : i + 1;
                     break;
                 }
             }
-            if (out < 0 || out >= len || !frames[out]) {
+            if (out < 0 || out >= len || !thumbs[out]) {
                 return;
             }
-            $targFrame = $(frames[out]);
+            $targFrame = $(thumbs[out]);
             if ($targFrame.length) {
                 self._setZoomContent($targFrame, true);
             }
@@ -1345,21 +1378,22 @@
             });
         },
         _initPreviewActions: function () {
-            var self = this, deleteExtraData = self.deleteExtraData || {},
+            var self = this, $preview = self.$preview, deleteExtraData = self.deleteExtraData || {},
+                btnRemove = FRAMES + ' .kv-file-remove',
                 resetProgress = function () {
                     var hasFiles = self.isUploadable ? previewCache.count(self.id) : self.$element.get(0).files.length;
-                    if (self.$preview.find('.kv-file-remove').length === 0 && !hasFiles) {
+                    if ($preview.find(btnRemove).length === 0 && !hasFiles) {
                         self.reset();
                         self.initialCaption = '';
                     }
                 };
             self._initZoomButton();
-            self.$preview.find('.kv-file-remove').each(function () {
+            $preview.find(btnRemove).each(function () {
                 var $el = $(this), vUrl = $el.data('url') || self.deleteUrl, vKey = $el.data('key');
                 if (isEmpty(vUrl) || vKey === undefined) {
                     return;
                 }
-                var $frame = $el.closest('.file-preview-frame'), cache = previewCache.data[self.id],
+                var $frame = $el.closest(FRAMES), cache = previewCache.data[self.id],
                     settings, params, index = $frame.data('fileindex'), config, extraData;
                 index = parseInt(index.replace('init_', ''));
                 config = isEmpty(cache.config) && isEmpty(cache.config[index]) ? null : cache.config[index];
@@ -1386,7 +1420,9 @@
                     success: function (data, textStatus, jqXHR) {
                         var n, cap;
                         if (isEmpty(data) || isEmpty(data.error)) {
-                            previewCache.unset(self.id, index);
+                            previewCache.init(self);
+                            index = parseInt(($frame.data('fileindex')).replace('init_', ''));
+                            previewCache.unset(self, index);
                             n = previewCache.count(self.id);
                             cap = n > 0 ? self._getMsgSelected(n) : '';
                             self._raise('filedeleted', [vKey, jqXHR, extraData]);
@@ -1402,6 +1438,10 @@
                         }
                         $frame.removeClass('file-uploading').addClass('file-deleted');
                         $frame.fadeOut('slow', function () {
+                            var $zoom = $preview.find('#zoom-' + $frame.attr('id'));
+                            if ($zoom.length) {
+                                $zoom.closest('.kv-zoom-cache').remove();
+                            }
                             self._clearObjects($frame);
                             $frame.remove();
                             resetProgress();
@@ -1439,6 +1479,7 @@
         },
         _clearFileInput: function () {
             var self = this, $el = self.$element, $srcFrm, $tmpFrm, $tmpEl;
+            self.fileInputCleared = true;
             if (isEmpty($el.val())) {
                 return;
             }
@@ -1460,7 +1501,6 @@
             } else { // normal input clear behavior for other sane browsers
                 $el.val('');
             }
-            self.fileInputCleared = true;
         },
         _resetUpload: function () {
             var self = this;
@@ -1478,6 +1518,7 @@
             self.ajaxAborted = false;
             self.ajaxRequests = [];
             self._resetCanvas();
+            self.cacheInitialPreview = {};
         },
         _resetCanvas: function () {
             var self = this;
@@ -1572,7 +1613,7 @@
         },
         _getThumbs: function (css) {
             css = css || '';
-            return this.$preview.find('.file-preview-frame:not(.file-preview-initial)' + css);
+            return this.$preview.find(FRAMES + ':not(.file-preview-initial)' + css);
         },
         _getExtraData: function (previewId, index) {
             var self = this, data = self.uploadExtraData;
@@ -1623,7 +1664,7 @@
             self.ajaxRequests.push($.ajax(settings));
         },
         _initUploadSuccess: function (out, $thumb, allFiles) {
-            var self = this, append, data, index, $newThumb, content, config, tags, i,
+            var self = this, append, data, index, $div, $newCache, content, config, tags, i,
                 mergeArray = function (prop, content) {
                     if (!(self[prop] instanceof Array)) {
                         self[prop] = [];
@@ -1652,12 +1693,25 @@
                     if (!allFiles) {
                         index = previewCache.add(self.id, content, config[0], tags[0], append);
                         data = previewCache.get(self.id, index, false);
-                        $newThumb = $(data).hide();
-                        $thumb.after($newThumb).fadeOut('slow', function () {
-                            $newThumb.fadeIn('slow').css('display:inline-block');
+                        $div = $(document.createElement('div')).html(data).hide().insertAfter($thumb);
+                        $newCache = $div.find('.kv-zoom-cache');
+                        if ($newCache && $newCache.length) {
+                            $newCache.insertAfter($thumb);
+                        }
+                        $thumb.fadeOut('slow', function () {
+                            var $newThumb = $div.find('.file-preview-frame'),
+                                $cache = self.$preview.find('#zoom-' + $thumb.attr('id')).closest('.kv-zoom-cache');
+                            if ($newThumb && $newThumb.length) {
+                                $newThumb.insertBefore($thumb).fadeIn('slow').css('display:inline-block');
+                            }
                             self._initPreviewActions();
                             self._clearFileInput();
+                            if ($cache && $cache.length) {
+                                $cache.remove();
+                            }
                             $thumb.remove();
+                            $div.remove();
+                            self._initSortable();
                         });
                     } else {
                         i = $thumb.attr('data-fileindex');
@@ -1678,18 +1732,22 @@
             if (!self.showPreview) {
                 return;
             }
-            self._getThumbs('.file-preview-success').each(function () {
-                var $thumb = $(this), $remove = $thumb.find('.kv-file-remove');
+            self._getThumbs(FRAMES + ' .file-preview-success').each(function () {
+                var $thumb = $(this), $preview = self.$preview, $remove = $thumb.find('.kv-file-remove');
                 $remove.removeAttr('disabled');
                 handler($remove, 'click', function () {
-                    var out = self._raise('filesuccessremove', [$thumb.attr('id'), $thumb.data('fileindex')]);
+                    var id = $thumb.attr('id'), out = self._raise('filesuccessremove', [id, $thumb.data('fileindex')]);
                     cleanMemory($thumb);
                     if (out === false) {
                         return;
                     }
                     $thumb.fadeOut('slow', function () {
+                        var $zoom = $preview.find('#zoom-' + id);
+                        if ($zoom.length) {
+                            $zoom.closest('.kv-zoom-cache').remove();
+                        }
                         $thumb.remove();
-                        if (!self.$preview.find('.file-preview-frame').length) {
+                        if (!$preview.find(FRAMES).length) {
                             self.reset();
                         }
                     });
@@ -1740,13 +1798,34 @@
                 }
             };
             chkComplete = function () {
-                var u = self.uploadCache;
+                var u = self.uploadCache, $initThumbs, i, j, len, data = self.cacheInitialPreview;
                 if (!self.fileBatchCompleted) {
                     return;
                 }
                 setTimeout(function () {
                     if (self.showPreview) {
                         previewCache.set(self.id, u.content, u.config, u.tags, u.append);
+                        len = data && data.content ? data.content.length : 0;
+                        if (len) {
+                            for (i = 0; i < u.content.length; i++) {
+                                j = i + len;
+                                data.content[j] = u.content[i];
+                                if (data.config.length) {
+                                    data.config[j] = u.config[i];
+                                }
+                                if (data.tags.length) {
+                                    data.tags[j] = u.tags[i];
+                                }
+                            }
+                            self.initialPreview = data.content;
+                            self.initialPreviewConfig = data.config;
+                            self.initialPreviewThumbTags = data.tags;
+                        } else {
+                            self.initialPreview = u.content;
+                            self.initialPreviewConfig = u.config;
+                            self.initialPreviewThumbTags = u.tags;
+                        }
+                        self.cacheInitialPreview = {};
                         if (self.hasInitData) {
                             self._initPreview();
                             self._initPreviewActions();
@@ -1754,6 +1833,11 @@
                     }
                     self.unlock();
                     self._clearFileInput();
+                    $initThumbs = self.$preview.find('.file-preview-initial');
+                    if (self.uploadAsync && $initThumbs.length) {
+                        addCss($initThumbs, SORT_CSS);
+                        self._initSortable();
+                    }
                     self._raise('filebatchuploadcomplete', [self.filestack, self._getExtraData()]);
                     self.uploadCount = 0;
                     self.uploadStatus = {};
@@ -1995,14 +2079,14 @@
             self._ajaxSubmit(fnBefore, fnSuccess, fnComplete, fnError);
         },
         _initFileActions: function () {
-            var self = this;
+            var self = this, $preview = self.$preview;
             if (!self.showPreview) {
                 return;
             }
             self._initZoomButton();
-            self.$preview.find('.kv-file-remove').each(function () {
-                var $el = $(this), $frame = $el.closest('.file-preview-frame'), hasError,
-                    id = $frame.attr('id'), ind = $frame.attr('data-fileindex'), n, cap, status;
+            $preview.find(FRAMES + ' .kv-file-remove').each(function () {
+                var $el = $(this), $frame = $el.closest(FRAMES), hasError, id = $frame.attr('id'),
+                    ind = $frame.attr('data-fileindex'), n, cap, status;
                 handler($el, 'click', function () {
                     status = self._raise('filepreremove', [id, ind]);
                     if (status === false || !self._validateMinCount()) {
@@ -2011,6 +2095,10 @@
                     hasError = $frame.hasClass('file-preview-error');
                     cleanMemory($frame);
                     $frame.fadeOut('slow', function () {
+                        var $zoom = $preview.find('#zoom-' + id);
+                        if ($zoom.length) {
+                            $zoom.closest('.kv-zoom-cache').remove();
+                        }
                         self.updateStack(ind, undefined);
                         self._clearObjects($frame);
                         $frame.remove();
@@ -2025,7 +2113,7 @@
                         self._clearFileInput();
                         var filestack = self.getFileStack(true), chk = previewCache.count(self.id),
                             len = filestack.length,
-                            hasThumb = self.showPreview && self.$preview.find('.file-preview-frame').length;
+                            hasThumb = self.showPreview && $preview.find(FRAMES).length;
                         if (len === 0 && chk === 0 && !hasThumb) {
                             self.reset();
                         } else {
@@ -2037,11 +2125,10 @@
                     });
                 });
             });
-            self.$preview.find('.kv-file-upload').each(function () {
+            self.$preview.find(FRAMES + ' .kv-file-upload').each(function () {
                 var $el = $(this);
                 handler($el, 'click', function () {
-                    var $frame = $el.closest('.file-preview-frame'),
-                        ind = $frame.attr('data-fileindex');
+                    var $frame = $el.closest(FRAMES), ind = $frame.attr('data-fileindex');
                     if (!$frame.hasClass('file-preview-error')) {
                         self._uploadSingle(ind, self.filestack, false);
                     }
@@ -2057,11 +2144,11 @@
             this.$captionContainer.find('.kv-caption-icon').show();
         },
         _getSize: function (bytes) {
-            var size = parseFloat(bytes);
-            if (bytes === null || isNaN(size)) {
-                return '';
+            var self = this, size = parseFloat(bytes);
+            if (!bytes || !size || isNaN(bytes) || isNaN(size)) {
+                return self._getLayoutTemplate('size').replace('{sizeText}', '0.00 KB');
             }
-            var self = this, i, func = self.fileSizeGetter, sizes, out;
+            var i, func = self.fileSizeGetter, sizes, out;
             if (typeof func === 'function') {
                 out = func(bytes);
             } else {
@@ -2071,29 +2158,38 @@
             }
             return self._getLayoutTemplate('size').replace('{sizeText}', out);
         },
-        _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind) {
-            var self = this, tmplt = self._getPreviewTemplate(cat), content, sText, css = frameClass || '',
-                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]), caption = self.slug(fname),
-                footer = foot || self._renderFileFooter(caption, size, config.width, isError);
+        _generatePreviewTemplate: function (cat, data, fname, ftype, previewId, isError, size, frameClass, foot, ind, templ) {
+            var self = this, caption = self.slug(fname),
+                config = ifSet(cat, self.previewSettings, defaultPreviewSettings[cat]), prevContent, zoomContent = '',
+                footer = foot || self._renderFileFooter(caption, size, config.width, isError),
+                hasIconSetting = self._getPreviewIcon(fname),
+                forcePrevIcon = hasIconSetting && self.preferIconicPreview,
+                forceZoomIcon = hasIconSetting && self.preferIconicZoomPreview,
+                getContent = function (c, d, zoom, frameCss) {
+                    var id = zoom ? 'zoom-' + previewId : previewId, tmplt = self._getPreviewTemplate(c),
+                        css = (frameClass || '') + ' ' + frameCss;
+                    if (zoom) {
+                        css = css.replace(' ' + SORT_CSS, '');
+                    }
+                    tmplt = self._parseFilePreviewIcon(tmplt, fname);
+                    if (c === 'text') {
+                        d = htmlEncode(d);
+                    }
+                    return tmplt.replace(/\{previewId}/g, id).replace(/\{caption}/g, caption)
+                        .replace(/\{frameClass}/g, css).replace(/\{type}/g, ftype).replace(/\{fileindex}/g, ind)
+                        .replace(/\{width}/g, config.width).replace(/\{height}/g, config.height)
+                        .replace(/\{footer}/g, footer).replace(/\{data}/g, d).replace(/\{template}/g, templ || cat);
+                };
             ind = ind || previewId.slice(previewId.lastIndexOf('-') + 1);
-            tmplt = self._parseFilePreviewIcon(tmplt, fname);
-            if (cat === 'text' || cat === 'html') {
-                sText = cat === 'text' ? htmlEncode(data) : data;
-                content = tmplt.replace(/\{previewId}/g, previewId).replace(/\{caption}/g, caption)
-                    .replace(/\{width}/g, config.width).replace(/\{height}/g, config.height)
-                    .replace(/\{frameClass}/g, css).replace(/\{cat}/g, ftype)
-                    .replace(/\{footer}/g, footer).replace(/\{fileindex}/g, ind)
-                    .replace(/\{data}/g, sText).replace(/\{template}/g, cat);
-            } else {
-                content = tmplt.replace(/\{previewId}/g, previewId).replace(/\{caption}/g, caption)
-                    .replace(/\{frameClass}/g, css).replace(/\{type}/g, ftype).replace(/\{fileindex}/g, ind)
-                    .replace(/\{width}/g, config.width).replace(/\{height}/g, config.height)
-                    .replace(/\{footer}/g, footer).replace(/\{data}/g, data).replace(/\{template}/g, cat);
+            if (self.fileActionSettings.showZoom) {
+                zoomContent = getContent((forceZoomIcon ? 'other' : cat), data, true, 'kv-zoom-thumb');
             }
-            return content;
+            zoomContent = '\n<div class="kv-zoom-cache" style="display:none">\n' + zoomContent + '\n</div>\n';
+            prevContent = getContent((forcePrevIcon ? 'other' : cat), data, false, 'kv-preview-thumb');
+            return prevContent + zoomContent;
         },
         _previewDefault: function (file, previewId, isDisabled) {
-            var self = this, $preview = self.$preview, $previewLive = $preview.find('.file-live-thumbs');
+            var self = this, $preview = self.$preview;
             if (!self.showPreview) {
                 return;
             }
@@ -2101,10 +2197,7 @@
                 isError = isDisabled === true && !self.isUploadable, data = objUrl.createObjectURL(file);
             self._clearDefaultPreview();
             content = self._generatePreviewTemplate('other', data, fname, ftype, previewId, isError, file.size);
-            if (!$previewLive.length) {
-                $previewLive = $(document.createElement('div')).addClass('file-live-thumbs').appendTo($preview);
-            }
-            $previewLive.append("\n" + content);
+            $preview.append("\n" + content);
             if (isDisabled === true && self.isUploadable) {
                 self._setThumbStatus($('#' + previewId), 'Error');
             }
@@ -2115,12 +2208,9 @@
             }
             var self = this, cat = self._parseFileType(file), fname = file ? file.name : '', caption = self.slug(fname),
                 types = self.allowedPreviewTypes, mimes = self.allowedPreviewMimeTypes, $preview = self.$preview,
-                chkTypes = types && types.indexOf(cat) >= 0, $previewLive = $preview.find('.file-live-thumbs'),
+                chkTypes = types && types.indexOf(cat) >= 0,
                 iData = (cat === 'text' || cat === 'html' || cat === 'image') ? theFile.target.result : data, content,
                 chkMimes = mimes && mimes.indexOf(file.type) !== -1;
-            if (!$previewLive.length) {
-                $previewLive = $(document.createElement('div')).addClass('file-live-thumbs').appendTo($preview);
-            }
             /** @namespace window.DOMPurify */
             if (cat === 'html' && self.purifyHtml && window.DOMPurify) {
                 iData = window.DOMPurify.sanitize(iData);
@@ -2128,8 +2218,8 @@
             if (chkTypes || chkMimes) {
                 content = self._generatePreviewTemplate(cat, iData, fname, file.type, previewId, false, file.size);
                 self._clearDefaultPreview();
-                $previewLive.append("\n" + content);
-                self._validateImage(i, previewId, caption, file.type);
+                $preview.append("\n" + content);
+                self._validateImage(previewId, caption, file.type);
             } else {
                 self._previewDefault(file, previewId);
             }
@@ -2152,10 +2242,10 @@
                     self._previewDefault(file, previewId, true);
                     if (self.isUploadable) {
                         self.addToStack(undefined);
+                        setTimeout(function () {
+                            readFile(index + 1);
+                        }, 100);
                     }
-                    setTimeout(function () {
-                        readFile(index + 1);
-                    }, 100);
                     self._initFileActions();
                     if (self.removeFromPreviewOnError) {
                         $('#' + previewId).remove();
@@ -2186,19 +2276,40 @@
                     $status.html('');
                     return;
                 }
-                var node = ctr + i, previewId = previewInitId + "-" + node, isText, isImage, file = files[i],
-                    caption = self.slug(file.name), fileSize = (file.size || 0) / 1000, checkFile, fileExtExpr = '',
-                    previewData = objUrl.createObjectURL(file), fileCount = 0, j, msg, typ, chk,
-                    fileTypes = self.allowedFileTypes, strTypes = isEmpty(fileTypes) ? '' : fileTypes.join(', '),
+                var node = ctr + i, previewId = previewInitId + "-" + node, isText, isImage, file = files[i], fSizeKB,
+                    caption = file.name ? self.slug(file.name) : '', fileSize = (file.size || 0) / 1000, checkFile,
+                    fileExtExpr = '', previewData = objUrl.createObjectURL(file), fileCount = 0, j, msg, typ, chk,
+                    fileTypes = self.allowedFileTypes, typ1, typ2, strTypes = '', typLen = fileTypes ? fileTypes.length : 0,
                     fileExt = self.allowedFileExtensions, strExt = isEmpty(fileExt) ? '' : fileExt.join(', ');
+                if (typLen > 0) {
+                    for (j = 0; j < typLen; j++) {
+                        typ1 = fileTypes[j];
+                        typ2 = self.msgFileTypes[typ1] || typ1;
+                        strTypes += j === 0 ? typ2 : ', ' + typ2;
+                    }
+                }
+                if (caption === false) {
+                    readFile(i + 1);
+                    return;
+                }
+                if (caption.length === 0) {
+                    msg = self.msgInvalidFileName.replace('{name}', htmlEncode(file.name));
+                    self.isError = throwError(msg, file, previewId, i);
+                    return;
+                }
                 if (!isEmpty(fileExt)) {
                     fileExtExpr = new RegExp('\\.(' + fileExt.join('|') + ')$', 'i');
                 }
-                fileSize = fileSize.toFixed(2);
+                fSizeKB = fileSize.toFixed(2);
                 if (self.maxFileSize > 0 && fileSize > self.maxFileSize) {
-                    msg = self.msgSizeTooLarge.replace('{name}', caption)
-                        .replace('{size}', fileSize)
+                    msg = self.msgSizeTooLarge.replace('{name}', caption).replace('{size}', fSizeKB)
                         .replace('{maxSize}', self.maxFileSize);
+                    self.isError = throwError(msg, file, previewId, i);
+                    return;
+                }
+                if (self.minFileSize !== null && fileSize <= getNum(self.minFileSize)) {
+                    msg = self.msgSizeTooSmall.replace('{name}', caption).replace('{size}', fSizeKB)
+                        .replace('{minSize}', self.minFileSize);
                     self.isError = throwError(msg, file, previewId, i);
                     return;
                 }
@@ -2219,8 +2330,7 @@
                     chk = compare(caption, fileExtExpr);
                     fileCount += isEmpty(chk) ? 0 : chk.length;
                     if (fileCount === 0) {
-                        msg = self.msgInvalidFileExtension.replace('{name}', caption).replace('{extensions}',
-                            strExt);
+                        msg = self.msgInvalidFileExtension.replace('{name}', caption).replace('{extensions}', strExt);
                         self.isError = throwError(msg, file, previewId, i);
                         return;
                     }
@@ -2372,7 +2482,7 @@
             if (!self.isUploadable || !self.showPreview || $zone.length === 0 || self.getFileStack().length > 0 || !self.dropZoneEnabled) {
                 return;
             }
-            if ($zone.find('.file-preview-frame').length === 0 && isEmpty(self.defaultPreviewContent)) {
+            if ($zone.find(FRAMES).length === 0 && isEmpty(self.defaultPreviewContent)) {
                 $zone.prepend('<div class="' + self.dropZoneTitleClass + '">' + title + '</div>');
             }
             self.$container.removeClass('file-input-new');
@@ -2440,9 +2550,9 @@
             self._showUploadError(msg, params);
             self._setPreviewError($thumb, i, null);
         },
-        _validateImage: function (i, previewId, fname, ftype) {
-            var self = this, $preview = self.$preview, params, w1, w2,
-                $thumb = $preview.find("#" + previewId), $img = $thumb.find('img');
+        _validateImage: function (previewId, fname, ftype) {
+            var self = this, $preview = self.$preview, params, w1, w2, $thumb = $preview.find("#" + previewId),
+                i = $thumb.attr('data-fileindex'), $img = $thumb.find('img');
             fname = fname || 'Untitled';
             if (!$img.length) {
                 return;
@@ -2464,11 +2574,10 @@
                 self._raise('fileimageloaded', [previewId]);
                 self.loadedImages.push({ind: i, img: $img, thumb: $thumb, pid: previewId, typ: ftype});
                 self._validateAllImages();
-                objUrl.revokeObjectURL($img.attr('src'));
             });
         },
         _validateAllImages: function () {
-            var self = this, i, config, $img, $thumb, pid, ind, params = {}, errFunc;
+            var self = this, i, config, $img, pid, ind, errFunc, ctr = {val: 0};
             if (self.loadedImages.length !== self.totalImagesCount) {
                 return;
             }
@@ -2480,27 +2589,28 @@
             for (i = 0; i < self.loadedImages.length; i++) {
                 config = self.loadedImages[i];
                 $img = config.img;
-                $thumb = config.thumb;
                 pid = config.pid;
                 ind = config.ind;
-                params = {id: pid, 'index': ind};
-                if (!self._getResizedImage($img[0], config.typ, pid, ind)) {
-                    errFunc(self.msgImageResizeError, params, 'fileimageresizeerror');
-                    self._setPreviewError($thumb, ind);
+                if (!self._getResizedImage($img[0], config.typ, pid, ind, ctr, self.loadedImages.length)) {
+                    errFunc(self.msgImageResizeError, {id: pid, 'index': ind}, 'fileimageresizeerror');
+                    self._setPreviewError(config.thumb, ind);
                 }
             }
-            self._raise('fileimagesresized');
         },
-        _getResizedImage: function (image, type, pid, ind) {
+        _getResizedImage: function (image, type, pid, ind, counter, numImgs) {
             var self = this, width = image.naturalWidth, height = image.naturalHeight, ratio = 1,
                 maxWidth = self.maxImageWidth || width, maxHeight = self.maxImageHeight || height,
-                isValidImage = (width && height), chkWidth, chkHeight,
-                canvas = self.imageCanvas, context = self.imageCanvasContext;
-            if (!isValidImage) {
-                return false;
-            }
-            if (width === maxWidth && height === maxHeight) {
-                return true;
+                isValidImage = !!(width && height), chkWidth, chkHeight, canvas = self.imageCanvas,
+                context = self.imageCanvasContext;
+            if (!self.filestack[ind] || !isValidImage || (width <= maxWidth && height <= maxHeight)) {
+                if (isValidImage && self.filestack[ind]) {
+                    self._raise('fileimageresized', [pid, ind]);
+                }
+                counter.val++;
+                if (counter.val === numImgs) {
+                    self._raise('fileimagesresized');
+                }
+                return isValidImage;
             }
             type = type || self.resizeDefaultImageType;
             chkWidth = width > maxWidth;
@@ -2518,12 +2628,20 @@
             try {
                 context.drawImage(image, 0, 0, width, height);
                 canvas.toBlob(function (blob) {
-                    self._raise('fileimageresized', [pid, ind]);
                     self.filestack[ind] = blob;
+                    self._raise('fileimageresized', [pid, ind]);
+                    counter.val++;
+                    if (counter.val === numImgs) {
+                        self._raise('fileimagesresized', [undefined, undefined]);
+                    }
                 }, type, self.resizeQuality);
                 return true;
             }
             catch (err) {
+                counter.val++;
+                if (counter.val === numImgs) {
+                    self._raise('fileimagesresized', [undefined, undefined]);
+                }
                 return false;
             }
         },
@@ -2960,7 +3078,7 @@
                 addCss(self.$container, 'file-input-new');
                 self._validateDefaultPreview();
             }
-            if (self.$container.find('.file-preview-frame').length === 0) {
+            if (self.$container.find(FRAMES).length === 0) {
                 if (!self._initCaption()) {
                     self.$captionContainer.find('.kv-caption-icon').hide();
                 }
@@ -2977,7 +3095,7 @@
             self.$container.find('.fileinput-filename').text('');
             self._raise('filereset');
             addCss(self.$container, 'file-input-new');
-            if (self.$preview.find('.file-preview-frame').length || self.isUploadable && self.dropZoneEnabled) {
+            if (self.$preview.find(FRAMES).length || self.isUploadable && self.dropZoneEnabled) {
                 self.$container.removeClass('file-input-new');
             }
             self._setFileDropZoneTitle();
@@ -3009,13 +3127,18 @@
             return self.$element;
         },
         upload: function () {
-            var self = this, totLen = self.getFileStack().length, params = {},
-                i, outData, len, hasExtraData = !$.isEmptyObject(self._getExtraData());
+            var self = this, totLen = self.getFileStack().length, params = {}, i, outData, len,
+                hasExtraData = !$.isEmptyObject(self._getExtraData());
+            if (!self.isUploadable || self.isDisabled) {
+                return;
+            }
             if (self.minFileCount > 0 && self._getFileCount(totLen) < self.minFileCount) {
                 self._noFilesError(params);
                 return;
             }
-            if (!self.isUploadable || self.isDisabled || (totLen === 0 && !hasExtraData)) {
+            if (totLen === 0 && !hasExtraData) {
+                self._resetUpload();
+                self._showUploadError(self.msgUploadEmpty);
                 return;
             }
             self._resetUpload();
@@ -3042,6 +3165,13 @@
                     self.uploadCache.config[i] = null;
                     self.uploadCache.tags[i] = null;
                 }
+                self.$preview.find('.file-preview-initial').removeClass(SORT_CSS);
+                self._initSortable();
+                self.cacheInitialPreview = {
+                    content: self.initialPreview,
+                    config: self.initialPreviewConfig,
+                    tags: self.initialPreviewThumbTags
+                };
                 for (i = 0; i < len; i++) {
                     if (self.filestack[i] !== undefined) {
                         self._uploadSingle(i, self.filestack, true);
@@ -3080,7 +3210,7 @@
         this.each(function () {
             var self = $(this), data = self.data('fileinput'), options = typeof option === 'object' && option,
                 theme = options.theme || self.data('theme'), l = {}, t = {},
-                lang = options.language || self.data('language') || 'en', opts;
+                lang = options.language || self.data('language') || $.fn.fileinput.defaults.language || 'en', opts;
             if (!data) {
                 if (theme) {
                     t = $.fn.fileinputThemes[theme] || {};
@@ -3158,7 +3288,9 @@
             borderless: 'btn btn-default',
             close: 'btn btn-default'
         },
-        allowedPreviewTypes: defaultPreviewTypes,
+        preferIconicPreview: false,
+        preferIconicZoomPreview: false,
+        allowedPreviewTypes: undefined,
         allowedPreviewMimeTypes: null,
         allowedFileTypes: null,
         allowedFileExtensions: null,
@@ -3192,6 +3324,7 @@
         resizePreference: 'width',
         resizeQuality: 0.92,
         resizeDefaultImageType: 'image/jpeg',
+        minFileSize: 0,
         maxFileSize: 0,
         maxFilePreviewSize: 25600, // 25 MB
         minFileCount: 0,
@@ -3238,6 +3371,7 @@
         msgNoFilesSelected: 'No files selected',
         msgCancelled: 'Cancelled',
         msgZoomModalHeading: 'Detailed Preview',
+        msgSizeTooSmall: 'File "{name}" (<b>{size} KB</b>) is too small and must be larger than <b>{minSize} KB</b>.',
         msgSizeTooLarge: 'File "{name}" (<b>{size} KB</b>) exceeds maximum allowed upload size of <b>{maxSize} KB</b>.',
         msgFilesTooLess: 'You must select at least <b>{n}</b> {files} to upload.',
         msgFilesTooMany: 'Number of files selected for upload <b>({n})</b> exceeds maximum allowed limit of <b>{m}</b>.',
@@ -3246,10 +3380,22 @@
         msgFileNotReadable: 'File "{name}" is not readable.',
         msgFilePreviewAborted: 'File preview aborted for "{name}".',
         msgFilePreviewError: 'An error occurred while reading the file "{name}".',
+        msgInvalidFileName: 'Invalid or unsupported characters in file name "{name}".',
         msgInvalidFileType: 'Invalid type for file "{name}". Only "{types}" files are supported.',
         msgInvalidFileExtension: 'Invalid extension for file "{name}". Only "{extensions}" files are supported.',
+        msgFileTypes: {
+            'image': 'image',
+            'html': 'HTML',
+            'text': 'text',
+            'video': 'video',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'object'
+        },
         msgUploadAborted: 'The file upload was aborted',
         msgUploadThreshold: 'Processing...',
+        msgUploadEmpty: 'No valid data available for upload.',
         msgValidationError: 'Validation Error',
         msgLoading: 'Loading file {index} of {files} &hellip;',
         msgProgress: 'Loading file {index} of {files} - {name} - {percent}% completed.',

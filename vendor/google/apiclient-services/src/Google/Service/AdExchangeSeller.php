@@ -19,8 +19,7 @@
  * Service definition for AdExchangeSeller (v2.0).
  *
  * <p>
- * Gives Ad Exchange seller users access to their inventory and the ability to
- * generate reports</p>
+ * Accesses the inventory of Ad Exchange seller users and generates reports.</p>
  *
  * <p>
  * For more information about this service, see the API

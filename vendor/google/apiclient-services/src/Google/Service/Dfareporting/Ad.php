@@ -58,6 +58,8 @@ class Google_Service_Dfareporting_Ad extends Google_Collection
   protected $keyValueTargetingExpressionType = 'Google_Service_Dfareporting_KeyValueTargetingExpression';
   protected $keyValueTargetingExpressionDataType = '';
   public $kind;
+  protected $languageTargetingType = 'Google_Service_Dfareporting_LanguageTargeting';
+  protected $languageTargetingDataType = '';
   protected $lastModifiedInfoType = 'Google_Service_Dfareporting_LastModifiedInfo';
   protected $lastModifiedInfoDataType = '';
   public $name;
@@ -71,6 +73,7 @@ class Google_Service_Dfareporting_Ad extends Google_Collection
   public $sslRequired;
   public $startTime;
   public $subaccountId;
+  public $targetingTemplateId;
   protected $technologyTargetingType = 'Google_Service_Dfareporting_TechnologyTargeting';
   protected $technologyTargetingDataType = '';
   public $type;
@@ -283,6 +286,14 @@ class Google_Service_Dfareporting_Ad extends Google_Collection
   {
     return $this->kind;
   }
+  public function setLanguageTargeting(Google_Service_Dfareporting_LanguageTargeting $languageTargeting)
+  {
+    $this->languageTargeting = $languageTargeting;
+  }
+  public function getLanguageTargeting()
+  {
+    return $this->languageTargeting;
+  }
   public function setLastModifiedInfo(Google_Service_Dfareporting_LastModifiedInfo $lastModifiedInfo)
   {
     $this->lastModifiedInfo = $lastModifiedInfo;
@@ -354,6 +365,14 @@ class Google_Service_Dfareporting_Ad extends Google_Collection
   public function getSubaccountId()
   {
     return $this->subaccountId;
+  }
+  public function setTargetingTemplateId($targetingTemplateId)
+  {
+    $this->targetingTemplateId = $targetingTemplateId;
+  }
+  public function getTargetingTemplateId()
+  {
+    return $this->targetingTemplateId;
   }
   public function setTechnologyTargeting(Google_Service_Dfareporting_TechnologyTargeting $technologyTargeting)
   {

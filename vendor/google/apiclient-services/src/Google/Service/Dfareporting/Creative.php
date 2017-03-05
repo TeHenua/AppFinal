@@ -46,11 +46,14 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   public $convertFlashToHtml5;
   protected $counterCustomEventsType = 'Google_Service_Dfareporting_CreativeCustomEvent';
   protected $counterCustomEventsDataType = 'array';
+  protected $creativeAssetSelectionType = 'Google_Service_Dfareporting_CreativeAssetSelection';
+  protected $creativeAssetSelectionDataType = '';
   protected $creativeAssetsType = 'Google_Service_Dfareporting_CreativeAsset';
   protected $creativeAssetsDataType = 'array';
   protected $creativeFieldAssignmentsType = 'Google_Service_Dfareporting_CreativeFieldAssignment';
   protected $creativeFieldAssignmentsDataType = 'array';
   public $customKeyValues;
+  public $dynamicAssetSelection;
   protected $exitCustomEventsType = 'Google_Service_Dfareporting_CreativeCustomEvent';
   protected $exitCustomEventsDataType = 'array';
   protected $fsCommandType = 'Google_Service_Dfareporting_FsCommand';
@@ -66,6 +69,8 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   public $latestTraffickedCreativeId;
   public $name;
   public $overrideCss;
+  protected $progressOffsetType = 'Google_Service_Dfareporting_VideoOffset';
+  protected $progressOffsetDataType = '';
   public $redirectUrl;
   public $renderingId;
   protected $renderingIdDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
@@ -74,6 +79,8 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   public $requiredFlashVersion;
   protected $sizeType = 'Google_Service_Dfareporting_Size';
   protected $sizeDataType = '';
+  protected $skipOffsetType = 'Google_Service_Dfareporting_VideoOffset';
+  protected $skipOffsetDataType = '';
   public $skippable;
   public $sslCompliant;
   public $sslOverride;
@@ -269,6 +276,14 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   {
     return $this->counterCustomEvents;
   }
+  public function setCreativeAssetSelection(Google_Service_Dfareporting_CreativeAssetSelection $creativeAssetSelection)
+  {
+    $this->creativeAssetSelection = $creativeAssetSelection;
+  }
+  public function getCreativeAssetSelection()
+  {
+    return $this->creativeAssetSelection;
+  }
   public function setCreativeAssets($creativeAssets)
   {
     $this->creativeAssets = $creativeAssets;
@@ -292,6 +307,14 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   public function getCustomKeyValues()
   {
     return $this->customKeyValues;
+  }
+  public function setDynamicAssetSelection($dynamicAssetSelection)
+  {
+    $this->dynamicAssetSelection = $dynamicAssetSelection;
+  }
+  public function getDynamicAssetSelection()
+  {
+    return $this->dynamicAssetSelection;
   }
   public function setExitCustomEvents($exitCustomEvents)
   {
@@ -381,6 +404,14 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   {
     return $this->overrideCss;
   }
+  public function setProgressOffset(Google_Service_Dfareporting_VideoOffset $progressOffset)
+  {
+    $this->progressOffset = $progressOffset;
+  }
+  public function getProgressOffset()
+  {
+    return $this->progressOffset;
+  }
   public function setRedirectUrl($redirectUrl)
   {
     $this->redirectUrl = $redirectUrl;
@@ -428,6 +459,14 @@ class Google_Service_Dfareporting_Creative extends Google_Collection
   public function getSize()
   {
     return $this->size;
+  }
+  public function setSkipOffset(Google_Service_Dfareporting_VideoOffset $skipOffset)
+  {
+    $this->skipOffset = $skipOffset;
+  }
+  public function getSkipOffset()
+  {
+    return $this->skipOffset;
   }
   public function setSkippable($skippable)
   {

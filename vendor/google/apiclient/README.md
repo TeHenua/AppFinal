@@ -11,6 +11,9 @@ This library is in Beta. We're comfortable enough with the stability and feature
 ## Requirements ##
 * [PHP 5.4.0 or higher](http://www.php.net/)
 
+## Google Cloud Platform APIs
+If you're looking to call the **Google Cloud Platform** APIs, you will want to use the [Google Cloud PHP](https://github.com/googlecloudplatform/google-cloud-php) library instead of this one.
+
 ## Developer Documentation ##
 http://developers.google.com/api-client-library/php
 
@@ -176,7 +179,7 @@ Using this library, the same call would look something like this:
 
 ```php
 // create the datastore service class
-$datastore = new Google_Service_Datastore($client)
+$datastore = new Google_Service_Datastore($client);
 
 // build the query - this maps directly to the JSON
 $query = new Google_Service_Datastore_Query([
@@ -203,7 +206,7 @@ However, as each property of the JSON API has a corresponding generated class, t
 
 ```php
 // create the datastore service class
-$datastore = new Google_Service_Datastore($client)
+$datastore = new Google_Service_Datastore($client);
 
 // build the query
 $request = new Google_Service_Datastore_RunQueryRequest();
@@ -314,7 +317,7 @@ Please see the [contributing](CONTRIBUTING.md) page for more information. In par
 
 For support with the library the best place to ask is via the google-api-php-client tag on StackOverflow: http://stackoverflow.com/questions/tagged/google-api-php-client
 
-If there is a specific bug with the library, please [file a issue](/Google/google-api-php-client/issues) in the Github issues tracker, including an example of the failing code and any specific errors retrieved. Feature requests can also be filed, as long as they are core library requests, and not-API specific: for those, refer to the documentation for the individual APIs for the best place to file requests. Please try to provide a clear statement of the problem that the feature would address.
+If there is a specific bug with the library, please [file a issue](https://github.com/google/google-api-php-client/issues) in the Github issues tracker, including an example of the failing code and any specific errors retrieved. Feature requests can also be filed, as long as they are core library requests, and not-API specific: for those, refer to the documentation for the individual APIs for the best place to file requests. Please try to provide a clear statement of the problem that the feature would address.
 
 ### I want an example of X! ###
 
@@ -340,7 +343,7 @@ $opt_params = array(
 
 ### How do I set a field to null? ###
 
-The library strips out nulls from the objects sent to the Google APIs as its the default value of all of the uninitialised properties. To work around this, set the field you want to null to Google_Model::NULL_VALUE. This is a placeholder that will be replaced with a true null when sent over the wire.
+The library strips out nulls from the objects sent to the Google APIs as its the default value of all of the uninitialized properties. To work around this, set the field you want to null to `Google_Model::NULL_VALUE`. This is a placeholder that will be replaced with a true null when sent over the wire.
 
 ## Code Quality ##
 

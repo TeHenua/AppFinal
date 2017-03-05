@@ -23,6 +23,9 @@ class Google_Service_Dfareporting_CreativeAssetMetadata extends Google_Collectio
   protected $clickTagsType = 'Google_Service_Dfareporting_ClickTag';
   protected $clickTagsDataType = 'array';
   public $detectedFeatures;
+  public $id;
+  protected $idDimensionValueType = 'Google_Service_Dfareporting_DimensionValue';
+  protected $idDimensionValueDataType = '';
   public $kind;
   public $warnedValidationRules;
 
@@ -49,6 +52,22 @@ class Google_Service_Dfareporting_CreativeAssetMetadata extends Google_Collectio
   public function getDetectedFeatures()
   {
     return $this->detectedFeatures;
+  }
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  public function getId()
+  {
+    return $this->id;
+  }
+  public function setIdDimensionValue(Google_Service_Dfareporting_DimensionValue $idDimensionValue)
+  {
+    $this->idDimensionValue = $idDimensionValue;
+  }
+  public function getIdDimensionValue()
+  {
+    return $this->idDimensionValue;
   }
   public function setKind($kind)
   {

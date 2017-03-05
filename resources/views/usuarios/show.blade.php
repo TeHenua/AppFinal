@@ -85,13 +85,43 @@
                         </table>
                     </div>
                     <div class="box-footer hidden-print">
-                        @if($socio)
-                            {{ link_to_route('lopd', 'Generar Lopd', array($usuario->id) ,array('class' => 'btn btn-primary')) }}
-                        @endif
+                        
                         {{ link_to_route('usuarios.edit', 'Editar usuario', array($usuario->id) ,array('class' => 'btn btn-warning')) }}
                         {{ Form::open(array('route' => array('usuarios.destroy', $usuario->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
                                 <button type="submit" class="btn btn-danger" >Borrar</button>
                         {{ Form::close() }}
+                        
+                    </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Documentación</h3>
+                    </div>
+                    <div class="box-body">
+
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'votos')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Voto</b>
+                        </a>
+                        
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'diagnostico')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Diagnóstico</b>
+                        </a>
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'tutorias')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Tutoría</b>
+                        </a>
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'custodias')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Custodia</b>
+                        </a>
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'medicas')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Médica</b>
+                        </a>
+                        <a class="btn btn-app" href="{{ URL::route('archivo', array('id'=>$usuario->id,'tipo'=>'lopd')) }}" target="_blank">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <b>Lopd</b>
+                        </a>
                     </div>
                 </div>
             </div>

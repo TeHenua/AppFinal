@@ -62,6 +62,8 @@
                         {{ Form::open(array('route' => array('socios.destroy', $socio->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
                                 <button type="submit" class="btn btn-danger" >Borrar</button>
                                 {{ Form::close() }}
+                        {{ link_to_route('actuLopd', 'Actualizar Lopd', array($socio->id) ,array('class' => 'btn btn-primary', 'target' => '_blank')) }}
+                        {{ link_to_route('nuevaLopd', 'Nuevo Lopd', array($socio->id) ,array('class' => 'btn btn-primary', 'target' => '_blank')) }}
                     </div>
                 </div>
             </div>

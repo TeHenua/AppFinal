@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Validator;
 class SocioController extends Controller
 {
     public function create(){
-        return view('socios.create');
+        $socio = new Socio;
+        return view('socios.create', compact('socio'));
     }
 
     public function destroy($id){
@@ -65,6 +66,7 @@ class SocioController extends Controller
         if($validator->errors()->first()){
             return redirect()->back()->withInput()->withErrors($validator->errors());
         }
+        $socio->estado = Input::get('estado');
         $socio->save();
         \Session::flash('message','Socio creado correctamente.');
 
@@ -124,7 +126,9 @@ class SocioController extends Controller
         $socio->provincia = ucwords($socio->provincia);
         $socio->ocupacion = ucwords($socio->ocupacion);
         /***************************************************************************/
-
+        if(!isset($input['estado'])){
+            $input['estado'] = 0; 
+        }
         $socio->update($input);
 
         $this ->guardararchivos($request,$socio ->id);

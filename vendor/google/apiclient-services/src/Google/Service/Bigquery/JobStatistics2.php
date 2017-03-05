@@ -17,17 +17,21 @@
 
 class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
 {
-  protected $collection_key = 'referencedTables';
+  protected $collection_key = 'undeclaredQueryParameters';
   public $billingTier;
   public $cacheHit;
+  public $numDmlAffectedRows;
   protected $queryPlanType = 'Google_Service_Bigquery_ExplainQueryStage';
   protected $queryPlanDataType = 'array';
   protected $referencedTablesType = 'Google_Service_Bigquery_TableReference';
   protected $referencedTablesDataType = 'array';
   protected $schemaType = 'Google_Service_Bigquery_TableSchema';
   protected $schemaDataType = '';
+  public $statementType;
   public $totalBytesBilled;
   public $totalBytesProcessed;
+  protected $undeclaredQueryParametersType = 'Google_Service_Bigquery_QueryParameter';
+  protected $undeclaredQueryParametersDataType = 'array';
 
   public function setBillingTier($billingTier)
   {
@@ -44,6 +48,14 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   public function getCacheHit()
   {
     return $this->cacheHit;
+  }
+  public function setNumDmlAffectedRows($numDmlAffectedRows)
+  {
+    $this->numDmlAffectedRows = $numDmlAffectedRows;
+  }
+  public function getNumDmlAffectedRows()
+  {
+    return $this->numDmlAffectedRows;
   }
   public function setQueryPlan($queryPlan)
   {
@@ -69,6 +81,14 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   {
     return $this->schema;
   }
+  public function setStatementType($statementType)
+  {
+    $this->statementType = $statementType;
+  }
+  public function getStatementType()
+  {
+    return $this->statementType;
+  }
   public function setTotalBytesBilled($totalBytesBilled)
   {
     $this->totalBytesBilled = $totalBytesBilled;
@@ -84,5 +104,13 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   public function getTotalBytesProcessed()
   {
     return $this->totalBytesProcessed;
+  }
+  public function setUndeclaredQueryParameters($undeclaredQueryParameters)
+  {
+    $this->undeclaredQueryParameters = $undeclaredQueryParameters;
+  }
+  public function getUndeclaredQueryParameters()
+  {
+    return $this->undeclaredQueryParameters;
   }
 }

@@ -59,9 +59,9 @@ class Google_Service_Classroom_Resource_CoursesCourseWorkStudentSubmissions exte
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
-   * @param string $courseWorkId Identifer of the student work to request. If
-   * `user_id` is specified, this may be set to the string literal `"-"` to
-   * request student work for all course work in the specified course.
+   * @param string $courseWorkId Identifer of the student work to request. This
+   * may be set to the string literal `"-"` to request student work for all course
+   * work in the specified course.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string userId Optional argument to restrict returned student work

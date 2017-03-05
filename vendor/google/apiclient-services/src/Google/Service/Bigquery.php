@@ -188,7 +188,7 @@ class Google_Service_Bigquery extends Google_Service
         array(
           'methods' => array(
             'cancel' => array(
-              'path' => 'project/{projectId}/jobs/{jobId}/cancel',
+              'path' => 'projects/{projectId}/jobs/{jobId}/cancel',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(

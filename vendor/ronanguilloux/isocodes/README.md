@@ -1,6 +1,6 @@
 # IsoCodes
 
-PHP library providing various ISO code validators (list below)
+PHP library - Validators for standards from ISO, International Finance, Public Administrations, GS1, Book Industry, Phone numbers & Zipcodes for many countries
 
 ## Usage
 
@@ -23,7 +23,7 @@ $isShippingContainerCode = Sscc::validate('806141411234567896');
 // Publishing books?
 $isPublished = Isbn::validate('2-2110-4199-X')
 
-// Trading items with GTIN barcode in GS-1 system? 
+// Trading items with GTIN barcodes in GS1 system? 
 $isBarcode = Ean13::validate('4719512002889')
 
 // Calling phone numbers in Palo Alto?
@@ -34,19 +34,48 @@ $isISIN = Isin::validate('US0378331005'); // Apple Inc. (AAPL)
 ```
 
 
-## ISO code Validations available:
+## ISO Codes Validations available:
 
-* International Finance: IBAN, SWIFT/BIC, BBAN (RIB), Credit Card number, SEDOL (Stock Exchange codes)
-* ZIP code validators for 175+ countries
-* Phone number validation for all countries/regions of the world
-* GS1 / GTIN Industry standards: ISBN-10/13, GTIN-8, GTIN-12, GTIN-13, GTIN-14, EAN-8, EAN-13, UPC-A, UCC-13, DUN-14, ITF, CIP
-* ISIN: International Securities Identification Number
+### International Finance
+
+* IBAN
+* SWIFT/BIC
+* BBAN (RIB),
+* Credit Card number
+* SEDOL (Stock Exchange codes)
+
+### Book / Music Industries
+
+* ISBN - International Standard Book Number, both 10 & 13 digits
+* ISMN - International Standard Music Number 
+* ISWC - International Standard Musical Work Code
+
+### Public Administrations
+
+* ISIN - International Securities Identification Number
 * European VAT / tax system: various VAT number formats
 * France: Numéro de Sécurité Sociale / INSEE, SIREN, SIRET, Codes postaux, Clef Type 1/2 Norme B2
 * US: Social Security number
 * UK: National Insurance Number (NINO)
 * Belgium: Structured Ccommunication ("communication structurée")
 * Spain: NIF, NIE (Número de Identificación Fiscal/Extranjero) & CIF (Código de identificación fiscal)
+* Netherlands: Burgerservicenummer / Citizen Service Number (BSN)
+
+### GS1 specific numbers/identifiers
+
+* GTIN - Global Trade Item Number: GTIN-8, GTIN-12, GTIN-13, GTIN-14
+* GLN - Global Location Number
+* SSCC - Serial Shipping Container Code
+* GRAI - Global Returnable Asset Identifier
+* GSRN - Global Service Relation Number
+* GDTI - Global Document Type Identifier
+* UDI - Unique Device Identification (the GTIN part of it)
+* Older/deprecated identifiers, now in GTIN: EAN-8, EAN-13, UCC-13, UPC-A, DUN-14, ITF-14
+
+### Miscellaneous
+
+* ZIP code validators for 175+ countries
+* Phone number validation for all countries/regions of the world
 
 Each code has its own validator.
 Each validator is illustrated by a unit test case.
@@ -77,8 +106,7 @@ Continously inspecting results (phpdoc, phpmd, phpcc, etc.) available on [Scruti
 ## Requirements
 
 PHP is required to be compiled with "--enable-bcmath" for some arbitrary precision mathematic checks (IBAN & BBAN ISO-codes).
-
-Note that common PHP packages (`php-cli`, `php-fpm`, `php5-cgi`, `libapache2-mod-php5`, etc.) in stable GNU/Linux distribution releases (such as Debian) are listed as having `bcmath` built in to them, as an included module.
+Usually, you already have `bcmath` bundled in your PHP version, since many common PHP packages (`php-cli`, `php-fpm`, `php5-cgi`, `libapache2-mod-php5`, etc.) in stable GNU/Linux distribution releases (such as Debian) are listed as having `bcmath` built in to them, as an included module.
 
 
 ## Installing
@@ -91,7 +119,7 @@ $ git clone git@github.com:ronanguilloux/IsoCodes.git
 
 Autoloading is PSR-0 friendly.
 
-### Via [Packagist](https://packagist.org/packages/ronanguilloux/isocodes) & [Composer](http://getcomposer.org/doc/00-intro.md)
+### Via [Packagist](https://packagist.org/packages/ronanguilloux/isocodes) & [Composer](https://getcomposer.org/doc/00-intro.md)
 
 Require the latest version of `ronanguilloux/isocodes` with Composer
 
@@ -99,16 +127,22 @@ Require the latest version of `ronanguilloux/isocodes` with Composer
 $ composer require ronanguilloux/isocodes
 ```
 
+## Wrappers
+
 ### With Symfony Validator
 
-Install [Soullivaneuh/IsoCodesValidator](https://github.com/Soullivaneuh/IsoCodesValidator) library
+Install [Soullivaneuh/IsoCodesValidator](https://github.com/Soullivaneuh/IsoCodesValidator)
 to get IsoCodes working as Validator for **Symfony** and **Silex**.
 
-### With CakePHP 3 project
+### With CakePHP 3
 
-Install [gourmet/validation](https://github.com/gourmet/validation) library
-to get IsoCodes working with **CakePHP 3** validation.
+Install [gourmet/validation](https://github.com/gourmet/validation)
+to get IsoCodes working with **CakePHP 3** as a validator.
 
+### With Laravel
+
+Install [pixelpeter/laravel5-isocodes-validation](https://github.com/pixelpeter/laravel5-isocodes-validation)
+to get IsoCodes working with **Laravel 5** as a validator.
 
 ## Unit testing
 
@@ -142,7 +176,7 @@ Other specific tasks:
 
 ## Quality assurance report
 
-Isocodes quality plan is mainly based on phpunit: it runs 930+ unit tests,
+Isocodes quality plan is mainly based on phpunit: it runs 980+ unit tests,
 with separated valid & invalid entry sets.
 Test values are mainly real data or documented examples from standard documentation, and a few handmade values.
 
@@ -152,7 +186,7 @@ The `composer.json` already includes these  [Php Quality Assurance Toolchain](ht
 * [phpmd](https://github.com/phpmd/phpmd)
 * [phpcpd](https://github.com/sebastianbergmann/phpcpd)
 * [pdepend](https://github.com/pdepend/pdepend)
-* [php-cs-fixer](https://github.com/fabpot/PHP-CS-Fixer)
+* [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
 Just run:
 
@@ -175,7 +209,7 @@ Code covering report built using [Coveralls.io](https://coveralls.io/r/ronanguil
 ## Contributing Code
 
 The issue queue can be found at: https://github.com/ronanguilloux/IsoCodes/issues. 
-See [Contributing.md](Contributing.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 
 ## Special thanks

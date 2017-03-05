@@ -16,7 +16,7 @@
  */
 
 /**
- * Service definition for Datastore (v1beta3).
+ * Service definition for Datastore (v1).
  *
  * <p>
  * Accesses the schemaless NoSQL database to provide fully managed, robust,
@@ -50,7 +50,7 @@ class Google_Service_Datastore extends Google_Service
     parent::__construct($client);
     $this->rootUrl = 'https://datastore.googleapis.com/';
     $this->servicePath = '';
-    $this->version = 'v1beta3';
+    $this->version = 'v1';
     $this->serviceName = 'datastore';
 
     $this->projects = new Google_Service_Datastore_Resource_Projects(
@@ -60,7 +60,7 @@ class Google_Service_Datastore extends Google_Service
         array(
           'methods' => array(
             'allocateIds' => array(
-              'path' => 'v1beta3/projects/{projectId}:allocateIds',
+              'path' => 'v1/projects/{projectId}:allocateIds',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(
@@ -70,7 +70,7 @@ class Google_Service_Datastore extends Google_Service
                 ),
               ),
             ),'beginTransaction' => array(
-              'path' => 'v1beta3/projects/{projectId}:beginTransaction',
+              'path' => 'v1/projects/{projectId}:beginTransaction',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(
@@ -80,7 +80,7 @@ class Google_Service_Datastore extends Google_Service
                 ),
               ),
             ),'commit' => array(
-              'path' => 'v1beta3/projects/{projectId}:commit',
+              'path' => 'v1/projects/{projectId}:commit',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(
@@ -90,7 +90,7 @@ class Google_Service_Datastore extends Google_Service
                 ),
               ),
             ),'lookup' => array(
-              'path' => 'v1beta3/projects/{projectId}:lookup',
+              'path' => 'v1/projects/{projectId}:lookup',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(
@@ -100,7 +100,7 @@ class Google_Service_Datastore extends Google_Service
                 ),
               ),
             ),'rollback' => array(
-              'path' => 'v1beta3/projects/{projectId}:rollback',
+              'path' => 'v1/projects/{projectId}:rollback',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(
@@ -110,7 +110,7 @@ class Google_Service_Datastore extends Google_Service
                 ),
               ),
             ),'runQuery' => array(
-              'path' => 'v1beta3/projects/{projectId}:runQuery',
+              'path' => 'v1/projects/{projectId}:runQuery',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'projectId' => array(

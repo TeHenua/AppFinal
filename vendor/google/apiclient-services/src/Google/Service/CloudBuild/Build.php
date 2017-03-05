@@ -18,10 +18,12 @@
 class Google_Service_CloudBuild_Build extends Google_Collection
 {
   protected $collection_key = 'steps';
+  public $buildTriggerId;
   public $createTime;
   public $finishTime;
   public $id;
   public $images;
+  public $logUrl;
   public $logsBucket;
   protected $optionsType = 'Google_Service_CloudBuild_BuildOptions';
   protected $optionsDataType = '';
@@ -39,6 +41,14 @@ class Google_Service_CloudBuild_Build extends Google_Collection
   protected $stepsDataType = 'array';
   public $timeout;
 
+  public function setBuildTriggerId($buildTriggerId)
+  {
+    $this->buildTriggerId = $buildTriggerId;
+  }
+  public function getBuildTriggerId()
+  {
+    return $this->buildTriggerId;
+  }
   public function setCreateTime($createTime)
   {
     $this->createTime = $createTime;
@@ -70,6 +80,14 @@ class Google_Service_CloudBuild_Build extends Google_Collection
   public function getImages()
   {
     return $this->images;
+  }
+  public function setLogUrl($logUrl)
+  {
+    $this->logUrl = $logUrl;
+  }
+  public function getLogUrl()
+  {
+    return $this->logUrl;
   }
   public function setLogsBucket($logsBucket)
   {

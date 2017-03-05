@@ -78,6 +78,8 @@ class Google_Service_Classroom extends Google_Service
   public $courses_teachers;
   public $invitations;
   public $userProfiles;
+  public $userProfiles_guardianInvitations;
+  public $userProfiles_guardians;
   
   /**
    * Constructs the internal representation of the Classroom service.
@@ -133,6 +135,11 @@ class Google_Service_Classroom extends Google_Service
                 'teacherId' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'courseStates' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
                 'pageSize' => array(
                   'location' => 'query',
@@ -675,6 +682,149 @@ class Google_Service_Classroom extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->userProfiles_guardianInvitations = new Google_Service_Classroom_Resource_UserProfilesGuardianInvitations(
+        $this,
+        $this->serviceName,
+        'guardianInvitations',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardianInvitations',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardianInvitations/{invitationId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'invitationId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardianInvitations',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'invitedEmailAddress' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'states' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardianInvitations/{invitationId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'invitationId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->userProfiles_guardians = new Google_Service_Classroom_Resource_UserProfilesGuardians(
+        $this,
+        $this->serviceName,
+        'guardians',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardians/{guardianId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'guardianId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardians/{guardianId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'guardianId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'v1/userProfiles/{studentId}/guardians',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'studentId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'invitedEmailAddress' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),

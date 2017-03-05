@@ -22,52 +22,128 @@ class CalendarController extends Controller
 	public function index(){   
         /**************************   LA LISTA DE TRABAJADORES    **************************/
         $trabajadores = array();
-        $trabajadores = User::all()->lists('name');
+        $trabajadores = User::where('rol','!=', 'administrador')->lists('name');
         /**********************************************************************************/
         return view('calendario')->with('trabajadores',$trabajadores);
+    }
+
+    public function edit(Request $request){
+        $evento = DB::table('calendarios')->where('id','=',$request->id);
+
     }
 
     public function create(){
        
         $evento = new Calendario;
-        $evento->titulo = Input::get('titulo');
-        $evento->fechaIni = Input::get('fechaIni');
-        $evento->fechaFin = Input::get('fechaFin');
+        $titulo =  $_POST['titulo'][0];
+        $evento->fechaIni = $_POST['fechaIni'][0];
+        $evento->fechaFin = $_POST['fechaFin'][0];
         /****************************************************************************/
-       $trabajadorSeleccionado = Input::get('trabajadoresM');
-       dd($trabajadorSeleccionado);
-       //si es null es que no se a seleccionado ninguno
-       if($trabajadorSeleccionado == null){
-           $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
-       }
-       else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
-           $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
-       }
+        if(Auth::user()->rol=='administrativo'){
+           $trabajadorSeleccionado[] = $_POST['trabajador'];
+           //si es null es que no se a seleccionado ninguno
+           if($trabajadorSeleccionado == ""){
+               $evento->user_id = Auth::user()->id;//entonces que guarde el id para guardar los eventos del usuario logeado
+           }
+           else{//si no es null que guarde el id para guardar el usuario seleccionado en el desplegable
+               $evento->user_id = DB::table('users')->where('name','=',$trabajadorSeleccionado)->value('id');
+           }
+        }else{
+            $evento->user_id = Auth::user()->id;
+        }
        /***************************************************************************/
-        $nombreUsuario = Input::get('usuario');
-        $tipoCita = Input::get('tipo_evento');
+        $nombreUsuario = $_POST['usuarioCalendario'];
+        if($nombreUsuario!=null){
+            $nombreUsuario = $nombreUsuario[0];
+            $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
+        }
+        $tipoCita = $_POST['tipo_evento'][0];
         switch ($tipoCita) {
             case 'Usuario':
                 $evento->color = "#00BFFF";
                 break;
+            case 'Interna':
+                $evento->color = "#87d153";
+                break;
             case 'Externa':
                 $evento->color = "#ffa64d";
                 break;
-            case 'Coordinación':
-                $evento->color = "#66cc66";
+            case 'Coordinación interna':
+                $evento->color = "#c130b0";
+                break;
+            case 'Coordinación externa':
+                $evento->color = "#963048";
+                break;
+            case 'Grupo':
+                $evento->color = "#9943ef";
                 break;
             case 'Otro':
-                $evento->color = "#b366ff";
                 break;
             default:
                 # code...
                 break;
         }
-        $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $nombreUsuario), 10);  
+        $grupo_id = $_POST['grupo'];
+        if($grupo_id!=null or $grupo_id!=""){
+            $evento->grupo_id = $grupo_id;
+        }
+        
+        $evento->titulo = $tipoCita." ".preg_replace('/[0-9]+/', '', $nombreUsuario)." ".$evento->grupo_id;
+       
         $evento->save();
-        $trabajadores = array();
-      $trabajadores = User::all()->lists('name');
-        return view('calendario')->with('trabajadores', $trabajadores);
+    }
+
+    public function updateEventos(Request $request){
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $start = $_POST['start'];
+        $end = $_POST['end'];
+        $tipo_evento = $_POST['tipo_evento'];
+        $usuario = $_POST['usuario'];
+        $grupo = $_POST['grupo'];
+        $evento=Calendario::find($id);
+        if ($title=='') {
+            $evento->titulo = $title." ".$tipo_evento." ".preg_replace('/[0-9]+/', '', $usuario.$grupo);
+
+        }else{
+            $evento->titulo = $title;
+        }
+        
+        $evento->fechaIni = $start;
+        $evento->fechaFin = $end;
+        switch ($tipo_evento) {
+            case 'Usuario':
+                $evento->color = "#00BFFF";
+                break;
+            case 'Interna':
+                $evento->color = "#87d153";
+                break;
+            case 'Externa':
+                $evento->color = "#ffa64d";
+                break;
+            case 'Coordinación interna':
+                $evento->color = "#c130b0";
+                break;
+            case 'Coordinación externa':
+                $evento->color = "#963048";
+                break;
+            case 'Grupo':
+                $evento->color = "#9943ef";
+                break;
+            case 'Otro':
+                break;
+            default:
+                # code...
+                break;
+        }
+        if ($usuario!=null) {
+          $evento->usuario_id = intval(preg_replace('/[^0-9]+/', '', $usuario), 10); 
+        }
+        if ($evento->grupo_id!= null or $evento->grupo_id!="") {
+            $evento->grupo_id = $grupo;
+        }
+        $evento->update();
+        
     }
 
     public function update(){
@@ -142,4 +218,16 @@ class CalendarController extends Controller
         json_encode($data); //convertimos el array principal $data a un objeto Json 
         return $data;    //para luego retornarlo y estar listo para consumirlo
    }//aqui termina la funcion cargadordeeventos
+
+    public function cargadorDatos(){
+        $idEvento = $_POST['id'];
+        $idUsuario = DB::table('calendarios')->where('id','=',$idEvento)->value('usuario_id');
+        if($idUsuario !=null){
+            $usuario = Usuario::find($idUsuario);
+            $nombreUsuario = $usuario->id." ".$usuario->nombre." ".$usuario->apellido1." ".$usuario->apellido2;
+        
+        json_encode($nombreUsuario);
+        return $nombreUsuario;
+    }
+    }
 }

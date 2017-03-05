@@ -26,11 +26,12 @@ class Google_Service_Appengine_Instance extends Google_Model
   public $name;
   public $qps;
   public $requests;
-  public $startTimestamp;
+  public $startTime;
+  public $vmDebugEnabled;
   public $vmId;
+  public $vmIp;
   public $vmName;
   public $vmStatus;
-  public $vmUnlocked;
   public $vmZoneName;
 
   public function setAppEngineRelease($appEngineRelease)
@@ -105,13 +106,21 @@ class Google_Service_Appengine_Instance extends Google_Model
   {
     return $this->requests;
   }
-  public function setStartTimestamp($startTimestamp)
+  public function setStartTime($startTime)
   {
-    $this->startTimestamp = $startTimestamp;
+    $this->startTime = $startTime;
   }
-  public function getStartTimestamp()
+  public function getStartTime()
   {
-    return $this->startTimestamp;
+    return $this->startTime;
+  }
+  public function setVmDebugEnabled($vmDebugEnabled)
+  {
+    $this->vmDebugEnabled = $vmDebugEnabled;
+  }
+  public function getVmDebugEnabled()
+  {
+    return $this->vmDebugEnabled;
   }
   public function setVmId($vmId)
   {
@@ -120,6 +129,14 @@ class Google_Service_Appengine_Instance extends Google_Model
   public function getVmId()
   {
     return $this->vmId;
+  }
+  public function setVmIp($vmIp)
+  {
+    $this->vmIp = $vmIp;
+  }
+  public function getVmIp()
+  {
+    return $this->vmIp;
   }
   public function setVmName($vmName)
   {
@@ -136,14 +153,6 @@ class Google_Service_Appengine_Instance extends Google_Model
   public function getVmStatus()
   {
     return $this->vmStatus;
-  }
-  public function setVmUnlocked($vmUnlocked)
-  {
-    $this->vmUnlocked = $vmUnlocked;
-  }
-  public function getVmUnlocked()
-  {
-    return $this->vmUnlocked;
   }
   public function setVmZoneName($vmZoneName)
   {

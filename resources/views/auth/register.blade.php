@@ -9,7 +9,7 @@
     <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ url('/home') }}"><b>Admin</b>LTE</a>
+            <a href="{{ url('/home') }}"><b>Autismo</b>Araba</a>
         </div>
 
         @if (count($errors) > 0)
@@ -48,7 +48,9 @@
                         'administrador' => 'Administrador',
                         'psicologo' => 'Psicologo',
                         'administrativo' => 'Administrativo',
-                        'actividades' => 'Actividades'
+                        'actividades' => 'Actividades',
+                        'social' => 'Social',
+                        'director' => 'Director'
                 ), null, ['placeholder' => 'Tipo de usuario', 'class' => 'form-control input-sm']); !!}
                 </div>
                 <div class="row">

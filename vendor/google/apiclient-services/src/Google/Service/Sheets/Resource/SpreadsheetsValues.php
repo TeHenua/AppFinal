@@ -29,28 +29,9 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
    * Appends values to a spreadsheet. The input range is used to search for
    * existing data and find a "table" within that range. Values will be appended
    * to the next row of the table, starting with the first column of the table.
-   * For example, given a sheet `Sheet1` that looks like:
-   *
-   *         A   B   C   D   E      1  x   y   z      2  x   y   z      3      4
-   * x   y      5          y   z      6      x   y   z      7
-   *
-   * There are two "tables" in the spreadsheet: `A1:C2`, and `B4:D6`. Appending
-   * values would start writing at 'B7' for all the following input `range`
-   * parameters:
-   *
-   *   * `Sheet1`, because it will examine all the data in the sheet, determine
-   * that the "table" at `B4:D6` is the last table, and start a               new
-   * row at `B7`.   * `B4` or `C5:D5`, because it's contained in the `B4:D6`
-   * table.   * `B2:D4`, because the last table contained in the range is the
-   * `B4:D6` table (despite it also containing the `A1:C2` table).   * `A3:G10`,
-   * because the last table contained in the range is the               `B4:D6`
-   * table (despite starting before and ending after it).
-   *
-   *  The following input `range` parameters would not start writing at `B7`:
-   *
-   *   * `A1` would start writing at `A3`, because that's within the `A1:C2`
-   * table.   * `E4` would start writing at `E4`, because it's not contained in
-   * any     table. (`A4` would also start writing at `A4`.)
+   * See the [guide](/sheets/guides/values#appending_values) and [sample
+   * code](/sheets/samples/writing#append_values) for specific details of how
+   * tables are detected and data is appended.
    *
    * The caller must specify the spreadsheet ID, range, and a valueInputOption.
    * The `valueInputOption` only controls how the input data will be added to the
@@ -63,7 +44,17 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
    * @param Google_Service_Sheets_ValueRange $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string responseValueRenderOption Determines how values in the
+   * response should be rendered. The default render option is
+   * ValueRenderOption.FORMATTED_VALUE.
    * @opt_param string valueInputOption How the input data should be interpreted.
+   * @opt_param string responseDateTimeRenderOption Determines how dates, times,
+   * and durations in the response should be rendered. This is ignored if
+   * response_value_render_option is FORMATTED_VALUE. The default dateTime render
+   * option is [DateTimeRenderOption.SERIAL_NUMBER].
+   * @opt_param bool includeValuesInResponse Determines if the update response
+   * should include the values of the cells that were appended. By default,
+   * responses do not include the updated values.
    * @opt_param string insertDataOption How the input data should be inserted.
    * @return Google_Service_Sheets_AppendValuesResponse
    */
@@ -74,6 +65,23 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
     return $this->call('append', array($params), "Google_Service_Sheets_AppendValuesResponse");
   }
   /**
+   * Clears one or more ranges of values from a spreadsheet. The caller must
+   * specify the spreadsheet ID and one or more ranges. Only values are cleared --
+   * all other properties of the cell (such as formatting, data validation, etc..)
+   * are kept. (values.batchClear)
+   *
+   * @param string $spreadsheetId The ID of the spreadsheet to update.
+   * @param Google_Service_Sheets_BatchClearValuesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Sheets_BatchClearValuesResponse
+   */
+  public function batchClear($spreadsheetId, Google_Service_Sheets_BatchClearValuesRequest $postBody, $optParams = array())
+  {
+    $params = array('spreadsheetId' => $spreadsheetId, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchClear', array($params), "Google_Service_Sheets_BatchClearValuesResponse");
+  }
+  /**
    * Returns one or more ranges of values from a spreadsheet. The caller must
    * specify the spreadsheet ID and one or more ranges. (values.batchGet)
    *
@@ -82,10 +90,11 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
    *
    * @opt_param string ranges The A1 notation of the values to retrieve.
    * @opt_param string valueRenderOption How values should be represented in the
-   * output.
+   * output. The default render option is ValueRenderOption.FORMATTED_VALUE.
    * @opt_param string dateTimeRenderOption How dates, times, and durations should
    * be represented in the output. This is ignored if value_render_option is
-   * FORMATTED_VALUE.
+   * FORMATTED_VALUE. The default dateTime render option is
+   * [DateTimeRenderOption.SERIAL_NUMBER].
    * @opt_param string majorDimension The major dimension that results should use.
    *
    * For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`, then
@@ -117,6 +126,23 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
     return $this->call('batchUpdate', array($params), "Google_Service_Sheets_BatchUpdateValuesResponse");
   }
   /**
+   * Clears values from a spreadsheet. The caller must specify the spreadsheet ID
+   * and range. Only values are cleared -- all other properties of the cell (such
+   * as formatting, data validation, etc..) are kept. (values.clear)
+   *
+   * @param string $spreadsheetId The ID of the spreadsheet to update.
+   * @param string $range The A1 notation of the values to clear.
+   * @param Google_Service_Sheets_ClearValuesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Sheets_ClearValuesResponse
+   */
+  public function clear($spreadsheetId, $range, Google_Service_Sheets_ClearValuesRequest $postBody, $optParams = array())
+  {
+    $params = array('spreadsheetId' => $spreadsheetId, 'range' => $range, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('clear', array($params), "Google_Service_Sheets_ClearValuesResponse");
+  }
+  /**
    * Returns a range of values from a spreadsheet. The caller must specify the
    * spreadsheet ID and a range. (values.get)
    *
@@ -125,10 +151,11 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
    * @param array $optParams Optional parameters.
    *
    * @opt_param string valueRenderOption How values should be represented in the
-   * output.
+   * output. The default render option is ValueRenderOption.FORMATTED_VALUE.
    * @opt_param string dateTimeRenderOption How dates, times, and durations should
    * be represented in the output. This is ignored if value_render_option is
-   * FORMATTED_VALUE.
+   * FORMATTED_VALUE. The default dateTime render option is
+   * [DateTimeRenderOption.SERIAL_NUMBER].
    * @opt_param string majorDimension The major dimension that results should use.
    *
    * For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`, then
@@ -152,7 +179,19 @@ class Google_Service_Sheets_Resource_SpreadsheetsValues extends Google_Service_R
    * @param Google_Service_Sheets_ValueRange $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string responseValueRenderOption Determines how values in the
+   * response should be rendered. The default render option is
+   * ValueRenderOption.FORMATTED_VALUE.
    * @opt_param string valueInputOption How the input data should be interpreted.
+   * @opt_param string responseDateTimeRenderOption Determines how dates, times,
+   * and durations in the response should be rendered. This is ignored if
+   * response_value_render_option is FORMATTED_VALUE. The default dateTime render
+   * option is [DateTimeRenderOption.SERIAL_NUMBER].
+   * @opt_param bool includeValuesInResponse Determines if the update response
+   * should include the values of the cells that were updated. By default,
+   * responses do not include the updated values. If the range to write was larger
+   * than than the range actually written, the response will include all values in
+   * the requested range (excluding trailing empty rows and columns).
    * @return Google_Service_Sheets_UpdateValuesResponse
    */
   public function update($spreadsheetId, $range, Google_Service_Sheets_ValueRange $postBody, $optParams = array())

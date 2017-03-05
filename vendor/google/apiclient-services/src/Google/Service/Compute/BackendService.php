@@ -18,8 +18,11 @@
 class Google_Service_Compute_BackendService extends Google_Collection
 {
   protected $collection_key = 'healthChecks';
+  public $affinityCookieTtlSec;
   protected $backendsType = 'Google_Service_Compute_Backend';
   protected $backendsDataType = 'array';
+  protected $connectionDrainingType = 'Google_Service_Compute_ConnectionDraining';
+  protected $connectionDrainingDataType = '';
   public $creationTimestamp;
   public $description;
   public $enableCDN;
@@ -27,14 +30,24 @@ class Google_Service_Compute_BackendService extends Google_Collection
   public $healthChecks;
   public $id;
   public $kind;
+  public $loadBalancingScheme;
   public $name;
   public $port;
   public $portName;
   public $protocol;
   public $region;
   public $selfLink;
+  public $sessionAffinity;
   public $timeoutSec;
 
+  public function setAffinityCookieTtlSec($affinityCookieTtlSec)
+  {
+    $this->affinityCookieTtlSec = $affinityCookieTtlSec;
+  }
+  public function getAffinityCookieTtlSec()
+  {
+    return $this->affinityCookieTtlSec;
+  }
   public function setBackends($backends)
   {
     $this->backends = $backends;
@@ -42,6 +55,14 @@ class Google_Service_Compute_BackendService extends Google_Collection
   public function getBackends()
   {
     return $this->backends;
+  }
+  public function setConnectionDraining(Google_Service_Compute_ConnectionDraining $connectionDraining)
+  {
+    $this->connectionDraining = $connectionDraining;
+  }
+  public function getConnectionDraining()
+  {
+    return $this->connectionDraining;
   }
   public function setCreationTimestamp($creationTimestamp)
   {
@@ -99,6 +120,14 @@ class Google_Service_Compute_BackendService extends Google_Collection
   {
     return $this->kind;
   }
+  public function setLoadBalancingScheme($loadBalancingScheme)
+  {
+    $this->loadBalancingScheme = $loadBalancingScheme;
+  }
+  public function getLoadBalancingScheme()
+  {
+    return $this->loadBalancingScheme;
+  }
   public function setName($name)
   {
     $this->name = $name;
@@ -146,6 +175,14 @@ class Google_Service_Compute_BackendService extends Google_Collection
   public function getSelfLink()
   {
     return $this->selfLink;
+  }
+  public function setSessionAffinity($sessionAffinity)
+  {
+    $this->sessionAffinity = $sessionAffinity;
+  }
+  public function getSessionAffinity()
+  {
+    return $this->sessionAffinity;
   }
   public function setTimeoutSec($timeoutSec)
   {

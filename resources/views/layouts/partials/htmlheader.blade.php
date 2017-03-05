@@ -8,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet"> 
 
 
     <!-- Theme style -->
@@ -26,9 +26,9 @@
     <link href="{{ asset('/plugins/bootstrap-input/css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/MyCss.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{asset('/plugins/datetimepicker/build/jquery.datetimepicker.min.css')}}">
 
-   <link href="{{ asset('/plugins/jQueryUI/jquery-ui.min.css') }}" rel="stylesheet"/>
-     
+    <link href="{{ asset('/plugins/jQueryUI/jquery-ui.min.css') }}" rel="stylesheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

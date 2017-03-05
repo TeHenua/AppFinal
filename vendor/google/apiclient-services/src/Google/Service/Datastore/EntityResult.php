@@ -20,6 +20,7 @@ class Google_Service_Datastore_EntityResult extends Google_Model
   public $cursor;
   protected $entityType = 'Google_Service_Datastore_Entity';
   protected $entityDataType = '';
+  public $version;
 
   public function setCursor($cursor)
   {
@@ -36,5 +37,13 @@ class Google_Service_Datastore_EntityResult extends Google_Model
   public function getEntity()
   {
     return $this->entity;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
   }
 }

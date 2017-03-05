@@ -25,6 +25,7 @@ class Google_Service_Datastore_QueryResultBatch extends Google_Collection
   public $moreResults;
   public $skippedCursor;
   public $skippedResults;
+  public $snapshotVersion;
 
   public function setEndCursor($endCursor)
   {
@@ -73,5 +74,13 @@ class Google_Service_Datastore_QueryResultBatch extends Google_Collection
   public function getSkippedResults()
   {
     return $this->skippedResults;
+  }
+  public function setSnapshotVersion($snapshotVersion)
+  {
+    $this->snapshotVersion = $snapshotVersion;
+  }
+  public function getSnapshotVersion()
+  {
+    return $this->snapshotVersion;
   }
 }

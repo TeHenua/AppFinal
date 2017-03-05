@@ -11,7 +11,7 @@ class Isbn implements IsoCodeInterface
 {
     /**
      * @param string   $isbn
-     * @param int|null $type 10 or 13. Leave empty for both.
+     * @param int|null $type 10 or 13. Leave empty for both
      *
      * @return bool
      */
@@ -61,16 +61,6 @@ class Isbn implements IsoCodeInterface
             return false;
         }
 
-        $check = 0;
-
-        for ($i = 0; $i < 13; $i += 2) {
-            $check += $isbn13[$i];
-        }
-
-        for ($i = 1; $i < 12; $i += 2) {
-            $check += $isbn13[$i] * 3;
-        }
-
-        return $check % 10 == 0;
+        return Luhn::check($isbn13, 13, false);
     }
 }

@@ -24,19 +24,19 @@ class SocioRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required',
-            'apellido1' => 'required',
-            'dni' => 'required|unique:socios,dni',
-            'direccion' => 'required',
-            'localidad' => 'required',
-            'codigo_pos' => 'required|min:5|max:5',
-            'provincia' => 'required',
-            'fecha_nac' => 'required',
-            'lugar_nac' => 'required',
-            'num_cuenta' => 'required|unique:socios,num_cuenta|max:24|min:24',
-            'fijo' => 'min:9|max:9',
-            'movil' => 'min:9|max:9|required_without_all:fijo',
-            'email' => 'required_if:tipo_comunicacion,email'
+            // 'nombre' => 'required',
+            // 'apellido1' => 'required',
+            // 'dni' => 'required|unique:socios,dni',
+            // 'direccion' => 'required',
+            // 'localidad' => 'required',
+            // 'codigo_pos' => 'required|min:5|max:5',
+            // 'provincia' => 'required',
+            // 'fecha_nac' => 'required',
+            // 'lugar_nac' => 'required',
+            // 'num_cuenta' => 'required|unique:socios,num_cuenta|max:24|min:24',
+            // 'fijo' => 'min:9|max:9',
+            // 'movil' => 'min:9|max:9|required_without_all:fijo',
+            // 'email' => 'required_if:tipo_comunicacion,email'
         ];
     }
 }

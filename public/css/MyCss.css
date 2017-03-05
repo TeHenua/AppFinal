@@ -1,3 +1,4 @@
+
 .box.box-primary {
     border-top-color: #7d0056;
 }
@@ -18,4 +19,7 @@ body{
 	font-size: 0.5em;
 	vertical-align: super;
 	color: purple;
+}
+.ui-datepicker .ui-widget .ui-widget-content .ui-helper-clearfix .ui-corner-all{
+	z-index: 5;
 }
