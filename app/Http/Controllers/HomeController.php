@@ -73,11 +73,7 @@ class HomeController extends Controller
     public function indexLlamadas(Request $request){
         if($request){
             $query=trim($request->get('searchText'));
-            //falta buscar por trabajador
-            $llamadas = DB::table('llamadas')->where('motivo','LIKE','%'.$query.'%')
-            ->orWhere('nombre','LIKE','%'.$query.'%')
-            ->orWhere('telefono','LIKE','%'.$query.'%')
-            //->orWhere('user_id','=',)
+            $llamadas = DB::table('llamadas')->where('user_id','=',Auth::user()->id)
             ->latest()
             ->paginate(10);
             return view('llamadas', ["llamadas"=>$llamadas]);

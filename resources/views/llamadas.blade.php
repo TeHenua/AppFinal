@@ -17,6 +17,7 @@
 	                  	<th>Motivo</th>
 	                  	<th>Nombre</th>
 	                  	<th>Teléfono</th>
+	                  	<th>Otros</th>
 	                  	<th>Opciones</th>
                 	</tr>
                 	@foreach ($llamadas as $lla)
@@ -24,6 +25,7 @@
 	                  		<td>{{ $lla->motivo }}</td>
 	                  		<td>{{ $lla->nombre }}</td>
 	                  		<td>{{ $lla->telefono }}</td>
+	                  		<td>{{ $lla->otros }}</td>
 	                  		<td>	
 	                  			 {{ Form::open(array('route' => array('borrarLlamadas', $lla->id), 'method' => 'delete', 'onsubmit' => 'return ConfirmDelete()' ,'style="display: inline;"')) }}
                                 <button type="submit" class="btn btn-danger" >Borrar</button>
